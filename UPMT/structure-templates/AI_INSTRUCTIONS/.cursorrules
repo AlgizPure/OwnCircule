@@ -1,0 +1,431 @@
+# CURSOR PROJECT RULES
+
+**Version:** 1.0.2 (Streamlined)  
+**Project:** Universal Project Management Template  
+**Last Updated:** 2025-11-09
+
+> **Детальные примеры и workflows см:** `EXAMPLES/` и `WORKFLOW_GUIDE.md`
+
+---
+
+## 🎯 CORE PRINCIPLES
+
+### 1. Documentation-Driven Development
+
+**ALWAYS** work in this order:
+1. Read requirements FIRST
+2. Understand acceptance criteria
+3. Write code that implements requirements
+4. Reference requirements in code comments
+5. Update documentation after changes
+
+### 2. Requirements Traceability
+
+**EVERY code change MUST:**
+- Link to functional requirement (FR-XXX-YYY)
+- Include comment: `// Implements: FR-MODULE-XXX`
+- Reference requirement in commit message
+- Check acceptance criteria before marking done
+
+### 3. Context Preservation
+
+**BEFORE starting work:**
+- Read `@02_PROJECT_STRUCTURE/CONTEXT_MEMORY/state.md`
+- Understand current project phase
+- Check for blockers
+
+**AFTER completing work:**
+- Update `state.md` (LAST COMPLETED, NEXT STEPS)
+- Log decisions in `decisions.md` (if applicable)
+- Update `PROGRESS_TRACKING/modules_status.md`
+
+---
+
+## 📁 FILE PRIORITY
+
+**Read FIRST (always):**
+1. `CONTEXT_MEMORY/state.md` - Current status
+2. `PROJECT_CORE/99_SYSTEM_GUIDE.md` - System overview
+3. Relevant `MODULES_REQUIREMENTS/[module]_requirements.md`
+
+**Update AFTER changes:**
+1. `CONTEXT_MEMORY/state.md` - Progress
+2. `CONTEXT_MEMORY/decisions.md` - Decisions
+3. `PROGRESS_TRACKING/modules_status.md` - Module status
+
+---
+
+## 💻 CODE STANDARDS
+
+### Traceability Comments
+
+**Format:**
+```typescript
+// Implements: FR-AUTH-005 (Avatar Upload)
+// References: auth_requirements.md lines 120-145
+export async function uploadAvatar(file: File) {
+  // Implementation
+}
+```
+
+**More examples:** `@EXAMPLES/04_traceability_comments.md`
+
+### Architecture
+
+Follow layered architecture from `@PROJECT_CORE/04_ARCHITECTURE.md`:
+
+```
+Controller (Presentation) 
+  → Service (Business Logic)
+    → Repository (Data Access)
+```
+
+**Detailed examples:** `@EXAMPLES/01_feature_implementation.md`
+
+### Error Handling
+
+```typescript
+// Standard error response format
+return res.status(400).json({
+  success: false,
+  error: {
+    code: 'VALIDATION_ERROR',
+    message: 'User-friendly message',
+    details: { /* specifics */ }
+  }
+});
+```
+
+### Testing
+
+- Write tests BEFORE or WITH implementation
+- Cover happy path + error cases
+- Test boundary values (edge cases)
+- Reference FR in test description
+
+---
+
+## 🔄 WORKFLOWS
+
+**Детальные процессы см:** `@WORKFLOW_GUIDE.md`
+
+### Daily Start (5 min)
+1. Read `state.md` (что было вчера, что сегодня)
+2. Check `modules_status.md` (прогресс модулей)
+3. Confirm today's tasks or adjust
+
+### Feature Implementation
+1. Read requirements (`MODULES_REQUIREMENTS/`)
+2. Check `ARCHITECTURE.md` (where to implement)
+3. Write code with traceability comments
+4. Update tests
+5. Update `state.md` progress
+
+**Detailed workflow:** `@EXAMPLES/01_feature_implementation.md`
+
+### Code Review
+1. Verify requirements implemented
+2. Check traceability comments
+3. Review tests (coverage + quality)
+4. Check architecture adherence
+
+**Review checklist:** `@EXAMPLES/02_code_review.md`
+
+### Bug Fix
+1. Find related requirement (FR-XXX)
+2. Diagnose vs spec
+3. Fix code + add test
+4. Log in `decisions.md` (root cause)
+
+**More details:** `@WORKFLOW_GUIDE.md` → Bug Fix Process
+
+---
+
+## 📝 DOCUMENTATION UPDATES
+
+### Auto-Update Triggers
+
+**When code affects:**
+
+| Trigger | Update Files |
+|---------|-------------|
+| Complete module | `modules_status.md`, `PRD.md`, `state.md` |
+| Tech stack change | `TECH_STACK.md`, `ARCHITECTURE.md` |
+| Scope change | `PRD.md`, `ROADMAP.md`, requirements |
+| Major decision | `decisions.md`, related docs |
+| **New entity/table** | `docs/backend/entities/*.md`, `00_ENTITY_CATALOG.md`, `00_DATABASE_SCHEMA.md` |
+| **API endpoint** | `docs/backend/api/*.md`, `openapi-template.yaml`, `postman-collection.json` |
+| **Database migration** | `00_DATABASE_SCHEMA.md`, `relationships.md`, `migrations.md` |
+| **Architecture decision** | `docs/adr/*.md`, `00_ADR_INDEX.md`, `decisions.md` |
+| **Service/Integration** | `00_SERVICES_CATALOG.md`, `00_INTEGRATIONS_MAP.md` |
+| **Security change** | `docs/security/*.md`, `security-checklist.md` |
+
+**Full matrix:** `@UPDATE_RULES.md` + `@All_Project_rules.md` (RULE_17-23)
+
+### Change Scenarios
+
+**Common scenarios:**
+- Adding new feature → `@CHANGE_SCENARIOS.md` → "Add Feature"
+- Removing feature → `@CHANGE_SCENARIOS.md` → "Remove Feature"
+- Tech pivot → `@CHANGE_SCENARIOS.md` → "Technology Change"
+
+---
+
+## 🎯 MILESTONES
+
+**At key completion points:**
+
+| Milestone | Actions |
+|-----------|---------|
+| **25% module** | Review requirements, confirm scope |
+| **50% module** | Update ROADMAP progress section |
+| **75% module** | Update PRD (mark "In Progress") |
+| **100% module** | Update PRD (✅), modules_status (Complete), state.md (next module), changes_log.md |
+
+---
+
+## ⚠️ CRITICAL RULES
+
+### NEVER
+
+- ❌ Write code without reading requirements
+- ❌ Commit without traceability comments
+- ❌ Complete task without updating `state.md`
+- ❌ Make major decision without logging in `decisions.md`
+- ❌ Change scope without updating PRD + ROADMAP
+
+### ALWAYS
+
+- ✅ Read requirements FIRST
+- ✅ Reference FR in code comments
+- ✅ Update documentation AFTER changes
+- ✅ Check acceptance criteria BEFORE marking done
+- ✅ Log decisions with rationale
+
+---
+
+## 📚 REFERENCE LINKS
+
+**Examples & Detailed Workflows:**
+- `@EXAMPLES/` - Code examples and patterns
+- `@WORKFLOW_GUIDE.md` - Detailed daily/weekly workflows
+- `@CHANGE_SCENARIOS.md` - Handling common changes
+- `@UPDATE_RULES.md` - Documentation update matrix
+
+**Project Core:**
+- `@PROJECT_CORE/99_SYSTEM_GUIDE.md` - System philosophy
+- `@PROJECT_CORE/04_ARCHITECTURE.md` - Architecture patterns
+- `@PROJECT_CORE/01_PRD.md` - All features
+
+**Context & Progress:**
+- `@CONTEXT_MEMORY/state.md` - Current status
+- `@CONTEXT_MEMORY/decisions.md` - Decision log
+- `@PROGRESS_TRACKING/modules_status.md` - Module progress
+
+---
+
+## 🤖 AI ASSISTANT BEHAVIOR
+
+### Smart Context Loading
+
+When user asks to implement feature:
+1. **Auto-load requirements:**
+   ```
+   User: "Implement FR-AUTH-005"
+   AI: *Automatically reads auth_requirements.md FR-AUTH-005*
+   AI: "📋 REQUIREMENT LOADED: Avatar Upload..."
+   ```
+
+2. **Check architecture:**
+   - Load `ARCHITECTURE.md`
+   - Determine correct layer (Controller/Service/Repository)
+
+3. **Check current state:**
+   - Load `state.md`
+   - Understand context (phase, focus, blockers)
+
+### Proactive Updates
+
+**After code changes, auto-suggest:**
+```
+✅ Feature implemented!
+
+📝 Would you like me to:
+1. Update state.md (LAST COMPLETED)
+2. Update modules_status.md (progress %)
+3. Create commit message (with FR reference)
+
+Say 'yes' or I can do it now?
+```
+
+### Safety Checks
+
+**Before major changes:**
+- Warn if no requirement found
+- Confirm scope changes
+- Check impact on other modules
+
+---
+
+## 📋 COMMIT MESSAGE FORMAT
+
+```
+<type>(<module>): <short description>
+
+<Detailed description>
+
+Implements: FR-MODULE-XXX
+References: [module]_requirements.md
+Tests: X/X passing
+
+[Optional: Breaking changes, migration notes]
+```
+
+**Types:** `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
+
+**Example:**
+```
+feat(auth): implement avatar upload
+
+Add endpoint for user avatar upload with S3 storage.
+Supports JPEG/PNG up to 5MB with validation.
+
+Implements: FR-AUTH-005
+References: auth_requirements.md lines 120-145
+Tests: 12/12 passing
+```
+
+---
+
+## 🔍 QUICK COMMANDS
+
+**For Cursor Chat:**
+
+```bash
+# Check status
+"What's current project status?"
+→ AI reads state.md and summarizes
+
+# Implement feature
+"Implement FR-AUTH-005"
+→ AI loads requirements and generates code
+
+# Update progress
+"Update state.md: completed FR-AUTH-005"
+→ AI updates LAST COMPLETED, NEXT STEPS
+
+# Review requirements
+"Show me all Auth module requirements"
+→ AI loads and summarizes auth_requirements.md
+```
+
+---
+
+## 🗄️ BACKEND DOCUMENTATION TRIGGERS
+
+### Entity Documentation (RULE_17)
+
+**When creating/modifying entity:**
+```typescript
+// Example: New Task entity created
+// ✅ AUTO-TRIGGER:
+// 1. Create/update docs/backend/entities/task.md
+// 2. Update docs/backend/entities/00_ENTITY_CATALOG.md (add to table + Mermaid ERD)
+// 3. Update docs/backend/database/00_DATABASE_SCHEMA.md
+// 4. Update relationships matrix
+```
+
+**Template:** `docs/backend/entities/_ENTITY_TEMPLATE.md`
+
+### API Documentation (RULE_18)
+
+**When creating/modifying endpoint:**
+```typescript
+// Example: POST /api/tasks endpoint
+// ✅ AUTO-TRIGGER:
+// 1. Document in docs/backend/api/tasks-api.md
+// 2. Update docs/backend/resources/openapi-template.yaml
+// 3. Update docs/backend/resources/postman-collection.json
+// 4. Link to entity documentation
+```
+
+**Template:** `docs/backend/api/_API_ENDPOINT_TEMPLATE.md`
+
+### Database Schema (RULE_19)
+
+**When creating migration:**
+```sql
+-- Example: New migration file
+-- ✅ AUTO-TRIGGER:
+-- 1. Update docs/backend/database/00_DATABASE_SCHEMA.md (Tables section)
+-- 2. Update docs/backend/database/relationships.md (Mermaid ERD)
+-- 3. Document in docs/backend/database/migrations.md
+-- 4. Update entity docs (if structure changed)
+```
+
+### Architecture Decisions (RULE_20)
+
+**When making architectural decision:**
+```
+// Example: Decided to use Redis for caching
+// ✅ AUTO-TRIGGER:
+// 1. Create docs/adr/00X-decision-title.md (from _ADR_TEMPLATE.md)
+// 2. Add to docs/adr/00_ADR_INDEX.md
+// 3. Log in .context/decisions.md
+// 4. Update related docs (TECH_STACK, ARCHITECTURE)
+```
+
+### Frontend-Backend Connection
+
+**When connecting frontend to backend:**
+```typescript
+// Frontend component using API
+// ✅ CHECKLIST:
+// 1. API endpoint documented? (docs/backend/api/)
+// 2. Entity structure clear? (docs/backend/entities/)
+// 3. Error responses handled? (docs/backend/api/error-responses.md)
+// 4. Frontend mapping documented in entity doc (section 7)
+```
+
+### Service Integration (RULE_23)
+
+**When adding external service:**
+```typescript
+// Example: Adding Stripe payment
+// ✅ AUTO-TRIGGER:
+// 1. Create docs/backend/integrations/stripe.md
+// 2. Update docs/backend/integrations/00_INTEGRATIONS_MAP.md
+// 3. Update Mermaid integration diagram
+// 4. Document credentials location, rate limits
+// 5. Update docs/security/security-checklist.md
+```
+
+---
+
+## 🔍 VALIDATION CHECKLIST (Backend)
+
+**Before committing backend changes:**
+
+- [ ] Entity documented (if created/modified)
+- [ ] API endpoints documented (if added/changed)
+- [ ] Database schema updated (if migration)
+- [ ] Mermaid diagrams updated (if relationships changed)
+- [ ] OpenAPI + Postman updated (if API changed)
+- [ ] Security checklist reviewed (if security-related)
+- [ ] ADR created (if architectural decision)
+- [ ] Tests documented (if test strategy changed)
+- [ ] Cross-references updated (entity ↔ API ↔ frontend)
+
+**Quick check command:**
+```bash
+"Check backend documentation completeness for [feature]"
+→ AI validates all required docs exist and are up-to-date
+```
+
+---
+
+**Version Notes:**
+- **v1.0.3:** Added backend documentation triggers (RULE_17-23)
+- **v1.0.2:** Streamlined version (was 483 lines → now ~200 lines)
+- **Details moved to:** `EXAMPLES/` and `WORKFLOW_GUIDE.md`
+- **Backend rules:** `@All_Project_rules.md` (RULE_17-23)

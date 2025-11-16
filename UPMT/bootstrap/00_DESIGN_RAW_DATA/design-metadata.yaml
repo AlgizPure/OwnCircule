@@ -1,0 +1,109 @@
+# DESIGN METADATA
+
+# ═══════════════════════════════════════════════════════════════════════
+# AUTO-FILL MODE
+# ═══════════════════════════════════════════════════════════════════════
+# Claude Code автоматически заполнит этот файл, анализируя design raw data.
+# Заполнять вручную НЕ ОБЯЗАТЕЛЬНО - только если хочешь подчеркнуть что-то.
+# ═══════════════════════════════════════════════════════════════════════
+
+# Что собрали? (будет заполнено автоматически)
+raw_data_summary:
+  chats: 0              # Количество чатов про дизайн
+  moodboards: 0         # Количество мудбордов
+  screenshots: 0        # Количество скриншотов
+  figma_files: 0        # Количество Figma exports
+  research_files: 0     # Количество research файлов
+  brand_assets: 0       # Есть ли brand assets
+
+# Figma
+figma:
+  url: ""               # Ссылка на Figma project (если есть)
+  has_file: false       # Есть ли Figma file?
+
+# Ключевые решения (из чатов/мудбордов)
+# Заполни если хочешь подчеркнуть важные решения
+# ИЛИ оставь пустым - Claude извлечёт из raw data
+design_decisions:
+  - "Color Palette: [будет извлечено из данных]"
+  - "Typography: [будет извлечено из данных]"
+  - "Style: [будет извлечено из данных]"
+
+# Примеры:
+# - "Color: Blue (#2196F3) primary, neutral grays"
+# - "Font: Inter font family"
+# - "Style: Minimal, clean, modern"
+# - "Inspiration: Linear (speed), Notion (clarity)"
+
+# Противоречия (для разрешения)
+# Claude найдёт автоматически, но можешь указать известные
+contradictions:
+  - "[Противоречие 1 - если есть]"
+  - "[Противоречие 2 - если есть]"
+
+# Примеры:
+# - "Dashboard Layout: Grid vs List view discussed"
+# - "Navigation: Sidebar vs Top nav preference"
+# - "Color: Blue vs Green as primary"
+
+# Вопросы для разрешения
+# Claude сгенерирует автоматически, можешь добавить свои
+questions:
+  - "[Вопрос 1 - если есть]"
+  - "[Вопрос 2 - если есть]"
+
+# Примеры:
+# - "Final color palette decisions?"
+# - "Dark mode in MVP or later?"
+# - "Mobile-first or desktop-first?"
+# - "Component library: Custom vs Material-UI vs Ant Design?"
+
+# Настройки bootstrap
+bootstrap:
+  generate_design_system: true     # Генерировать docs/design/?
+  generate_components: true        # Создать базовые компоненты?
+  include_accessibility: true      # Включить A11y guidelines?
+  
+  # Приоритетные компоненты для документации
+  priority_components:
+    - "Button"
+    - "Input"
+    - "Card"
+    - "Modal"
+  
+  # Уровень детализации
+  detail_level: "high"             # high/medium/low
+
+# Заметки для Claude Code
+# Любые контекстные подсказки, которые помогут Claude
+notes_for_claude:
+  - "[Заметка 1 - если нужна]"
+  - "[Заметка 2 - если нужна]"
+
+# Примеры:
+# - "User prefers minimalist design (mentioned multiple times)"
+# - "Mobile experience is critical - mentioned in every chat"
+# - "Accessibility is must-have, not nice-to-have"
+# - "Dark mode important but not for MVP"
+
+# ═══════════════════════════════════════════════════════════════════════
+# Version tracking (Auto-filled by Claude Code)
+# ═══════════════════════════════════════════════════════════════════════
+metadata_version: "1.0"
+last_updated: "YYYY-MM-DD"  # Будет заполнено текущей датой
+updated_by: "Your Name"     # Будет заполнено во время bootstrap
+
+# ═══════════════════════════════════════════════════════════════════════
+# SUMMARY: How to Use
+# ═══════════════════════════════════════════════════════════════════════
+#
+# QUICK START:
+# 1. Добавь design материалы в папки (chats/, moodboards/, screenshots/...)
+# 2. (Опционально) Заполни design_decisions, contradictions, questions
+# 3. Запусти bootstrap с Claude Code
+# 4. Claude прочитает всё и создаст docs/design/
+#
+# Ты МОЖЕШЬ оставить большинство полей пустыми - Claude заполнит!
+#
+# ═══════════════════════════════════════════════════════════════════════
+

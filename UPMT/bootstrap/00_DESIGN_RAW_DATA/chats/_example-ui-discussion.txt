@@ -1,0 +1,92 @@
+ПРИМЕР: Чат с AI про UI/UX
+
+Этот файл показывает формат для хранения чатов про дизайн.
+Замени этот файл на свои реальные чаты.
+
+═══════════════════════════════════════════════════════════════
+
+USER:
+Привет! Хочу обсудить дизайн dashboard для моего проекта управления задачами. 
+Что думаешь про layout?
+
+AI:
+Для dashboard управления задачами рекомендую:
+
+1. Sidebar navigation (слева)
+   - Иконки + labels
+   - Collapsible для экономии места
+   
+2. Main area (центр)
+   - Task board (канбан или список)
+   - Filters сверху
+   - Quick actions
+   
+3. Right panel (опционально)
+   - Task details
+   - Comments
+   - Activity feed
+
+Референсы: Linear, Asana, Monday.com
+
+USER:
+Мне нравится! А какую цветовую палитру посоветуешь?
+
+AI:
+Для productivity tool рекомендую:
+
+Primary Color: Blue
+- #2196F3 (Material Blue 500)
+- Ассоциируется с trust, productivity
+- Хороший contrast для accessibility
+
+Secondary: Neutral grays
+- #FAFAFA - background
+- #E0E0E0 - borders
+- #212121 - text
+
+Semantic:
+- Success: #4CAF50 (green)
+- Error: #F44336 (red)
+- Warning: #FF9800 (orange)
+
+USER:
+Отлично! А что насчет типографии?
+
+AI:
+Для читабельности:
+
+Font Family: Inter
+- Modern, clean, excellent readability
+- Variable font (гибкие weights)
+- Free, open-source
+
+Sizes:
+- Heading 1: 32px / 2rem
+- Heading 2: 24px / 1.5rem
+- Body: 16px / 1rem
+- Small: 14px / 0.875rem
+
+Line Height:
+- Headings: 1.2
+- Body text: 1.5
+
+USER:
+Спасибо! Это именно то что нужно.
+
+═══════════════════════════════════════════════════════════════
+
+ИТОГ ЧАТА:
+- Layout: Sidebar + Main area + Right panel
+- Colors: Blue primary (#2196F3), neutral grays
+- Typography: Inter font family
+- Inspiration: Linear, Asana
+
+═══════════════════════════════════════════════════════════════
+
+ИНСТРУКЦИЯ:
+Сохраняй свои чаты в таком же формате:
+1. Копируй переписку с AI
+2. Сохраняй как .txt или .md
+3. Добавляй краткое резюме в конце (опционально)
+4. Называй файлы описательно: chatgpt-ui-layout-2025-01.txt
+

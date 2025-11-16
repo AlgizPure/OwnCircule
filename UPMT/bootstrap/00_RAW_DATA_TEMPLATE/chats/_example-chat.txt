@@ -1,0 +1,44 @@
+# EXAMPLE CHAT FORMAT
+
+This is an example of how to save a chat transcript.
+
+---
+
+USER:
+I want to build a project management tool for small teams.
+
+AI:
+That's a great idea! Let's explore this. What specific problems
+are small teams facing that your tool would solve?
+
+USER:
+Teams use too many tools - Slack for communication, Trello for
+tasks, Google Docs for documentation. Everything is scattered.
+
+AI:
+I see. So the core problem is fragmentation - information scattered
+across multiple tools. What would your ideal solution look like?
+
+USER:
+One place where teams can:
+- See all tasks
+- Discuss tasks (comments)
+- Track progress
+- Know who's working on what
+
+AI:
+Got it. So we're talking about a unified workspace. Let me ask:
+1. Is this for tech teams or any team?
+2. How many people per team typically?
+3. Any specific industry?
+
+USER:
+Mainly tech teams, 5-15 people, mostly remote.
+
+[... continue full conversation ...]
+
+---
+
+IMPORTANT: Copy the ENTIRE conversation, not just excerpts.
+Include timestamps if available.
+Include all details - even tangents are useful for context.

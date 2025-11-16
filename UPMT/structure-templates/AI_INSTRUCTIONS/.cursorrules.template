@@ -1,0 +1,191 @@
+# CURSOR PROJECT RULES - [PROJECT_NAME]
+
+**Version:** 2.0.1 (UPMT Structure)
+**Project:** [AUTO-GENERATED: Project Name]  
+**Last Updated:** [AUTO-GENERATED: Date]
+
+---
+
+## 🎯 CORE PRINCIPLES
+
+### 1. Documentation-Driven Development
+
+**ALWAYS** work in this order:
+1. Read requirements FIRST
+2. Understand acceptance criteria
+3. Write code that implements requirements
+4. Reference requirements in code comments
+5. Update documentation after changes
+
+### 2. Requirements Traceability
+
+**EVERY code change MUST:**
+- Link to functional requirement (FR-XXX-YYY)
+- Include comment: `// Implements: FR-MODULE-XXX`
+- Reference requirement in commit message
+- Check acceptance criteria before marking done
+
+### 3. Context Preservation
+
+**BEFORE starting work:**
+- Read `.context/state.md`
+- Understand current project phase
+- Check for blockers
+
+**AFTER completing work:**
+- Update `.context/state.md` (LAST COMPLETED, NEXT STEPS)
+- Log decisions in `.context/decisions.md` (if applicable)
+- Update `docs/progress/modules_status.md`
+
+---
+
+## 📁 FILE PRIORITY (UPMT Structure)
+
+**Read FIRST (always):**
+1. `.context/state.md` - Current status
+2. `UPMT/structure-templates/AI_INSTRUCTIONS/All_Project_rules.md` - System rules
+3. Relevant `docs/requirements/[module]_requirements.md`
+
+**For Understanding:**
+- `docs/core/00_PROJECT_ESSENCE.md` - Vision & goals
+- `docs/core/01_PRD.md` - All features
+- `docs/core/04_ARCHITECTURE.md` - System design
+
+**For Tasks:**
+- `docs/progress/sprint_current.md` - Current sprint
+- `docs/progress/backlog.md` - Task backlog
+
+---
+
+## 🤖 AUTO-GENERATED PROJECT INFO
+
+**Project Name:** [AUTO-GENERATED]  
+**Project Type:** [AUTO-GENERATED: Web App / Mobile App / API / etc.]  
+**Current Phase:** [AUTO-GENERATED: MVP / Phase 1 / etc.]
+
+### Tech Stack:
+[AUTO-GENERATED from docs/core/03_TECH_STACK.md]
+- **Frontend:** [e.g. React 19, TypeScript]
+- **Backend:** [e.g. Node.js, Express]
+- **Database:** [e.g. PostgreSQL 16]
+- **Infrastructure:** [e.g. Vercel, AWS]
+
+### Active Modules:
+[AUTO-GENERATED from docs/progress/modules_status.md]
+- `auth` - Authentication (70% complete)
+- `profile` - User Profile (30% complete)
+- `dashboard` - Dashboard (10% complete)
+
+---
+
+## 📝 CODE STANDARDS
+
+**Language:** [AUTO-GENERATED: JavaScript/TypeScript/Python/etc.]  
+**Style Guide:** [AUTO-GENERATED: Airbnb/Google/etc.]  
+**File Naming:** [AUTO-GENERATED: camelCase/kebab-case/etc.]
+
+### Component Structure:
+[AUTO-GENERATED from docs/core/04_ARCHITECTURE.md]
+
+---
+
+## ⚠️ BEFORE IMPLEMENTING
+
+**If user request conflicts with requirements:**
+1. STOP
+2. Say: "This conflicts with [module]_requirements.md section [X]. Should we update requirements first?"
+3. Wait for approval
+
+**Always check:**
+- Does this align with `docs/core/00_PROJECT_ESSENCE.md` vision?
+- Is this in `docs/core/01_PRD.md`?
+- Is there a requirement in `docs/requirements/[module]_requirements.md`?
+
+---
+
+## ✅ AFTER IMPLEMENTING
+
+**Update these files:**
+1. `.context/state.md` → LAST COMPLETED section
+2. If architectural decision → `.context/decisions.md`
+3. If module progress changed → `docs/progress/modules_status.md`
+4. If requirement completed → `docs/requirements/[module]_requirements.md` (mark ✅)
+
+---
+
+## 🔄 PROJECT RULES SYSTEM
+
+**Read:** `UPMT/structure-templates/AI_INSTRUCTIONS/All_Project_rules.md`
+
+16 правил автоматически синхронизируют файлы при изменениях.
+
+**Example:**
+- Change `docs/core/03_TECH_STACK.md` → auto-update `.upmt/metadata.yaml` + this file
+
+---
+
+## 📂 KEY PATHS (UPMT Structure)
+
+### Project Documentation (ЖИВЫЕ файлы):
+```
+docs/core/*.md                    # Основные документы
+docs/requirements/*.md            # Требования по модулям
+docs/progress/*.md                # Прогресс трекинг
+.context/*.md                     # Контекст проекта
+.upmt/metadata.yaml              # Метаданные
+```
+
+### UPMT System (Template):
+```
+UPMT/bootstrap/                   # Bootstrap процесс
+UPMT/structure-templates/         # Templates
+UPMT/00_START_HERE.md            # Инструкции
+```
+
+---
+
+## 💬 RESPONSE FORMAT
+
+When suggesting code:
+1. Reference requirement: `// Implements: FR-AUTH-005`
+2. Link to docs: `See: docs/requirements/auth_requirements.md`
+3. Mention update needed: "After this, update .context/state.md"
+
+---
+
+## 🚫 NEVER
+
+- ❌ Implement features not in PRD without asking
+- ❌ Change architecture without logging in decisions.md
+- ❌ Forget to update state.md after completing tasks
+- ❌ Skip requirements traceability
+
+---
+
+## 🎯 CURRENT FOCUS
+
+[AUTO-GENERATED from .context/state.md]
+
+**Current Sprint:** [Sprint #]  
+**Sprint Goal:** [Goal]  
+**In Progress:**
+- Task 1 (Owner: X)
+- Task 2 (Owner: Y)
+
+---
+
+## 🔗 QUICK LINKS
+
+- [Project Essence](docs/core/00_PROJECT_ESSENCE.md)
+- [PRD](docs/core/01_PRD.md)
+- [Current State](.context/state.md)
+- [Backlog](docs/progress/backlog.md)
+- [All Rules](UPMT/structure-templates/AI_INSTRUCTIONS/All_Project_rules.md)
+
+---
+
+**AUTO-GENERATED SECTIONS** будут обновлены через RULE_15 при изменении:
+- docs/core/03_TECH_STACK.md
+- docs/progress/modules_status.md
+- .context/state.md
+- .upmt/metadata.yaml
