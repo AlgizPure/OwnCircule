@@ -1,171 +1,462 @@
-# ELEVATION
+# Elevation System
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Will be filled during bootstrap
+## Overview
 
----
+The elevation system creates visual depth and hierarchy through carefully calibrated shadows. Inspired by premium design principles (Tiffany & Co aesthetic), our elevation system uses soft, subtle shadows that suggest luxury without overwhelming the interface.
 
-## 🏔️ ELEVATION SYSTEM
+Elevation indicates importance, interactivity, and spatial relationships. Our approach emphasizes understated elegance with layered, diffused shadows rather than harsh or pronounced effects.
 
-Elevation создает depth через shadows и z-index.
+## Specifications
 
-### Shadow Levels
+### Elevation Levels
 
-```yaml
-Level 0 (Flat):
-  Shadow: none
-  Z-index: 0
-  Usage: Page background, base elements
-  
-Level 1 (Raised):
-  Shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)
-  Z-index: 100
-  Usage: Cards, buttons (rest state)
-  
-Level 2 (Elevated):
-  Shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)
-  Z-index: 200
-  Usage: Buttons (hover), dropdowns
-  
-Level 3 (Floating):
-  Shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)
-  Z-index: 300
-  Usage: Modals, popovers, tooltips
-  
-Level 4 (High):
-  Shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)
-  Z-index: 400
-  Usage: Side panels, drawers
-  
-Level 5 (Highest):
-  Shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)
-  Z-index: 500
-  Usage: Full-screen modals, notifications
+We define 5 elevation levels, from baseline (no shadow) to premium (pronounced depth):
+
+| Level | Name | Z-Index | Use Case |
+|-------|------|---------|----------|
+| 0 | Baseline | 0 | Flat surfaces, backgrounds |
+| 1 | Raised | 1 | Cards, components above baseline |
+| 2 | Floating | 2 | Modals, popovers, menus |
+| 3 | Modal | 3 | Primary modals, important overlays |
+| 4 | Overlay | 4 | Full-screen overlays, dialogs |
+
+### Shadow Specifications
+
+Each elevation level uses a multi-layer shadow technique for depth:
+
+#### Elevation 0 (Baseline)
+```
+No shadow
+Z-Index: 0
 ```
 
----
+#### Elevation 1 (Raised)
+- **Soft Shadow** (ambient): 0px 2px 4px rgba(0, 0, 0, 0.08)
+- **Mid Shadow** (penumbra): 0px 4px 8px rgba(0, 0, 0, 0.04)
+- Z-Index: 1
 
-## 🎯 USAGE GUIDELINES
+#### Elevation 2 (Floating)
+- **Soft Shadow**: 0px 4px 8px rgba(0, 0, 0, 0.10)
+- **Mid Shadow**: 0px 8px 16px rgba(0, 0, 0, 0.06)
+- **Deep Shadow** (umbra): 0px 2px 1px rgba(0, 0, 0, 0.04)
+- Z-Index: 2
 
-### When to Use Each Level
+#### Elevation 3 (Modal)
+- **Soft Shadow**: 0px 6px 12px rgba(0, 0, 0, 0.12)
+- **Mid Shadow**: 0px 12px 24px rgba(0, 0, 0, 0.08)
+- **Deep Shadow**: 0px 4px 2px rgba(0, 0, 0, 0.06)
+- Z-Index: 3
 
-**Level 0 (Flat):**
-- Page backgrounds
-- Inline elements
-- No interaction
+#### Elevation 4 (Overlay)
+- **Soft Shadow**: 0px 8px 16px rgba(0, 0, 0, 0.15)
+- **Mid Shadow**: 0px 16px 32px rgba(0, 0, 0, 0.10)
+- **Deep Shadow**: 0px 6px 4px rgba(0, 0, 0, 0.08)
+- Z-Index: 4
 
-**Level 1 (Raised):**
-- Cards
-- Buttons (default)
-- Form inputs
-- Static containers
+### Color Considerations
 
-**Level 2 (Elevated):**
-- Buttons (hover)
-- Active states
+All shadows use black (rgba(0, 0, 0, x)) with varying opacity levels:
+- Soft/ambient layer: Lower opacity (4-8%)
+- Mid layer: Medium opacity (6-10%)
+- Deep layer: Higher opacity (4-8%)
+
+This creates subtle, premium shadows that don't overwhelm the interface or interfere with Tiffany Blue brand colors.
+
+## Usage Guidelines
+
+### Elevation 1 (Raised) - For Cards
+
+Use for:
+- Card components in lists
+- Subtle component elevation
+- Items that are slightly interactive
+- Secondary content containers
+
+**Example**: Loyalty rewards cards, transaction items, product cards
+
+```
+Box shadow: 0px 2px 4px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.04)
+```
+
+### Elevation 2 (Floating) - For Interactive Components
+
+Use for:
+- Floating action buttons
 - Dropdown menus
-- Date pickers
-
-**Level 3 (Floating):**
-- Modals
-- Popovers
 - Tooltips
-- Context menus
+- Popovers
+- Navigation drawers
+- Filter panels
 
-**Level 4 (High):**
-- Sidebars
-- Slide-out panels
-- Drawers
+**Example**: Category menu, filter options, product details menu
 
-**Level 5 (Highest):**
-- Full overlays
-- Toast notifications
-- Global alerts
-- Loading screens
-
----
-
-## 🔧 IMPLEMENTATION
-
-### CSS Variables
-
-```css
-:root {
-  --shadow-0: none;
-  --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  --shadow-2: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-  --shadow-3: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  --shadow-4: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-  --shadow-5: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
-  
-  --z-base: 0;
-  --z-raised: 100;
-  --z-elevated: 200;
-  --z-floating: 300;
-  --z-high: 400;
-  --z-highest: 500;
-}
-
-.card {
-  box-shadow: var(--shadow-1);
-  z-index: var(--z-raised);
-}
-
-.modal {
-  box-shadow: var(--shadow-3);
-  z-index: var(--z-floating);
-}
+```
+Box shadow: 0px 4px 8px rgba(0, 0, 0, 0.10), 0px 8px 16px rgba(0, 0, 0, 0.06), 0px 2px 1px rgba(0, 0, 0, 0.04)
 ```
 
-### Tailwind Config
+### Elevation 3 (Modal) - For Modals
 
-```js
-module.exports = {
-  theme: {
-    boxShadow: {
-      '1': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-      '2': '0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23)',
-      '3': '0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)',
-    },
-    zIndex: {
-      '0': 0,
-      '100': 100,
-      '200': 200,
-      '300': 300,
-      '400': 400,
-      '500': 500,
-    }
+Use for:
+- Modal dialogs
+- Confirmation sheets
+- Action sheets
+- Bottom sheets with primary actions
+- Important overlays that need strong focus
+
+**Example**: Checkout confirmation, reward redemption modal, profile settings
+
+```
+Box shadow: 0px 6px 12px rgba(0, 0, 0, 0.12), 0px 12px 24px rgba(0, 0, 0, 0.08), 0px 4px 2px rgba(0, 0, 0, 0.06)
+```
+
+### Elevation 4 (Overlay) - For Full-Screen Overlays
+
+Use for:
+- Full-screen modals
+- Authentication flows
+- Critical dialogs
+- Scrim layers (semi-transparent backgrounds)
+- Overlays requiring maximum prominence
+
+**Example**: Login modal, payment information dialog, critical alerts
+
+```
+Box shadow: 0px 8px 16px rgba(0, 0, 0, 0.15), 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 6px 4px rgba(0, 0, 0, 0.08)
+```
+
+### Scrim (Semi-transparent Overlay)
+
+- **Opacity**: 40% black (rgba(0, 0, 0, 0.4))
+- **Z-Index**: One level below the modal
+- **Animation**: Fade in/out with motion-standard timing
+- **Touch Behavior**: Dismisses modal when tapped
+- **Use Case**: All modals, drawers, and significant overlays
+
+## Accessibility Considerations
+
+### Shadow & Visibility
+
+- Shadows should enhance, not obscure, content
+- Ensure text remains readable over shadowed backgrounds
+- High contrast between shadow and content background
+- Avoid relying on shadow alone to convey hierarchy (use color, spacing, typography)
+
+### Reduced Motion Preference
+
+Users with `prefers-reduced-motion: reduce` should:
+- Still see elevation differences
+- Experience instant (0ms) shadow changes instead of animated
+- Maintain shadow opacity but remove transition effects
+
+**CSS Implementation**:
+```css
+@media (prefers-reduced-motion: reduce) {
+  .elevated-component {
+    transition: none !important;
+    box-shadow: /* immediate shadow value */;
   }
 }
 ```
 
----
+### Color Contrast & Shadows
 
-## ⚖️ BEST PRACTICES
+- Verify minimum 4.5:1 contrast ratio between text and shadowed background
+- Test with various background colors (especially Champagne Beige)
+- Ensure shadows don't reduce perceived contrast below WCAG AA
 
-**Do's:**
-- ✅ Use elevation to show hierarchy
-- ✅ Higher elevation = more important/temporary
-- ✅ Consistent shadow levels
-- ✅ Subtle shadows (don't overdo)
+### Screen Reader & Semantic Meaning
 
-**Don'ts:**
-- ❌ Don't skip levels (1 → 4)
-- ❌ Don't use too many elevated elements
-- ❌ Don't use elevation for decoration
-- ❌ Don't forget z-index with shadows
+- Elevation is visual only; doesn't affect screen reader announcements
+- Use semantic HTML/ARIA to convey hierarchy
+- Don't rely on shadow to indicate interactive vs. static elements
 
----
+## Design Tokens & Code Examples
 
-## ♿ ACCESSIBILITY
+### CSS Variables
 
-- Elevation is visual only
-- Don't rely on shadows alone for meaning
-- Use ARIA labels for overlays
-- Ensure focus visible on elevated elements
+```css
+--elevation-0: none;
+--elevation-1: 0px 2px 4px rgba(0, 0, 0, 0.08), 0px 4px 8px rgba(0, 0, 0, 0.04);
+--elevation-2: 0px 4px 8px rgba(0, 0, 0, 0.10), 0px 8px 16px rgba(0, 0, 0, 0.06), 0px 2px 1px rgba(0, 0, 0, 0.04);
+--elevation-3: 0px 6px 12px rgba(0, 0, 0, 0.12), 0px 12px 24px rgba(0, 0, 0, 0.08), 0px 4px 2px rgba(0, 0, 0, 0.06);
+--elevation-4: 0px 8px 16px rgba(0, 0, 0, 0.15), 0px 16px 32px rgba(0, 0, 0, 0.10), 0px 6px 4px rgba(0, 0, 0, 0.08);
 
----
+--scrim-overlay: rgba(0, 0, 0, 0.4);
+```
 
-**Elevation creates depth and hierarchy.** 🏔️
+### React Native Implementation
 
+```typescript
+// tokens/elevation.ts
+import { StyleSheet } from 'react-native';
+
+export const elevation = {
+  none: {
+    shadowColor: 'transparent',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
+  },
+  
+  level1: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  
+  level2: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.10,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  
+  level3: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  
+  level4: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 8,
+  },
+} as const;
+
+export type ElevationLevel = keyof typeof elevation;
+```
+
+### Card Component with Elevation
+
+```typescript
+import { View, StyleSheet } from 'react-native';
+import { elevation } from './tokens/elevation';
+
+interface CardProps {
+  children: React.ReactNode;
+  level?: ElevationLevel;
+}
+
+const Card: React.FC<CardProps> = ({ children, level = 'level1' }) => {
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: '#FFFFFF',
+      borderRadius: 12,
+      ...elevation[level],
+    },
+  });
+
+  return <View style={styles.container}>{children}</View>;
+};
+
+export default Card;
+```
+
+### Modal Component with Scrim
+
+```typescript
+import { Modal, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { colors } from './tokens/colors';
+import { elevation } from './tokens/elevation';
+
+interface ModalProps {
+  visible: boolean;
+  onDismiss: () => void;
+  children: React.ReactNode;
+}
+
+const PremiumModal: React.FC<ModalProps> = ({ visible, onDismiss, children }) => {
+  const styles = StyleSheet.create({
+    scrim: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.4)',
+      justifyContent: 'flex-end',
+    },
+    content: {
+      backgroundColor: colors.white,
+      borderTopLeftRadius: 24,
+      borderTopRightRadius: 24,
+      paddingBottom: 20,
+      ...elevation.level3,
+    },
+  });
+
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="slide"
+      onRequestClose={onDismiss}
+    >
+      <TouchableOpacity
+        style={styles.scrim}
+        activeOpacity={1}
+        onPress={onDismiss}
+      >
+        <View style={styles.content}>{children}</View>
+      </TouchableOpacity>
+    </Modal>
+  );
+};
+
+export default PremiumModal;
+```
+
+### Shadow Composition Helper
+
+```typescript
+// utils/elevation.ts
+export const composeShadow = (
+  offsetY: number,
+  blurRadius: number,
+  opacity: number
+) => ({
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: offsetY },
+  shadowOpacity: opacity,
+  shadowRadius: blurRadius,
+  elevation: Math.ceil(offsetY + blurRadius / 2),
+});
+
+// Usage for custom elevation levels
+const customElevation = composeShadow(
+  8,    // offsetY
+  16,   // blurRadius
+  0.15  // opacity
+);
+```
+
+## Platform-Specific Considerations
+
+### iOS
+- Use `shadowColor`, `shadowOffset`, `shadowOpacity`, `shadowRadius`
+- Shadow rendering is more accurate to specification
+- Supports multi-layer shadows through composition
+- Better performance with blurred shadows
+
+### Android
+- Use `elevation` property (API level 21+)
+- Android Material elevation differs from CSS shadows
+- For precise control, consider custom shadow implementation
+- Test on actual devices for shadow rendering accuracy
+
+## Examples by Component Type
+
+### List Item (Elevation 1)
+```typescript
+const listItemStyles = StyleSheet.create({
+  container: {
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 16,
+    marginVertical: 8,
+    borderRadius: 12,
+    padding: 16,
+    ...elevation.level1,
+  },
+});
+```
+
+### Floating Action Button (Elevation 2)
+```typescript
+const fabStyles = StyleSheet.create({
+  container: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: colors.tiffanyBlue,
+    justifyContent: 'center',
+    alignItems: 'center',
+    ...elevation.level2,
+  },
+});
+```
+
+### Bottom Sheet Modal (Elevation 3)
+```typescript
+const bottomSheetStyles = StyleSheet.create({
+  content: {
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    padding: 24,
+    ...elevation.level3,
+  },
+});
+```
+
+### Full-Screen Modal (Elevation 4)
+```typescript
+const fullModalStyles = StyleSheet.create({
+  content: {
+    flex: 1,
+    backgroundColor: colors.white,
+    ...elevation.level4,
+  },
+});
+```
+
+## Animation & Elevation Changes
+
+### Interactive States
+
+When components change elevation (on press, hover, etc.):
+
+```typescript
+// State-based elevation
+const [isPressed, setIsPressed] = useState(false);
+
+const dynamicElevation = isPressed 
+  ? elevation.level2 
+  : elevation.level1;
+```
+
+### Animated Elevation Transitions
+
+```typescript
+import { Animated } from 'react-native';
+
+const elevationAnim = useRef(new Animated.Value(0)).current;
+
+const onPressIn = () => {
+  Animated.timing(elevationAnim, {
+    toValue: 8,
+    duration: 200,
+    useNativeDriver: false,
+  }).start();
+};
+
+// Apply to elevation value dynamically
+```
+
+## Testing Elevation
+
+### Visual Verification
+
+- Print designs and verify shadow depth perception
+- Test on physical devices (iOS and Android)
+- Check shadows under different lighting conditions
+- Verify contrast ratios with text overlays
+
+### Accessibility Testing
+
+- Use accessibility inspector tools
+- Test with `prefers-reduced-motion: reduce`
+- Verify semantic meaning isn't lost without shadows
+- Screen reader testing for hierarchy perception
+
+## Related Documentation
+
+- [Motion System](./motion.md) - Timing for elevation changes
+- [Spacing System](./spacing.md) - Spatial relationships with elevation
+- [Design Tokens](../00_DESIGN_SYSTEM.md) - Complete token system
+- [Color System](./color.md) - Shadow colors and contrast
+- [Components](../components/README.md) - Component elevation usage

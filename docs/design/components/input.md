@@ -1,457 +1,538 @@
-# INPUT
+# Input Component
 
-**Component:** Input  
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template
+## Overview
 
----
+The Input component is a fundamental form element for capturing user text input. It features a clean, minimal design with rounded corners and a Champagne Beige background (#F5F1E8) for a soft, welcoming appearance. Input fields are used throughout the application for forms, search, filters, and user data entry.
 
-## 📋 OVERVIEW
+**Primary Use Cases:**
+- Form field input (name, email, phone)
+- Search functionality
+- Password entry
+- Filter/query input
+- Text message composition
+- Numeric input for quantities
 
-Text input fields allow users to enter text data.
+## Anatomy
 
-**Types:**
-- Text (default)
-- Email, Password, Number, Tel, URL
-- Textarea (multi-line)
-- Search
-
----
-
-## 🏗️ ANATOMY
+The Input component consists of the following visual parts:
 
 ```
-Label *                    ← Label (required = *)
-┌──────────────────────────┐
-│ [Icon] Placeholder text  │  ← Input field
-└──────────────────────────┘
-Helper text or error       ← Helper/Error message
+┌─────────────────────────────────┐
+│ Label (optional)                │
+├─────────────────────────────────┤
+│ ◀ Icon   Input Text   Icon ▶   │
+├─────────────────────────────────┤
+│ Helper text or error message    │
+└─────────────────────────────────┘
 ```
 
-**Elements:**
-1. **Label** - describes input (required)
-2. **Input field** - text entry area
-3. **Placeholder** - hint text (optional)
-4. **Icon** - leading or trailing (optional)
-5. **Helper text** - guidance or error
+### Key Elements:
+- **Container**: Rounded rectangle with Champagne Beige background
+- **Label**: Optional text above input (12px/600, caption style)
+- **Leading Icon**: Optional icon (16x16px) for context
+- **Input Field**: Text input area with cursor
+- **Placeholder**: Faded text showing expected format
+- **Trailing Icon**: Optional icon (clear button, visibility toggle)
+- **Helper Text**: Optional text below input for guidance
+- **Error Text**: Red error message for validation feedback
+- **Border Radius**: 8px for clean appearance
 
----
+## Variants
 
-## 🎨 VARIANTS
+### 1. Standard Text Input
+- **Type**: text
+- **Background**: Champagne Beige (#F5F1E8)
+- **Usage**: General text entry
+- **Example**: Name, description fields
 
-### Text Input (Default)
+### 2. Email Input
+- **Type**: email
+- **Keyboard**: Email keyboard on mobile
+- **Validation**: Email format checking
+- **Usage**: Email address entry
 
-```html
-<div class="input-group">
-  <label for="name">Full Name *</label>
-  <input 
-    id="name" 
-    type="text" 
-    placeholder="Enter your name"
-    required
-  />
-  <span class="helper-text">As it appears on your ID</span>
-</div>
+### 3. Password Input
+- **Type**: password
+- **Masking**: Text masked with dots/asterisks
+- **Toggle**: Show/hide password icon
+- **Usage**: Password entry, sensitive information
+
+### 4. Numeric Input
+- **Type**: number
+- **Keyboard**: Numeric keyboard on mobile
+- **Input Filter**: Numbers only
+- **Usage**: Quantities, codes, zip codes
+
+### 5. Phone Input
+- **Type**: tel
+- **Keyboard**: Phone keyboard on mobile
+- **Formatting**: Automatic phone number formatting
+- **Usage**: Phone number entry
+
+### 6. Search Input
+- **Leading Icon**: Search icon
+- **Trailing Icon**: Clear/close button
+- **Placeholder**: "Search..."
+- **Usage**: Search functionality
+
+### 7. Textarea
+- **Multiline**: true
+- **Height**: Dynamic or fixed (120px minimum)
+- **Resizable**: Expandable height as user types
+- **Usage**: Comments, descriptions, long text
+
+## States
+
+### Default State
+- Background: Champagne Beige (#F5F1E8)
+- Border: 1px solid #E8E8E8
+- Text color: Charcoal (#2A2D34)
+- Placeholder: 50% opacity text
+
+### Focus State
+- Border: 2px solid Tiffany Blue (#0ABAB5)
+- Background: White (#FFFFFF)
+- Shadow: Subtle shadow (0 0 0 3px rgba(10, 186, 181, 0.1))
+- Cursor: Visible text input cursor
+
+### Active State (Filled)
+- Background: Champagne Beige (#F5F1E8)
+- Border: 1px solid Charcoal (#2A2D34)
+- Text: Fully opaque
+- Clear button visible if applicable
+
+### Hover State
+- Border: 1px solid Tiffany Blue (#0ABAB5)
+- Shadow: Subtle elevation
+- Cursor: text cursor
+
+### Disabled State
+- Background: #F5F1E8 at 50% opacity
+- Text: #2A2D34 at 50% opacity
+- Cursor: not-allowed
+- No focus or hover response
+
+### Error State
+- Border: 2px solid #D32F2F (Red)
+- Background: #FFF3E0 (Light orange tint)
+- Icon: Error icon (red)
+- Text: Error message in red
+
+### Loading State
+- Activity indicator visible
+- Input disabled
+- Loading spinner in trailing icon area
+
+### Success State
+- Border: 2px solid #4CAF50 (Green)
+- Icon: Checkmark icon (green)
+- Validation message visible
+- Temporary state (2-3 seconds)
+
+## Props/API
+
+```typescript
+interface InputProps {
+  // Content
+  placeholder?: string;
+  label?: string;
+  value: string;
+  defaultValue?: string;
+  
+  // Input Properties
+  inputType?: 'text' | 'email' | 'password' | 'number' | 'phone' | 'search';
+  multiline?: boolean; // default: false
+  numberOfLines?: number; // for multiline
+  maxLength?: number;
+  
+  // Icons
+  leadingIcon?: React.ReactNode;
+  trailingIcon?: React.ReactNode;
+  showClearButton?: boolean; // default: false
+  showPasswordToggle?: boolean; // default: false (for password type)
+  
+  // Styling
+  backgroundColor?: string; // default: '#F5F1E8'
+  borderColor?: string;
+  textColor?: string;
+  size?: 'small' | 'medium' | 'large'; // default: 'medium'
+  
+  // State
+  disabled?: boolean; // default: false
+  readOnly?: boolean; // default: false
+  error?: string | null; // error message
+  helperText?: string;
+  success?: boolean; // default: false
+  loading?: boolean; // default: false
+  
+  // Interaction
+  onChangeText: (text: string) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
+  onSubmitEditing?: () => void;
+  
+  // Validation
+  required?: boolean; // default: false
+  pattern?: RegExp;
+  
+  // Accessibility
+  accessibilityLabel?: string;
+  accessibilityHint?: string;
+  
+  // Styling overrides
+  style?: StyleProp<ViewStyle>;
+  inputStyle?: StyleProp<TextStyle>;
+}
 ```
 
----
+## Spacing & Sizing
 
-### Email Input
+### Size Variants
 
-```html
-<input 
-  type="email" 
-  placeholder="name@example.com"
-  autocomplete="email"
+#### Small Input
+- **Height**: 36px
+- **Padding**: 10px horizontal, 8px vertical
+- **Font**: 14px/400
+- **Border Radius**: 6px
+- **Min Touch Target**: 36x44px (height with surrounding space)
+
+#### Medium Input (Default)
+- **Height**: 44px
+- **Padding**: 12px horizontal, 10px vertical
+- **Font**: 16px/400
+- **Border Radius**: 8px
+- **Min Touch Target**: 44x44px
+
+#### Large Input
+- **Height**: 52px
+- **Padding**: 16px horizontal, 12px vertical
+- **Font**: 18px/400
+- **Border Radius**: 8px
+- **Min Touch Target**: 52x52px
+
+### Textarea Sizing
+- **Min Height**: 120px
+- **Max Height**: 200px (scrollable beyond)
+- **Padding**: 12px (all sides)
+- **Border Radius**: 8px
+
+### Icon Sizing
+- **Leading/Trailing Icon**: 16x16px (small), 20x20px (medium), 24x24px (large)
+- **Icon Margin**: 8px from input edge
+- **Clear Button**: 20x20px centered
+
+### Text Sizing
+- **Label Font**: 12px/600 (caption style)
+- **Input Font**: 16px/400 (body style)
+- **Helper Text Font**: 12px/400 (caption style)
+- **Error Text Font**: 12px/400 (caption style, red color)
+
+### Spacing
+- **Label to Input**: 4px gap
+- **Input to Helper Text**: 4px gap
+- **Input to Error Text**: 4px gap
+
+## Accessibility
+
+### Touch Target
+- Minimum 44x44px tap area per WCAG 2.1
+- Input height of 44px meets standard
+- Clear buttons and icons minimum 20x20px
+
+### Contrast Ratio
+- Text on Beige background: 13.5:1 (Charcoal on Beige)
+- Placeholder: 5.2:1 (50% opacity Charcoal)
+- Error text: 5.9:1 (Red on white)
+- All exceed WCAG AAA standard
+
+### Screen Reader Support
+```typescript
+<TextInput
+  accessible={true}
+  accessibilityLabel={label}
+  accessibilityHint={helperText || error}
+  accessibilityRole="none"
+  accessibilityState={{
+    disabled: disabled,
+    focused: focused,
+  }}
 />
 ```
 
-**Includes:** Email validation, keyboard type on mobile
-
----
-
-### Password Input
-
-```html
-<div class="input-wrapper">
-  <input 
-    type="password" 
-    placeholder="••••••••"
-  />
-  <button type="button" aria-label="Show password">
-    <icon name="eye" />
-  </button>
-</div>
-```
-
-**Features:**
-- Toggle visibility (eye icon)
-- Password strength indicator (if needed)
-- Autocomplete="current-password"
-
----
-
-### Number Input
-
-```html
-<input 
-  type="number" 
-  min="0" 
-  max="100"
-  step="1"
-/>
-```
-
----
-
-### Search Input
-
-```html
-<div class="search-input">
-  <icon name="search" />
-  <input 
-    type="search" 
-    placeholder="Search..."
-  />
-</div>
-```
-
----
-
-### Textarea
-
-```html
-<textarea 
-  rows="4"
-  placeholder="Enter description..."
-></textarea>
-```
-
-**For:** Multi-line text, descriptions, comments
-
----
-
-## 📏 SIZES
-
-### Small
-
-```yaml
-Height: 32px
-Padding: 8px 12px
-Font size: 14px
-```
-
----
-
-### Medium (Default)
-
-```yaml
-Height: 40px
-Padding: 12px 16px
-Font size: 16px
-```
-
----
-
-### Large
-
-```yaml
-Height: 48px
-Padding: 16px 20px
-Font size: 18px
-```
-
----
-
-## 🎭 STATES
-
-### Default
-
-```yaml
-Background: white
-Border: 1px solid gray-300
-Text: gray-900
-Placeholder: gray-400
-```
-
----
-
-### Focus
-
-```yaml
-Border: 2px solid primary-500
-Box-shadow: 0 0 0 3px primary-50
-```
-
-**CRITICAL for accessibility!**
-
----
-
-### Error
-
-```yaml
-Border: 2px solid error-500
-Background: error-50
-Icon: error icon (trailing)
-Message: Error text below (error-600)
-```
-
-```html
-<div class="input-group error">
-  <label for="email">Email *</label>
-  <input 
-    id="email" 
-    type="email"
-    aria-invalid="true"
-    aria-describedby="email-error"
-  />
-  <span id="email-error" class="error-text">
-    Please enter a valid email
-  </span>
-</div>
-```
-
----
-
-### Success
-
-```yaml
-Border: 1px solid success-500
-Icon: check icon (trailing)
-Message: Success text (success-600)
-```
-
----
-
-### Disabled
-
-```yaml
-Background: gray-100
-Border: gray-200
-Text: gray-400
-Cursor: not-allowed
-```
-
-**Avoid if possible** - explain instead.
-
----
-
-## 🎯 USAGE GUIDELINES
+### Keyboard Navigation
+- Focusable via Tab key
+- Clear focus indicator (blue border + shadow)
+- Tab moves to next input
+- Shift+Tab moves to previous input
+- Enter/Space activates related buttons (clear, toggle)
 
 ### Labels
+- Every input should have associated label
+- Label can be above input or use aria-label
+- Label font: 12px/600 for clarity
 
-**Do's:**
-- ✅ Always include label
-- ✅ Clear and concise
-- ✅ Sentence case
-- ✅ Mark required fields (*)
+## Implementation
 
-**Don'ts:**
-- ❌ No label (placeholder is NOT label)
-- ❌ Vague labels ("Input")
-- ❌ ALL CAPS
+### React Native Example
 
-```html
-<!-- Good -->
-<label for="email">Email Address *</label>
+```typescript
+import React, { useState } from 'react';
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 
-<!-- Bad -->
-<input placeholder="Email" /> <!-- No label! -->
-```
-
----
-
-### Placeholders
-
-**Use for:**
-- ✅ Format examples ("name@example.com")
-- ✅ Hints ("Search by name or ID")
-
-**Don't use for:**
-- ❌ Primary instructions (use label + helper)
-- ❌ Required info
-
----
-
-### Helper Text
-
-```html
-<span class="helper-text">
-  We'll never share your email
-</span>
-```
-
-**When to use:**
-- Format requirements ("Use 8+ characters")
-- Privacy notes ("We'll never share...")
-- Examples
-
----
-
-### Validation
-
-**Real-time validation:**
-- ✅ After user leaves field (onBlur)
-- ✅ On submit
-- ❌ NOT while typing (annoying)
-
-**Error messages:**
-- Specific ("Email must include @")
-- Helpful ("Use format: name@example.com")
-- NOT generic ("Invalid input")
-
----
-
-## ♿ ACCESSIBILITY
-
-### Label Association
-
-```html
-<!-- Correct -->
-<label for="email">Email</label>
-<input id="email" type="email" />
-
-<!-- Also correct -->
-<label>
-  Email
-  <input type="email" />
-</label>
-```
-
----
-
-### Required Fields
-
-```html
-<input 
-  required
-  aria-required="true"
-/>
-```
-
----
-
-### Error States
-
-```html
-<input 
-  aria-invalid="true"
-  aria-describedby="error-message"
-/>
-<span id="error-message">Error text</span>
-```
-
----
-
-### Autocomplete
-
-```html
-<input 
-  type="email"
-  autocomplete="email"
-/>
-```
-
-**Helps:** Autofill, password managers
-
----
-
-## 🔧 IMPLEMENTATION
-
-### CSS
-
-```css
-.input {
-  width: 100%;
-  height: 40px;
-  padding: 12px 16px;
-  
-  background: white;
-  border: 1px solid var(--gray-300);
-  border-radius: 6px;
-  
-  font-size: 16px;
-  color: var(--gray-900);
-  
-  transition: all 200ms ease-out;
+interface InputProps {
+  placeholder?: string;
+  label?: string;
+  value: string;
+  onChangeText: (text: string) => void;
+  inputType?: 'text' | 'email' | 'password' | 'number' | 'phone';
+  error?: string | null;
+  helperText?: string;
+  disabled?: boolean;
+  multiline?: boolean;
+  size?: 'small' | 'medium' | 'large';
+  showClearButton?: boolean;
+  leadingIcon?: React.ReactNode;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }
 
-.input::placeholder {
-  color: var(--gray-400);
-}
-
-.input:focus {
-  outline: none;
-  border: 2px solid var(--primary-500);
-  box-shadow: 0 0 0 3px var(--primary-50);
-}
-
-.input.error {
-  border-color: var(--error-500);
-  background: var(--error-50);
-}
-
-.input:disabled {
-  background: var(--gray-100);
-  border-color: var(--gray-200);
-  color: var(--gray-400);
-  cursor: not-allowed;
-}
-```
-
----
-
-### React Component
-
-```jsx
-const Input = ({
-  label,
-  type = 'text',
+export const Input: React.FC<InputProps> = ({
   placeholder,
+  label,
+  value,
+  onChangeText,
+  inputType = 'text',
+  error = null,
   helperText,
-  error,
-  icon,
-  required,
-  ...props
+  disabled = false,
+  multiline = false,
+  size = 'medium',
+  showClearButton = false,
+  leadingIcon,
+  onFocus,
+  onBlur,
 }) => {
+  const [focused, setFocused] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const styles = getStyles(size, focused, error, disabled);
+
+  const keyboardType = {
+    text: 'default',
+    email: 'email-address',
+    password: 'default',
+    number: 'numeric',
+    phone: 'phone-pad',
+  }[inputType];
+
   return (
-    <div className="input-group">
-      <label>
-        {label} {required && '*'}
-      </label>
-      <div className="input-wrapper">
-        {icon && <Icon name={icon} />}
-        <input
-          type={type}
+    <View style={styles.container}>
+      {label && <Text style={styles.label}>{label}</Text>}
+
+      <View
+        style={[
+          styles.inputContainer,
+          focused && styles.inputContainerFocused,
+          error && styles.inputContainerError,
+        ]}
+      >
+        {leadingIcon && (
+          <View style={styles.iconContainer}>{leadingIcon}</View>
+        )}
+
+        <TextInput
+          style={[styles.input, multiline && styles.multilineInput]}
           placeholder={placeholder}
-          aria-invalid={!!error}
-          required={required}
-          {...props}
+          value={value}
+          onChangeText={onChangeText}
+          onFocus={() => {
+            setFocused(true);
+            onFocus?.();
+          }}
+          onBlur={() => {
+            setFocused(false);
+            onBlur?.();
+          }}
+          editable={!disabled}
+          secureTextEntry={inputType === 'password' && !showPassword}
+          keyboardType={keyboardType as any}
+          multiline={multiline}
+          numberOfLines={multiline ? 4 : 1}
+          accessible={true}
+          accessibilityLabel={label}
+          accessibilityHint={helperText || error}
+          accessibilityRole="none"
+          placeholderTextColor="#99999980"
         />
-      </div>
-      {error && <span className="error-text">{error}</span>}
-      {!error && helperText && <span className="helper-text">{helperText}</span>}
-    </div>
+
+        {showClearButton && value.length > 0 && (
+          <TouchableOpacity
+            style={styles.clearButton}
+            onPress={() => onChangeText('')}
+            accessible={true}
+            accessibilityLabel="Clear input"
+          >
+            <Text style={styles.clearIcon}>✕</Text>
+          </TouchableOpacity>
+        )}
+
+        {inputType === 'password' && (
+          <TouchableOpacity
+            style={styles.iconContainer}
+            onPress={() => setShowPassword(!showPassword)}
+          >
+            <Text style={styles.eyeIcon}>{showPassword ? '👁' : '👁‍🗨'}</Text>
+          </TouchableOpacity>
+        )}
+      </View>
+
+      {error && <Text style={styles.errorText}>{error}</Text>}
+      {helperText && !error && (
+        <Text style={styles.helperText}>{helperText}</Text>
+      )}
+    </View>
   );
+};
+
+const getStyles = (
+  size: string,
+  focused: boolean,
+  error: string | null,
+  disabled: boolean,
+) => {
+  const sizeConfig = {
+    small: {
+      height: 36,
+      paddingHorizontal: 10,
+      fontSize: 14,
+      borderRadius: 6,
+    },
+    medium: {
+      height: 44,
+      paddingHorizontal: 12,
+      fontSize: 16,
+      borderRadius: 8,
+    },
+    large: {
+      height: 52,
+      paddingHorizontal: 16,
+      fontSize: 18,
+      borderRadius: 8,
+    },
+  };
+
+  const config = sizeConfig[size as keyof typeof sizeConfig];
+
+  return StyleSheet.create({
+    container: {
+      marginVertical: 8,
+    },
+    label: {
+      fontSize: 12,
+      fontWeight: '600',
+      color: '#2A2D34',
+      marginBottom: 4,
+    },
+    inputContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      height: config.height,
+      backgroundColor: disabled ? '#F5F1E8CC' : '#F5F1E8',
+      borderRadius: config.borderRadius,
+      borderWidth: 1,
+      borderColor: '#E8E8E8',
+      paddingHorizontal: config.paddingHorizontal,
+    },
+    inputContainerFocused: {
+      borderWidth: 2,
+      borderColor: '#0ABAB5',
+      backgroundColor: '#FFFFFF',
+      shadowColor: '#0ABAB5',
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.15,
+      shadowRadius: 3,
+      elevation: 3,
+    },
+    inputContainerError: {
+      borderWidth: 2,
+      borderColor: '#D32F2F',
+      backgroundColor: '#FFF3E0',
+    },
+    input: {
+      flex: 1,
+      fontSize: config.fontSize,
+      color: '#2A2D34',
+      fontWeight: '400',
+    },
+    multilineInput: {
+      minHeight: 120,
+      maxHeight: 200,
+      textAlignVertical: 'top',
+      paddingVertical: 12,
+    },
+    iconContainer: {
+      marginHorizontal: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    clearButton: {
+      marginLeft: 8,
+      padding: 4,
+    },
+    clearIcon: {
+      fontSize: 18,
+      color: '#999999',
+    },
+    eyeIcon: {
+      fontSize: 18,
+    },
+    helperText: {
+      fontSize: 12,
+      fontWeight: '400',
+      color: '#666666',
+      marginTop: 4,
+    },
+    errorText: {
+      fontSize: 12,
+      fontWeight: '400',
+      color: '#D32F2F',
+      marginTop: 4,
+    },
+  });
 };
 ```
 
----
+## Usage Guidelines
 
-## ✅ CHECKLIST
+### Do's
+- Always provide labels for inputs (accessibility)
+- Use appropriate input types (email, password, number, etc.)
+- Provide helpful placeholder text
+- Show validation errors clearly
+- Use helper text to guide users
+- Disable inputs when not needed (loading, dependent fields)
+- Clear input on clear button press
+- Validate input on blur and form submission
 
-- [ ] Label present and associated
-- [ ] Required indicator if needed (*)
-- [ ] Appropriate input type
-- [ ] Placeholder helpful (format/example)
-- [ ] Helper text for guidance
-- [ ] Error messages specific
-- [ ] Focus state visible
-- [ ] Autocomplete attribute
-- [ ] Keyboard accessible
+### Don'ts
+- Don't rely only on placeholder text as label
+- Don't disable input without explanation
+- Don't show errors while user is still typing (except validation preview)
+- Don't use unclear placeholder text
+- Don't make inputs too small (< 44px height)
+- Don't use password input for non-sensitive data
+- Avoid dynamic background color changes during typing
+- Don't truncate or hide error messages
 
----
+## Related Components
 
-**Inputs are critical to forms. Make them easy.** ⌨️
-
+- [Button](/docs/design/components/button.md) - Used to submit input forms
+- [Card](/docs/design/components/card.md) - Forms often contained within cards
+- [Status Badge](/docs/design/components/status-badge.md) - Shows input validation status
+- [Bottom Navigation](/docs/design/components/bottom-navigation.md) - Navigation for form sections

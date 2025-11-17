@@ -370,6 +370,81 @@ Scenario: Analyze existing chain
 
 ---
 
+## 7. UI/UX REQUIREMENTS
+
+### 7.1 Design System Reference
+
+**Foundation:**
+- **Colors:** See [docs/design/foundation/colors.md](../design/foundation/colors.md)
+  - Primary: Tiffany Blue (#0ABAB5) for active states, progress bars
+  - Accent: Champagne Gold (#D4AF37) for VIP/Elite tier indicators
+  - Status Colors: Bronze (#E8B4BC), Silver, Gold (#D4AF37)
+  - Semantic: Success (#7CB342), Error (#E57373)
+
+- **Typography:** See [docs/design/foundation/typography.md](../design/foundation/typography.md)
+  - H2: 22px/600 for points display
+  - H3: 18px/600 for card titles
+  - Body: 14px/400 for descriptions
+  - Caption: 12px/400 for metadata (expiry dates, T&C)
+
+- **Spacing & Components:** See [docs/design/foundation/spacing.md](../design/foundation/spacing.md) and [docs/design/components/](../design/components/)
+
+### 7.2 Components Used
+
+- [Status Badge](../design/components/status-badge.md) - Tier indicators (Bronze/Silver/Gold/Elite)
+- [Card](../design/components/card.md) - Bonus cards, coupon cards, transaction history
+- [Button](../design/components/button.md) - Redeem buttons, Apply coupon buttons
+- Progress bars for tier progress
+- Empty states (no bonuses, no coupons)
+
+### 7.3 Screen-Specific Design Notes
+
+**Cross-Promo Chain Visualization:**
+- Visual path diagram for sequential chains: "Skinerica ➔ Миндаль ➔ Лисичкино"
+- Boxes represent businesses with logos (48x48px)
+- Arrows between boxes (Tiffany Blue color, 2px stroke)
+- Completed steps: checkmark (✅) with success green background
+- Active step: highlighted with Tiffany Blue border
+- Locked steps: grayed out with lock icon
+- Below diagram: progress indicator "2 из 3 шагов выполнено" (Body: 14px/400)
+- Tap business box to view details or redeem coupon
+
+**Triggered Offer Cards (Simple & Fan-out Chains):**
+- Pushed after source business purchase triggers chain
+- Card layout: Business logo (top-left), offer description (center), "Accept Offer" button (right)
+- For simple chain: Single offer card (e.g., "20% скидка в Миндаль")
+- For fan-out chain: Multiple option cards (e.g., "Выберите бонус: 20% в Миндаль | 500₽ в Лисичкино | 15% в Стим Центр")
+- Card styling: white background, shadow, border-radius 12px
+- Business logo: 40x40px, rounded, top-left corner
+- Offer text (H3: 18px/600): "20% скидка в Миндаль" or "500₽ бонусов"
+- Subtitle (Body: 12px/400): "Действует 30 дней"
+
+**"Accept Offer" Button:**
+- Primary Tiffany Blue button, full-width within card
+- Text: "Принять предложение" or "Выбрать"
+- Tap triggers coupon generation and push confirmation
+- For fan-out: shows selection screen with 3 option cards side-by-side (swipeable)
+- After selection: "Купон активирован! Перейти в купоны?" with confirmation CTAs
+
+**Cyclical Chain Monthly Refresh:**
+- Notification when new coupons issued: "Новый месяц, новые купоны! Получите еще 15% скидку в Skinerica"
+- Old coupons marked "Истекла" with expiry date
+- New coupons added to coupon list with fresh expiry date
+
+### 7.4 Accessibility
+
+- See [docs/design/accessibility/overview.md](../design/accessibility/overview.md)
+- WCAG 2.1 Level AA compliance required
+- Screen reader labels for tier badges, point values, expiry dates
+- Color contrast validation for all status colors
+
+### 7.5 Design Assets
+
+- **Design Tokens:** `docs/design/resources/design-tokens.json`
+- **Screenshots:** `UPMT/bootstrap/00_DESIGN_RAW_DATA/screenshots/` (status cards, bonus displays)
+
+---
+
 ## 🔄 Dependencies
 
 - **Module 2 (Loyalty):** Generate coupons/bonuses

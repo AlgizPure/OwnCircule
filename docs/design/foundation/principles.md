@@ -1,370 +1,365 @@
-# DESIGN PRINCIPLES
+# Design Principles
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Will be customized during bootstrap
+## Overview
 
----
+The design principles of Свой Круг (Own Circle) form the philosophical foundation for all design decisions. These principles guide everything from visual direction to interaction patterns, ensuring consistency, intentionality, and alignment with our brand promise of a premium women's loyalty ecosystem.
 
-## 🎯 WHAT ARE DESIGN PRINCIPLES?
+Our principles reflect both our brand identity and our commitment to creating an elegant, accessible, and delightful experience for our users.
 
-Design principles - это **основополагающие убеждения**, которые направляют все дизайн-решения.
+## Core Principles
 
-**Они:**
-- Определяют identity продукта
-- Помогают в спорных ситуациях
-- Создают consistency
-- Объединяют команду
+### 1. Elegant Premium
 
-**Принципы > Правила**
+**Definition**: Design should feel luxurious, refined, and aspirational without appearing ostentatious.
 
----
+**Application**:
+- Generous use of white space and breathing room
+- Understated color palette (Tiffany Blue, Champagne Beige, Champagne Gold)
+- Soft, subtle shadows (elevation system)
+- Refined typography with clear hierarchy
+- High-quality imagery and iconography
+- Attention to detail in every interaction
 
-## 🌟 CORE PRINCIPLES
+**Decision Framework**:
+- When in doubt, choose simplicity over ornamentation
+- Validate that every design element adds value
+- Ensure visual balance and harmony
+- Test for perceived quality and luxury
+- Prioritize craftsmanship in implementation
 
-### 1. CLARITY FIRST
+**Examples**:
+- Generous padding (spacing-lg minimum) instead of cramped layouts
+- Soft shadows (elevation 1-2) instead of harsh drop shadows
+- Smooth, intentional animations (200-500ms) instead of instant changes
+- Consistent visual language across all touchpoints
 
-**"Пользователи никогда не должны быть в замешательстве"**
+### 2. Accessibility First
 
-#### What it means
-- Очевидное > Умное
-- Прямое > Непрямое
-- Простое > Сложное
-- Clear communication > Clever design
+**Definition**: Inclusive design that serves all users, regardless of ability. Accessibility is not an afterthought but a core requirement.
 
-#### In practice
+**Application**:
+- WCAG 2.1 AA compliance as minimum standard
+- Color contrast ratios verified for all text
+- Alternative text for all meaningful images
+- Keyboard navigation fully supported
+- Touch targets minimum 44x44pt
+- Support for assistive technologies (screen readers)
+- Reduced motion preferences respected
 
-**✅ Good:**
+**Decision Framework**:
+- Include accessibility in design requirements
+- Test with real assistive technology users
+- Document accessibility features
+- Never use color alone to convey information
+- Verify at every stage of design and development
+- Maintain accessibility through iterations
+
+**Examples**:
+- Minimum 4.5:1 contrast ratio for text
+- Icon labels for screen readers
+- Focus indicators visible on all interactive elements
+- Modal dialogs properly marked with ARIA labels
+- Form labels permanently visible (never placeholder-only)
+
+### 3. User-Centered Design
+
+**Definition**: Place user needs, behaviors, and goals at the center of all decisions.
+
+**Application**:
+- Understand user research and insights
+- Design for real user scenarios and workflows
+- Reduce cognitive load and decision fatigue
+- Provide clear feedback for all interactions
+- Support progressive disclosure (don't overwhelm)
+- Respect user context (time, environment, state)
+
+**Decision Framework**:
+- Base decisions on user research data
+- Create user journeys and personas
+- Validate designs through user testing
+- Iterate based on user feedback
+- Consider edge cases and diverse user needs
+- Document user insights driving design decisions
+
+**Examples**:
+- Progressive disclosure in loyalty reward details
+- Clear onboarding for first-time users
+- Immediate feedback on interactions (button press, loading)
+- Contextual help and guidance
+- Personalized experiences based on user preferences
+
+### 4. Clarity & Simplicity
+
+**Definition**: Design should be intuitive and easy to understand. Complexity should be hidden where possible.
+
+**Application**:
+- Clear visual hierarchy through spacing, typography, color
+- Straightforward navigation and information architecture
+- Consistent patterns and predictable behavior
+- Meaningful use of whitespace
+- Avoid jargon and use simple language
+- Progressive complexity based on user skill level
+
+**Decision Framework**:
+- Prioritize the most important content/actions
+- Remove unnecessary elements (nothing extraneous)
+- Use consistent patterns throughout
+- Test comprehension with diverse users
+- Document complex interactions clearly
+- Provide progressive information disclosure
+
+**Examples**:
+- Primary actions clearly distinguished (size, color)
+- Form fields with clear labels and validation messages
+- Error messages that explain what went wrong and how to fix
+- Empty states with helpful guidance
+- Navigation limited to 4-5 primary options
+
+### 5. Consistency & Pattern Language
+
+**Definition**: Establish and maintain a cohesive design language through consistent patterns and standards.
+
+**Application**:
+- Unified design system with clear documentation
+- Repeating visual and interaction patterns
+- Consistent terminology and language
+- Standards for spacing, color, typography
+- Component library with documented variations
+- Predictable behavior across app
+
+**Decision Framework**:
+- Define patterns before design execution
+- Document design decisions and rationale
+- Create reusable components
+- Maintain consistency across platforms (iOS/Android)
+- Version the design system
+- Review designs for pattern adherence
+
+**Examples**:
+- Button styles consistent across all screens
+- Spacing follows 8px base grid
+- Color usage follows established palette
+- Form patterns identical throughout app
+- Navigation patterns predictable and discoverable
+
+### 6. Intentional Animation
+
+**Definition**: Motion should have purpose—providing feedback, guiding attention, and enhancing usability.
+
+**Application**:
+- 200ms micro-interactions for immediate feedback
+- 300ms standard transitions for screen navigation
+- 500ms complex animations for multi-step interactions
+- Easing functions that feel premium and responsive
+- Animation as communication tool, not decoration
+- Respect user preferences (prefers-reduced-motion)
+
+**Decision Framework**:
+- Justify every animation with a purpose
+- Keep animations brief and responsive
+- Test animations for performance
+- Respect accessibility preferences
+- Ensure animations enhance, not obstruct, usability
+- Document animation timing and easing
+
+**Examples**:
+- Button tap feedback (scale 0.98 over 200ms)
+- Modal entrance (slide + fade over 300ms, ease-out)
+- Loading states with rotation animation
+- List item expansion with height animation
+- Disabled animations for users with motion sensitivity
+
+### 7. Trust & Transparency
+
+**Definition**: Build user trust through honest communication, predictability, and clarity about data and actions.
+
+**Application**:
+- Clear communication about rewards and benefits
+- Transparent about data usage and privacy
+- Predictable behavior (no surprises)
+- Clear confirmation for important actions
+- Visible error states and resolution paths
+- Honest pricing and offer presentation
+- Regular updates on loyalty status
+
+**Decision Framework**:
+- Be explicit about terms and conditions
+- Provide clear confirmation for destructive actions
+- Communicate status and progress
+- Be transparent about limitations
+- Provide ways to control personal data
+- Document trust-building features
+
+**Examples**:
+- Clear explanation of loyalty tiers and progression
+- Confirmation dialogs before significant actions
+- Progress indicators for multi-step processes
+- Clear error messages explaining issues
+- Explicit opt-in for permissions and notifications
+- Privacy controls prominently placed
+
+### 8. Delight & Personality
+
+**Definition**: Create moments of joy and personality that make the app memorable and emotionally resonant.
+
+**Application**:
+- Thoughtful micro-interactions and easter eggs
+- Premium, refined aesthetic throughout
+- Personality in language and tone
+- Celebration of user achievements
+- Unexpected positive feedback moments
+- Emotional connection to brand values
+
+**Decision Framework**:
+- Balance delight with function
+- Ensure personality doesn't reduce clarity
+- Test delight elements don't distract
+- Make special moments feel earned, not arbitrary
+- Maintain consistency in personality expression
+- Document brand voice and tone guidelines
+
+**Examples**:
+- Celebration animation when reward reached
+- Personalized greeting messages
+- Micro-animation on special achievements
+- Thoughtful empty states with encouraging messages
+- Personality in error messages and guidance
+- Seasonal or special event theming
+
+## Design System Application
+
+### Visual Design
+- Apply principles through visual hierarchy
+- Ensure spacing reflects elegance and clarity
+- Color selections show intentionality
+- Typography demonstrates premium quality
+- Imagery reinforces brand personality
+
+### Component Design
+- Components embody accessibility first
+- Interactions provide clear feedback
+- States are visually distinct
+- Variations support multiple contexts
+- Documentation is comprehensive and clear
+
+### Interaction Design
+- Interactions are intuitive and discoverable
+- Feedback is immediate and meaningful
+- Complexity is progressively revealed
+- Edge cases are handled gracefully
+- Performance is optimized and smooth
+
+### Content Design
+- Language is clear, simple, and honest
+- Tone reflects brand personality
+- Instructions are helpful and concise
+- Error messages guide toward solutions
+- Microcopy adds personality and delight
+
+## Principle Priority Matrix
+
+When principles conflict, use this priority order:
+
+1. **Accessibility First** - Never compromise accessibility
+2. **User-Centered Design** - Base decisions on user needs
+3. **Trust & Transparency** - Never mislead users
+4. **Clarity & Simplicity** - Avoid unnecessary complexity
+5. **Elegant Premium** - Maintain premium aesthetic
+6. **Consistency & Pattern** - Keep system cohesive
+7. **Intentional Animation** - Motion serves a purpose
+8. **Delight & Personality** - Add joy where appropriate
+
+**Example Conflict Resolution**:
+- Principle: Delight through complex animation
+- Conflict: May reduce accessibility for motion-sensitive users
+- Resolution: Provide animation as enhancement, respects prefers-reduced-motion
+- Decision: Implement animation with escape hatch for accessibility
+
+## Design Decision Documentation
+
+For significant design decisions, document:
+
+1. **Decision**: What was decided
+2. **Rationale**: Why this aligns with principles
+3. **Alternatives Considered**: Other options and why rejected
+4. **User Impact**: How users benefit
+5. **Implementation Notes**: How to implement/maintain
+6. **Review Date**: When to revisit
+
+**Template**:
 ```
-Button: "Save Changes"
-Helper text: "Your changes will be saved immediately"
+## Decision: [Title]
+
+**Principle(s)**: [Which principles guided this]
+
+**Decision**: 
+[What was decided]
+
+**Rationale**: 
+[Why this decision]
+
+**Alternatives**: 
+- [Alternative 1]: [Why rejected]
+- [Alternative 2]: [Why rejected]
+
+**User Impact**: 
+[How users benefit]
+
+**Implementation**: 
+[How to build/maintain]
+
+**Review Date**: [Date to revisit]
 ```
 
-**❌ Bad:**
-```
-Button: "Apply"
-No helper text (unclear what happens)
-```
-
-#### Questions to ask
-- Поймет ли пользователь что делает эта кнопка?
-- Очевидно ли что произойдет после клика?
-- Есть ли альтернативный путь если пользователь запутался?
-
----
-
-### 2. CONSISTENCY
-
-**"Паттерны повторяются предсказуемо"**
-
-#### What it means
-- Одинаковые actions выглядят одинаково
-- Одинаковые results после одинаковых actions
-- Нет сюрпризов
-- Learnable system
-
-#### In practice
-
-**✅ Good:**
-- Primary action всегда синяя кнопка справа
-- Delete всегда требует confirmation
-- Save всегда показывает success toast
-
-**❌ Bad:**
-- Иногда Primary справа, иногда слева
-- Иногда delete спрашивает, иногда нет
-- Inconsistent feedback
-
-#### Questions to ask
-- Похоже ли это на другие части продукта?
-- Ведет ли себя так же как похожие элементы?
-- Можно ли использовать existing паттерн?
-
----
-
-### 3. EFFICIENCY
-
-**"Минимизировать клики, максимизировать ценность"**
-
-#### What it means
-- Быстрый access к частым actions
-- Smart defaults
-- Keyboard shortcuts
-- Progressive disclosure (показать сначала важное)
-
-#### In practice
-
-**✅ Good:**
-```
-- Автофокус на первое поле формы
-- Recent items в dropdown
-- Keyboard shortcut: Cmd+S to save
-- Most common action = primary button
-```
-
-**❌ Bad:**
-```
-- Пользователь должен кликать на каждое поле
-- Нет shortcuts
-- Все опции показаны сразу (overwhelming)
-```
-
-#### Questions to ask
-- Сколько кликов требуется для завершения задачи?
-- Можно ли сократить количество шагов?
-- Есть ли keyboard shortcut для power users?
-
----
-
-### 4. ACCESSIBILITY
-
-**"Usable by everyone"**
-
-#### What it means
-- WCAG 2.1 AA compliance minimum
-- Keyboard navigation
-- Screen reader support
-- Color contrast
-- Not just compliance - usable!
-
-#### In practice
-
-**✅ Good:**
-```
-- Focus visible (outline on focus)
-- ARIA labels на всех interactive elements
-- Contrast ratio 4.5:1 minimum
-- Keyboard navigable (Tab, Enter, Esc)
-```
-
-**❌ Bad:**
-```
-- No focus indicator
-- Icon buttons без labels
-- Low contrast text
-- Only mouse navigable
-```
-
-#### Questions to ask
-- Может ли пользователь использовать только клавиатуру?
-- Понятен ли screen reader?
-- Достаточный ли контраст?
-- Testable с accessibility tools?
-
----
-
-### 5. FEEDBACK
-
-**"Пользователь всегда знает что происходит"**
-
-#### What it means
-- Immediate feedback на actions
-- Clear status indicators
-- Loading states
-- Error messages с solutions
-- Success confirmations
-
-#### In practice
-
-**✅ Good:**
-```
-Button clicked:
-├─ Immediate visual feedback (hover state)
-├─ Loading indicator если долго
-├─ Success toast: "Saved successfully"
-└─ Or error: "Failed. Try again or contact support"
-```
-
-**❌ Bad:**
-```
-Button clicked → ничего не происходит (или долго)
-No loading state
-No confirmation (did it work?)
-```
-
-#### Questions to ask
-- Знает ли пользователь что его action received?
-- Понятно ли что система делает (loading)?
-- Clear ли result (success/error)?
-
----
-
-### 6. DELIGHT
-
-**"Продуманные детали имеют значение"**
-
-#### What it means
-- Smooth animations
-- Helpful microcopy
-- Thoughtful empty states
-- Personality (где уместно)
-- Surprise & delight moments
-
-#### In practice
-
-**✅ Good:**
-```
-Empty state:
-├─ Friendly illustration
-├─ "No tasks yet! Create your first task to get started"
-└─ Clear CTA button
-
-Loading:
-├─ Progress indicator
-├─ "Hang tight, we're loading your data..."
-└─ Smooth animation
-```
-
-**❌ Bad:**
-```
-Empty state: "No data"
-Loading: Just spinner (no context)
-Generic, boring
-```
-
-#### Questions to ask
-- Делает ли это пользователя счастливым?
-- Есть ли personality (без overdoing)?
-- Продуманы ли edge cases (empty, loading, error)?
-
----
-
-## 🎨 HOW TO USE PRINCIPLES
-
-### In Design Reviews
-
-**Before:**
-"Я не уверен в этом дизайне..."
-
-**After:**
-"Этот дизайн нарушает принцип CLARITY - неясно что произойдет после клика. Давайте добавим helper text."
-
----
-
-### In Debates
-
-**Спорная ситуация:**
-Designer: "Давайте спрячем advanced options в submenu"
-Developer: "Но это дополнительный клик"
-
-**Решение через принципы:**
-- CLARITY: Advanced options overwhelming для новых users → hide
-- EFFICIENCY: Power users нуждаются в quick access → keyboard shortcut
-
-**Result:** Hide в submenu + добавить keyboard shortcut (best of both)
-
----
-
-### In Feature Planning
-
-**New feature proposal:**
-1. Does it follow CLARITY? (Понятно ли пользователю?)
-2. Does it follow CONSISTENCY? (Соответствует ли existing паттернам?)
-3. Does it follow EFFICIENCY? (Минимально ли кликов?)
-4. Does it follow ACCESSIBILITY? (Доступно ли всем?)
-5. Does it provide FEEDBACK? (Понятен ли результат?)
-6. Does it add DELIGHT? (Есть ли thoughtful details?)
-
-**If NO to any → revise!**
-
----
-
-## 📝 CUSTOMIZATION
-
-**These are TEMPLATE principles.**
-
-During bootstrap, customize based on:
-- Your product type (B2B vs B2C)
-- Your users (technical vs non-technical)
-- Your brand personality
-- Your goals
-
-**Examples:**
-
-**SaaS Product:**
-- Speed First (for productivity)
-- Power User Focused (keyboard shortcuts)
-- Minimal & Clean (no distractions)
-
-**Consumer App:**
-- Fun & Playful (personality matters)
-- Mobile First (touch optimized)
-- Delight Focused (wow moments)
-
-**Developer Tool:**
-- Technical Excellence (precision matters)
-- Customizable (power users)
-- Documentation First (clear docs)
-
----
-
-## ⚖️ WHEN PRINCIPLES CONFLICT
-
-**Example conflict:**
-- CLARITY says: "Show all options clearly"
-- EFFICIENCY says: "Hide advanced options"
-
-**Resolution:**
-1. What is primary goal? (New users vs power users?)
-2. What does user research say?
-3. Can we satisfy both? (Progressive disclosure)
-
-**Best:** Progressive disclosure (simple first, advanced later)
-
----
-
-## 🔄 EVOLVING PRINCIPLES
-
-**Principles should evolve:**
-- As product matures
-- As users change
-- As you learn
-
-**Review annually:**
-- Do principles still reflect product?
-- Do team members follow them?
-- Do they help decision making?
-
-**Update when:**
-- Product pivot
-- User feedback patterns
-- New team members confused
-
----
-
-## ✅ CHECKLIST
-
-Use these principles to evaluate any design:
-
-- [ ] **CLARITY:** Понятно ли пользователю что это и как работает?
-- [ ] **CONSISTENCY:** Соответствует ли existing patterns?
-- [ ] **EFFICIENCY:** Минимально ли кликов/шагов?
-- [ ] **ACCESSIBILITY:** Доступно ли всем (keyboard, screen reader, contrast)?
-- [ ] **FEEDBACK:** Понятен ли result и status?
-- [ ] **DELIGHT:** Есть ли thoughtful details?
-
-**If all ✅ → Good design!**
-
----
-
-## 💡 REMEMBER
-
-**Principles guide, not dictate**
-- They help make decisions
-- They don't replace judgment
-- Context matters
-
-**Principles unite team**
-- Shared language
-- Faster decisions
-- Better collaboration
-
-**Principles evolve**
-- Not set in stone
-- Learn and adapt
-- Review regularly
-
----
-
-**Good principles = Good decisions = Good design** 🎯
-
+## Principle Evolution
+
+These principles are living guidelines that evolve with user research, market changes, and organizational learning. Regular reviews ensure they remain relevant and effective.
+
+**Annual Principle Review Process**:
+1. Gather user feedback and research
+2. Document successes and failures
+3. Identify principle conflicts
+4. Propose refinements or additions
+5. Align team on updates
+6. Document changes and rationale
+
+## Using These Principles
+
+### For Designers
+- Reference principles in design critiques
+- Use principles to guide design decisions
+- Document principle adherence
+- Test designs against principles
+- Maintain principle consistency across work
+
+### For Developers
+- Implement designs respecting accessibility
+- Maintain component consistency
+- Optimize animation performance
+- Test with assistive technologies
+- Document implementation decisions
+
+### For Product Managers
+- Align user stories with principles
+- Use principles for feature prioritization
+- Evaluate trade-offs against principles
+- Communicate principle value to stakeholders
+- Guide user research with principles in mind
+
+### For the Team
+- Reference principles in discussions
+- Use principles to resolve conflicts
+- Validate principles through user feedback
+- Celebrate principle-adherent work
+- Continuously improve principle understanding
+
+## Related Documentation
+
+- [Design System Overview](../00_DESIGN_SYSTEM.md) - System foundation
+- [Spacing System](./spacing.md) - Visual clarity through space
+- [Elevation System](./elevation.md) - Visual hierarchy and depth
+- [Motion System](./motion.md) - Intentional interaction
+- [Iconography](./iconography.md) - Clear visual communication
+- [Accessibility Guidelines](../accessibility/wcag.md) - Accessibility first
+- [Content Guidelines](../content/voice-and-tone.md) - Clear communication
+- [Component Library](../components/README.md) - System consistency

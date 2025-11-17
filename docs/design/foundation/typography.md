@@ -1,377 +1,396 @@
-# TYPOGRAPHY
+# Typography
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Will be filled during bootstrap
+**Last Updated:** 2025-11-17
+**Status:** ✅ Defined for React Native cross-platform
 
 ---
 
-## 📝 TYPE SCALE
+## Overview
 
-### Font Families
+Typography for Свой Круг balances **elegance and readability** using system fonts optimized for each platform. Our type scale ensures visual hierarchy while maintaining premium feel.
 
-```yaml
-Primary (UI):
-  Family: Inter
-  Weights: 400 (Regular), 500 (Medium), 600 (Semibold), 700 (Bold)
-  Usage: UI text, buttons, labels, body text
-  
-Secondary (Display):
-  Family: Inter
-  Weights: 600 (Semibold), 700 (Bold)
-  Usage: Headings, hero text, marketing
-  
-Monospace (Code):
-  Family: "JetBrains Mono" or "Fira Code"
-  Weights: 400 (Regular), 500 (Medium)
-  Usage: Code blocks, technical text, logs
+---
+
+## Font Families
+
+### iOS (Primary)
+```
+Primary: SF Pro Display (headings, display)
+Secondary: SF Pro Text (body, UI elements)
 ```
 
-**Why Inter?**
-- Excellent readability at all sizes
-- Variable font (flexible weights)
-- Free, open-source
-- Wide language support
-- Designed for screens
+**Why SF Pro:**
+- Native to iOS, optimal rendering
+- Excellent legibility at all sizes
+- Professional, modern aesthetic  
+- Multiple weights available (300-700)
+- Designed for Retina displays
 
-**Alternatives:**
-- Roboto, SF Pro (Apple), Segoe UI (Windows)
+### Android (Primary)
+```
+Primary: Roboto (all uses)
+Weights: Light (300), Regular (400), Medium (500), Bold (700)
+```
 
----
+**Why Roboto:**
+- Native to Android Material Design
+- Clean, geometric letterforms
+- Excellent cross-platform consistency
+- Wide character set (Cyrillic support)
 
-### Font Sizes
-
-```yaml
-Display (Hero):
-  Size: 48px / 3rem
-  Line Height: 1.1 (52.8px)
-  Weight: 700 (Bold)
-  Usage: Hero headings, landing pages
-
-Heading 1 (H1):
-  Size: 32px / 2rem
-  Line Height: 1.2 (38.4px)
-  Weight: 700 (Bold)
-  Usage: Page titles, main headings
-
-Heading 2 (H2):
-  Size: 24px / 1.5rem
-  Line Height: 1.3 (31.2px)
-  Weight: 600 (Semibold)
-  Usage: Section headings
-
-Heading 3 (H3):
-  Size: 20px / 1.25rem
-  Line Height: 1.4 (28px)
-  Weight: 600 (Semibold)
-  Usage: Subsection headings
-
-Heading 4 (H4):
-  Size: 18px / 1.125rem
-  Line Height: 1.4 (25.2px)
-  Weight: 600 (Semibold)
-  Usage: Card titles, component headings
-
-Body Large:
-  Size: 18px / 1.125rem
-  Line Height: 1.5 (27px)
-  Weight: 400 (Regular)
-  Usage: Large body text, intros
-
-Body (Default):
-  Size: 16px / 1rem
-  Line Height: 1.5 (24px)
-  Weight: 400 (Regular)
-  Usage: Main body text, descriptions
-
-Body Small:
-  Size: 14px / 0.875rem
-  Line Height: 1.5 (21px)
-  Weight: 400 (Regular)
-  Usage: Secondary text, metadata
-
-Caption:
-  Size: 12px / 0.75rem
-  Line Height: 1.5 (18px)
-  Weight: 400 (Regular)
-  Usage: Labels, captions, timestamps
-
-Overline:
-  Size: 12px / 0.75rem
-  Line Height: 1.5 (18px)
-  Weight: 600 (Semibold)
-  Letter Spacing: 0.5px (uppercase)
-  Usage: Labels, tags, categories
+### Web Fallback
+```css
+font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 
+             'Oxygen', 'Ubuntu', 'Cantarell', 'Helvetica Neue', sans-serif;
 ```
 
 ---
 
-## 📏 LINE HEIGHT
+## Type Scale
 
-```yaml
-Headings:
-  Line Height: 1.1 - 1.3
-  Why: Tight spacing for visual impact
+### Display (34px / 700)
+**Usage:** Hero sections, onboarding, major announcements
 
-Body Text:
-  Line Height: 1.5
-  Why: Optimal readability for paragraphs
-
-Small Text:
-  Line Height: 1.5
-  Why: Consistent spacing
-
-Code/Technical:
-  Line Height: 1.6
-  Why: Slightly more space for readability
+```
+Font Size: 34px (2.125rem)
+Line Height: 40px (1.18)
+Font Weight: 700 (Bold)
+Letter Spacing: -0.5px
 ```
 
-**General Rule:**
-- Larger text → tighter line height
-- Smaller text → looser line height
-- Body text → 1.5 (golden standard)
+**Example:**
+```
+Добро пожаловать  
+в Свой Круг!
+```
+
+**Accessibility:** ✅ High contrast required (4.5:1 minimum)
 
 ---
 
-## 🎯 USAGE GUIDELINES
-
-### Hierarchy
+### H1 (28px / 700)
+**Usage:** Screen titles, page headers
 
 ```
-Display (48px, Bold)    ← Biggest impact
-    ↓
-Heading 1 (32px, Bold)  ← Page level
-    ↓
-Heading 2 (24px, Semi)  ← Section level
-    ↓
-Heading 3 (20px, Semi)  ← Subsection
-    ↓
-Heading 4 (18px, Semi)  ← Component
-    ↓
-Body (16px, Regular)    ← Default content
-    ↓
-Small (14px, Regular)   ← Secondary
-    ↓
-Caption (12px, Regular) ← Least emphasis
+Font Size: 28px (1.75rem)
+Line Height: 34px (1.21)
+Font Weight: 700 (Bold)
+Letter Spacing: -0.3px
 ```
 
-### When to Use What
+**Example:**
+```
+Партнёры
+```
 
-**Display (48px):**
-- Hero sections
-- Landing page headlines
-- Marketing pages
-- High-impact announcements
-
-**H1 (32px):**
-- Page titles (Dashboard, Settings, Profile)
-- Main page headings
-- Modal titles (important)
-
-**H2 (24px):**
-- Section headers (Overview, Details, Activity)
-- Tab titles
-- Panel headings
-
-**H3 (20px):**
-- Subsections within sections
-- Sidebar headings
-- Step titles in multi-step flows
-
-**H4 (18px):**
-- Card titles
-- List section headers
-- Table headers (important)
-
-**Body (16px):**
-- Paragraphs
-- Descriptions
-- List items
-- Form help text
-
-**Body Small (14px):**
-- Secondary descriptions
-- Metadata (author, date, status)
-- Sidebar text
-- Table cells
-
-**Caption (12px):**
-- Timestamps
-- Labels (form labels, badges)
-- Footnotes
-- Helper text (minimal)
-
-**Overline (12px, uppercase):**
-- Category labels
-- Section tags
-- Breadcrumbs
-- Status badges
+**Accessibility:** ✅ Meets WCAG AA for large text (3:1 minimum contrast)
 
 ---
 
-## ⚖️ FONT WEIGHTS
+### H2 (22px / 600)
+**Usage:** Section headers, card titles
 
-```yaml
-Regular (400):
-  Usage: Body text, descriptions, lists
-  Most common weight
-
-Medium (500):
-  Usage: Emphasis in body text, important labels
-  Subtle emphasis
-
-Semibold (600):
-  Usage: Headings, buttons, important UI elements
-  Strong emphasis
-
-Bold (700):
-  Usage: Hero text, H1, strong emphasis
-  Maximum emphasis
 ```
+Font Size: 22px (1.375rem)
+Line Height: 28px (1.27)
+Font Weight: 600 (Semibold)
+Letter Spacing: 0px
+```
+
+**Example:**
+```
+События клуба
+```
+
+---
+
+### H3 (18px / 600)
+**Usage:** Card titles, list headers, sub-sections
+
+```
+Font Size: 18px (1.125rem)
+Line Height: 24px (1.33)
+Font Weight: 600 (Semibold)
+Letter Spacing: 0px
+```
+
+**Example:**
+```
+Женский вечер
+```
+
+**Accessibility:** ✅ Passes AA for large text
+
+---
+
+### Body Large (16px / 400)
+**Usage:** Primary content, important descriptions
+
+```
+Font Size: 16px (1rem)
+Line Height: 24px (1.5)
+Font Weight: 400 (Regular)
+Letter Spacing: 0px
+```
+
+**Example:**
+```
+Получайте бонусы во всех партнёрских  
+заведениях и обменивайте на привилегии
+```
+
+**Accessibility:** ✅ Optimal reading size for mobile
+
+---
+
+### Body (14px / 400)
+**Usage:** Secondary content, descriptions, list items
+
+```
+Font Size: 14px (0.875rem)
+Line Height: 20px (1.43)
+Font Weight: 400 (Regular)
+Letter Spacing: 0px
+```
+
+**Example:**
+```
+Бонус 100 баллов при покупке от 500₽
+```
+
+**Accessibility:** ⚠️ Requires 4.5:1 contrast (normal text)
+
+---
+
+### Caption (12px / 400)
+**Usage:** Metadata, labels, timestamps, helper text
+
+```
+Font Size: 12px (0.75rem)
+Line Height: 16px (1.33)
+Font Weight: 400 (Regular)
+Letter Spacing: 0.3px
+```
+
+**Example:**
+```
+До VIP осталось 650₽
+25 мая - 19:00
+```
+
+**Accessibility:** ⚠️ Use sparingly, ensure high contrast (7:1 recommended)
+
+---
+
+## Font Weights
+
+### Available Weights
+
+**SF Pro (iOS):**
+- Light: 300
+- Regular: 400
+- Medium: 500
+- Semibold: 600
+- Bold: 700
+
+**Roboto (Android):**
+- Light: 300
+- Regular: 400
+- Medium: 500
+- Bold: 700
+
+### Weight Usage Guidelines
+
+| Weight | Usage |
+|--------|-------|
+| 300 (Light) | Reserved for display/hero text only |
+| 400 (Regular) | Body text, descriptions, default |
+| 500 (Medium) | Subtle emphasis, button labels |
+| 600 (Semibold) | Headings, important labels |
+| 700 (Bold) | Strong emphasis, CTA buttons, titles |
+
+---
+
+## Line Height
+
+**Base Ratio:** 1.5 for body text (optimal readability)
+
+**Adjustments:**
+- Display/Headlines: 1.2-1.3 (tighter for visual impact)
+- Body text: 1.4-1.5 (comfortable reading)
+- Captions/small text: 1.3-1.4 (compact)
+
+**Minimum:** Never below 1.2 (accessibility requirement)
+
+---
+
+## Letter Spacing
 
 **Guidelines:**
-- Don't use too many weights (3-4 max)
-- Regular (400) for body
-- Semibold (600) for headings
-- Bold (700) for emphasis
+- Display/Large Headings: Slightly negative (-0.3px to -0.5px) for optical balance
+- Body Text: 0px (default)
+- Captions/Small Text: Slightly positive (+0.3px) for legibility
+- ALL CAPS: +0.5px to +1px (always increase for readability)
 
 ---
 
-## 📱 RESPONSIVE TYPOGRAPHY
+## Usage Examples
 
-### Desktop (≥1024px)
-
-Use base sizes as defined above.
-
-### Tablet (768px - 1023px)
-
-```yaml
-Display: 40px (was 48px)
-H1: 28px (was 32px)
-H2: 22px (was 24px)
-Body: 16px (unchanged)
+### Screen Title Pattern
+```
+H1 (28px/700): Партнёры
+Body (14px/400): Выбирайте из 5 премиальных заведений
 ```
 
-### Mobile (< 768px)
-
-```yaml
-Display: 32px (was 48px)
-H1: 24px (was 32px)
-H2: 20px (was 24px)
-H3: 18px (was 20px)
-Body: 16px (unchanged - never go below!)
+### Card Pattern
+```
+H3 (18px/600): Гастромаркет
+Caption (12px/400): Бонус 100 баллов при покупке от 500₽
 ```
 
-**Rule:** Never go below 16px for body text (readability).
+### Status Display Pattern
+```
+Caption (12px/400): Уровень
+H2 (22px/600): 320
+Caption (12px/400): баллов
+```
 
 ---
 
-## ♿ ACCESSIBILITY
+## Accessibility Guidelines
 
-### Minimum Sizes
+### WCAG 2.1 Level AA Compliance
 
-- **Body text:** 16px minimum (never smaller)
-- **Small text:** 14px minimum for secondary
-- **Caption:** 12px OK for labels/metadata only
+**Minimum Contrast Ratios:**
+- **Normal text (< 18px):** 4.5:1
+- **Large text (≥ 18px or ≥ 14px bold):** 3:1
 
-### Readability
+**Font Size Recommendations:**
+- ✅ **Minimum for body text:** 14px (mobile), 16px (preferred)
+- ✅ **Minimum for captions:** 12px (use sparingly)
+- ❌ **Avoid:** Text smaller than 12px
 
-**Line Length:**
-- Optimal: 45-75 characters per line
-- Max width: 80 characters
+**Line Height Requirements:**
+- Minimum 1.5 for body text (WCAG Success Criterion 1.4.12)
+- Minimum 1.2 for headings
 
-**Contrast:**
-- Regular text (16px): 4.5:1 minimum
-- Large text (18px+): 3:1 minimum
+**Text Spacing:**
+Users must be able to adjust:
+- Line height to at least 1.5x font size
+- Paragraph spacing to at least 2x font size
+- Letter spacing to at least 0.12x font size
+- Word spacing to at least 0.16x font size
 
-**Line Height:**
-- Body text: 1.5 minimum (WCAG)
-- Headings: 1.3 minimum
+### Color Combinations (with Typography)
 
-### Font Weight
+**Approved Combinations:**
+- ✅ Charcoal (#2A2D34) on White: 14.8:1
+- ✅ Charcoal on Champagne Beige (#F5F1E8): 13.2:1
+- ✅ Taupe (#8B7355) on White: 4.6:1 (AA pass)
+- ✅ Taupe on Champagne Beige: 4.1:1 (AA pass for 18px+)
 
-- Don't rely on font weight alone for meaning
-- Use size, color, AND weight for hierarchy
+**Not Approved:**
+- ❌ Champagne Gold on White: 3.2:1 (fails for normal text)
+- ❌ Gray 400 on Champagne Beige: < 3:1
 
 ---
 
-## 🔧 IMPLEMENTATION
+## Responsive Typography
 
-### CSS
+### Mobile (320px - 428px)
+**Use defined scale as-is**
+- Display: 34px
+- H1: 28px
+- Body: 14-16px
 
+### Tablet (429px - 1024px)
+**Optional scale up +2px:**
+- Display: 36px
+- H1: 30px
+- Body: 16-18px
+
+### Desktop (1025px+)
+**Optional scale up +4px:**
+- Display: 38px
+- H1: 32px
+- Body: 18px
+
+**Note:** For MVP (mobile-first), stick to base scale
+
+---
+
+## Implementation
+
+### React Native (StyleSheet)
+```javascript
+const typography = {
+  display: {
+    fontSize: 34,
+    lineHeight: 40,
+    fontWeight: '700',
+    letterSpacing: -0.5,
+  },
+  h1: {
+    fontSize: 28,
+    lineHeight: 34,
+    fontWeight: '700',
+    letterSpacing: -0.3,
+  },
+  body: {
+    fontSize: 14,
+    lineHeight: 20,
+    fontWeight: '400',
+    letterSpacing: 0,
+  },
+};
+```
+
+### CSS (Web)
 ```css
-/* Font Families */
---font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
---font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
-/* Font Sizes */
---font-size-display: 3rem;      /* 48px */
---font-size-h1: 2rem;           /* 32px */
---font-size-h2: 1.5rem;         /* 24px */
---font-size-h3: 1.25rem;        /* 20px */
---font-size-h4: 1.125rem;       /* 18px */
---font-size-body-lg: 1.125rem;  /* 18px */
---font-size-body: 1rem;         /* 16px */
---font-size-body-sm: 0.875rem;  /* 14px */
---font-size-caption: 0.75rem;   /* 12px */
-
-/* Line Heights */
---line-height-tight: 1.1;
---line-height-snug: 1.3;
---line-height-normal: 1.5;
---line-height-relaxed: 1.6;
-
-/* Font Weights */
---font-weight-regular: 400;
---font-weight-medium: 500;
---font-weight-semibold: 600;
---font-weight-bold: 700;
-
-/* Usage Classes */
-.text-display {
-  font-size: var(--font-size-display);
-  line-height: var(--line-height-tight);
-  font-weight: var(--font-weight-bold);
-}
-
-.text-h1 {
-  font-size: var(--font-size-h1);
-  line-height: var(--line-height-snug);
-  font-weight: var(--font-weight-bold);
-}
-
-.text-body {
-  font-size: var(--font-size-body);
-  line-height: var(--line-height-normal);
-  font-weight: var(--font-weight-regular);
+:root {
+  --font-display-size: 34px;
+  --font-display-line-height: 40px;
+  --font-display-weight: 700;
+  
+  --font-h1-size: 28px;
+  --font-h1-line-height: 34px;
+  --font-h1-weight: 700;
+  
+  --font-body-size: 14px;
+  --font-body-line-height: 20px;
+  --font-body-weight: 400;
 }
 ```
 
-### Tailwind Config
+---
 
-```js
-module.exports = {
-  theme: {
-    fontFamily: {
-      sans: ['Inter', 'sans-serif'],
-      mono: ['JetBrains Mono', 'monospace'],
+## Design Tokens
+
+See: `resources/design-tokens.json`
+
+```json
+{
+  "typography": {
+    "fontFamily": {
+      "ios": "SF Pro Display",
+      "android": "Roboto",
+      "web": "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
     },
-    fontSize: {
-      'display': ['3rem', { lineHeight: '1.1', fontWeight: '700' }],
-      'h1': ['2rem', { lineHeight: '1.2', fontWeight: '700' }],
-      'h2': ['1.5rem', { lineHeight: '1.3', fontWeight: '600' }],
-      'h3': ['1.25rem', { lineHeight: '1.4', fontWeight: '600' }],
-      'h4': ['1.125rem', { lineHeight: '1.4', fontWeight: '600' }],
-      'body-lg': ['1.125rem', { lineHeight: '1.5' }],
-      'body': ['1rem', { lineHeight: '1.5' }],
-      'body-sm': ['0.875rem', { lineHeight: '1.5' }],
-      'caption': ['0.75rem', { lineHeight: '1.5' }],
+    "fontSize": {
+      "display": "34px",
+      "h1": "28px",
+      "h2": "22px",
+      "h3": "18px",
+      "bodyLarge": "16px",
+      "body": "14px",
+      "caption": "12px"
     },
-    fontWeight: {
-      regular: 400,
-      medium: 500,
-      semibold: 600,
-      bold: 700,
+    "fontWeight": {
+      "light": "300",
+      "regular": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
     }
   }
 }
@@ -379,88 +398,9 @@ module.exports = {
 
 ---
 
-## 🎨 EXAMPLES
+**Related:**
+- [Colors](colors.md) - Color usage with typography
+- [Spacing](spacing.md) - Text spacing guidelines
+- [Accessibility](../accessibility/overview.md) - Typography accessibility
 
-### Good Typography
-
-```
-Hero Section:
-├── Display (48px, Bold): "Welcome to [Product]"
-├── Body Large (18px, Regular): "Description text here with good readability"
-└── Button (16px, Semibold): "Get Started"
-
-Content Page:
-├── H1 (32px, Bold): "Page Title"
-├── Body (16px, Regular): "Main content paragraph with optimal line height..."
-├── H2 (24px, Semibold): "Section Heading"
-└── Body (16px, Regular): "Section content..."
-```
-
-### Common Mistakes
-
-**❌ Too many sizes:**
-```
-48px, 36px, 30px, 28px, 24px, 20px, 18px, 16px...
-(confusing, no clear hierarchy)
-```
-
-**✅ Clear scale:**
-```
-48px (Display), 32px (H1), 24px (H2), 20px (H3), 16px (Body)
-(clear hierarchy, consistent)
-```
-
-**❌ Low contrast:**
-```
-Gray-400 text on White background
-(contrast ratio: 2.9:1 - fails WCAG)
-```
-
-**✅ Good contrast:**
-```
-Gray-900 text on White background
-(contrast ratio: 18.2:1 - excellent)
-```
-
----
-
-## 📊 DESIGN TOKENS
-
-See [design-tokens.json](../resources/design-tokens.json) for typography tokens.
-
----
-
-## 🔄 WHEN TO UPDATE
-
-Update typography when:
-- Rebranding (new fonts)
-- Readability issues reported
-- Adding new text styles
-- Responsive adjustments needed
-
-**Process:**
-1. Update Figma text styles
-2. Update this file
-3. Update design-tokens.json
-4. Update code (CSS/Tailwind)
-5. Test responsive sizes
-6. Update changelog
-
----
-
-## ✅ CHECKLIST
-
-Before finalizing typography:
-
-- [ ] Font families loaded (web fonts)
-- [ ] Type scale is consistent (clear hierarchy)
-- [ ] Line heights are readable (1.5 for body)
-- [ ] Contrast ratios pass WCAG (4.5:1 min)
-- [ ] Responsive sizes tested
-- [ ] Design tokens match Figma
-- [ ] Code implementation matches
-
----
-
-**Typography is the voice of your design. Make it clear.** 📝
-
+**Cyrillic Support:** ✅ All fonts fully support Russian language
