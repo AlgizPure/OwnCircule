@@ -1,77 +1,192 @@
-## RESPONSE FORMAT:
-- Keep responses focused and actionable
-- Provide code in complete, runnable blocks
-- Explain WHY, not just WHAT
-- Reference requirements files when explaining decisions
+# Current Sprint Status - Свой Круг
 
-## ERROR HANDLING:
-- Never guess if unsure - ask for clarification
-- If requirements are ambiguous - point it out
-- Suggest improvements to requirements docs
-
-## FILES STRUCTURE:
-[paste your project structure here]
-
-Remember: Requirements are the SINGLE SOURCE OF TRUTH. Code should match requirements, not the other way around.
-
-
-### **Claude - .clauderules**
-
-**Создать:** `.clauderules` (в корне проекта, опционально)
-
-
-# PROJECT CONTEXT FOR CLAUDE
-
-Project: [Name]
-Current Phase: [MVP / Phase 1 / etc.]
-
-## YOUR ROLE:
-You are a senior technical advisor helping to build [project description].
-
-## BEFORE EVERY RESPONSE:
-1. Check what module/task we're working on
-2. Reference relevant requirements files
-3. Consider architectural implications
-
-## DOCUMENTATION HIERARCHY (read in this order):
-1. docs/core/00_PROJECT_ESSENCE.md - Vision & Goals
-2. docs/core/01_PRD.md - Product Requirements
-3. docs/core/04_ARCHITECTURE.md - Technical Architecture
-4. docs/requirements/[module]_requirements.md - Module Details
-5. .context/state.md - Current State
-6. .context/decisions.md - Past Decisions
-
-## WHEN ASKED TO IMPLEMENT FEATURE:
-1. Ask which module it belongs to
-2. Check if module requirements exist
-3. If yes → verify feature aligns with requirements
-4. If no → offer to create module requirements first
-5. Implement according to architecture standards
-
-## WHEN CREATING NEW MODULE:
-1. Use docs/requirements/_MODULE_TEMPLATE.md
-2. Fill ALL sections thoroughly
-3. Get user approval before marking as final
-4. Add module to docs/progress/modules_status.md
-
-## COMMUNICATION STYLE:
-- Be concise but complete
-- Ask clarifying questions when ambiguous
-- Suggest improvements proactively
-- Reference specific requirement IDs (e.g., "According to FR-AUTH-003...")
-
-## KNOWLEDGE PERSISTENCE:
-After significant discussion/decision:
-- Offer to update .context/decisions.md
-- Summarize key insights for .context/insights.md
-
-Remember: You have access to full project context. Use it to provide informed, consistent advice.
-
+**Sprint:** Pre-Sprint (Planning Phase)
+**Sprint Goal:** N/A - Awaiting Development Start
+**Dates:** N/A
+**Team Capacity:** 0 story points (no team assigned yet)
 
 ---
 
-## 📊 ДАШБОРД ДЛЯ OVERVIEW
+## 📊 Sprint Overview
 
-**Создать:** `README_PROJECT_STATUS.md` (в корне)
+| Metric | Value |
+|--------|-------|
+| **Committed Story Points** | 0 |
+| **Completed Story Points** | 0 |
+| **In Progress** | 0 tasks |
+| **Blocked** | 0 tasks |
+| **Sprint Progress** | 0% |
+| **Days Remaining** | N/A |
 
+---
 
+## 🎯 Sprint Goal
+
+**Pre-Development Phase:**
+Complete UPMT bootstrap documentation and prepare for Sprint 1 kickoff.
+
+---
+
+## 📋 Sprint Backlog
+
+### ⏳ Not Started (0 tasks)
+- None (awaiting Sprint 1 planning)
+
+### 🚧 In Progress (0 tasks)
+- None
+
+### ✅ Done (0 tasks)
+- None
+
+---
+
+## 🚦 Daily Standup Format
+
+### Team Member 1 (Backend Lead)
+**Yesterday:**
+- N/A (team not assembled)
+
+**Today:**
+- N/A
+
+**Blockers:**
+- None
+
+---
+
+### Team Member 2 (Mobile Lead)
+**Yesterday:**
+- N/A (team not assembled)
+
+**Today:**
+- N/A
+
+**Blockers:**
+- None
+
+---
+
+## 📈 Sprint Burndown
+
+```
+Day 1:  N/A
+Day 2:  N/A
+Day 3:  N/A
+Day 4:  N/A
+Day 5:  N/A
+Day 6:  N/A
+Day 7:  N/A
+Day 8:  N/A
+Day 9:  N/A
+Day 10: N/A
+```
+
+**Status:** Pre-Sprint (no burndown data)
+
+---
+
+## 🚧 Blockers & Risks
+
+### Current Blockers
+- **None** (documentation phase, no active development)
+
+### Identified Risks for Sprint 1
+1. **Team Hiring Delay**
+   - Impact: Cannot start Sprint 1 without core team
+   - Mitigation: Begin recruiting immediately
+   - Owner: Product Manager
+   - Status: 🔴 High Priority
+
+2. **Yandex Cloud Setup**
+   - Impact: Need infrastructure for development environment
+   - Mitigation: Create account in parallel with hiring
+   - Owner: DevOps Engineer
+   - Status: 🟡 Medium Priority
+
+3. **CRM API Access**
+   - Impact: Cannot test integrations without credentials
+   - Mitigation: Finalize partnership agreements ASAP
+   - Owner: Product Manager
+   - Status: 🟡 Medium Priority
+
+---
+
+## 📝 Sprint Retrospective (Post-Sprint)
+
+**To be filled after Sprint 1 completes**
+
+### What Went Well
+- TBD
+
+### What Didn't Go Well
+- TBD
+
+### Action Items
+- TBD
+
+---
+
+## 📅 Upcoming Sprint 1 (Planned)
+
+### Sprint 1 Goal
+"Establish backend foundation, authentication, and mobile app shell"
+
+### Planned Stories (20 story points)
+1. **Backend API Framework (5 pts)**
+   - Set up FastAPI project structure
+   - Configure PostgreSQL database
+   - Create base models (users, businesses, bonuses)
+
+2. **JWT Authentication (8 pts)**
+   - Implement RS256 token signing
+   - Create access + refresh token flow
+   - Add token blacklist for logout
+   - Implement SMS OTP (Module 12.3.1)
+
+3. **Mobile App Shell (5 pts)**
+   - Set up React Native 0.81 project
+   - Configure navigation (React Navigation 6)
+   - Create basic screens (Welcome, Login, Home)
+
+4. **Security Foundation (2 pts)**
+   - Set up AES-256 encryption (Module 13)
+   - Implement RBAC basics
+   - Create audit log table
+
+### Dependencies
+- Yandex Cloud account created
+- Team hired (2 backend, 1 mobile developer minimum)
+- Development environments set up (Docker Compose)
+
+---
+
+## 🔄 Sprint Ceremonies
+
+### Sprint Planning
+- **Date:** TBD (when team assembled)
+- **Duration:** 2 hours
+- **Attendees:** Product Manager, Backend Leads, Mobile Lead, DevOps
+- **Outcome:** Sprint backlog finalized, capacity committed
+
+### Daily Standup
+- **Time:** TBD (daily at 10:00 AM Moscow time recommended)
+- **Duration:** 15 minutes
+- **Format:** What done yesterday / What doing today / Blockers
+
+### Sprint Review
+- **Date:** End of Sprint 1 (Week 2)
+- **Duration:** 1 hour
+- **Attendees:** Full team + stakeholders
+- **Outcome:** Demo backend API + mobile shell
+
+### Sprint Retrospective
+- **Date:** End of Sprint 1 (Week 2)
+- **Duration:** 45 minutes
+- **Attendees:** Development team only
+- **Outcome:** Action items for Sprint 2
+
+---
+
+**Last Updated:** 2025-11-17
+**Status:** Pre-Sprint (Awaiting Team Assembly)
+**Next Update:** Sprint 1 Day 1
