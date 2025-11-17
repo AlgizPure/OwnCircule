@@ -1,445 +1,168 @@
-# PROJECT ESSENCE
+# Свой Круг - Project Essence
 
+**Created:** 2025-11-17
 **Version:** 1.0
-**Last Updated:** [YYYY-MM-DD]
-**Status:** Template - Fill during bootstrap
+**Status:** Active
 
 ---
 
-## =� QUICK INFO
+## 🎯 Vision
 
-| Property | Value |
-|----------|-------|
-| **Project Name** | [Your Project Name] |
-| **Type** | [Web App / Mobile App / SaaS / etc.] |
-| **Stage** | [Pre-development / MVP / Production] |
-| **Target Launch** | [Date or "TBD"] |
+Свой Круг (Own Circle) is Russia's first premium women's loyalty ecosystem that transforms how women in the 30-50 age bracket discover and engage with premium businesses. Instead of isolated loyalty programs with minimal benefits, we're creating a closed, exclusive club where every purchase in one business unlocks value in another, creating a virtuous cycle of cross-category engagement.
 
----
+**What we're building:**
+A mobile-first loyalty platform that connects premium businesses (beauty, wellness, gastronomy, health) with high-value female clients through intelligent cross-promotion, status-based rewards, and exclusive community events. Think of it as an "American Express Black for Russian women entrepreneurs" - a premium membership that opens doors across an entire ecosystem.
 
-## <� VISION
+**Why it matters:**
+Women spending 80K+ rubles monthly on premium services currently receive fragmented, low-value benefits (1-3% cashback, basic discounts). Our 5-10% unified cashback, combined with cross-business promotions, delivers 3-5x more value while helping businesses access qualified new clients at near-zero customer acquisition cost. This isn't just a loyalty program - it's a premium lifestyle platform.
 
-### One-Liner
-> [One sentence: What is this project?]
-
-**Example:**
-> A collaborative task management platform that helps remote teams stay aligned and productive.
-
-### The Big Picture
-
-[2-3 paragraphs: Why does this project exist? What problem does it solve? What's the long-term vision?]
-
-**Example:**
-
-Remote teams struggle with coordination. Messages get lost in Slack,
-tasks scatter across tools, and nobody has a clear view of who's doing what.
-
-[Project Name] brings everything together in one place. Teams can see
-all tasks, discuss in context, and track progress without switching tools.
-
-Our vision is to become the central hub for remote team collaboration,
-where work happens transparently and efficiently.
+**Long-term impact:**
+Within 3 years, Свой Круг will become the de-facto membership for premium women's services in Moscow, expanding to 50+ businesses across 15 categories and 10,000+ active members. We'll redefine how premium B2C businesses collaborate, moving from competition to cooperative growth through our proven cross-promotion mechanics and Win-Win analytics.
 
 ---
 
-## =e TARGET AUDIENCE
+## 🔍 Problem Statement
 
-### Primary Users
+### The Problem
 
-**Who are they?**
-- [User type 1]: [Description]
-- [User type 2]: [Description]
+Premium women clients (30-50 years old, 80K+ monthly income) spend 15-30K rubles per month on beauty, wellness, and lifestyle services, yet receive minimal recognition or rewards for their loyalty. Each business operates its own isolated program with 1-3% cashback, creating a fragmented experience where clients feel undervalued despite being high-LTV customers.
 
-**Example:**
-- **Remote Team Leads**: Managing 5-15 people, need visibility
-- **Project Managers**: Coordinating multiple projects, need organization
-- **Individual Contributors**: Want clarity on priorities and deadlines
+Simultaneously, premium businesses struggle with high customer acquisition costs (5,000-15,000₽ per client) and limited cross-selling opportunities. They compete for the same audience instead of collaborating, missing opportunities to create symbiotic relationships (e.g., a cosmetology clinic client is likely interested in premium wellness centers).
 
-### User Personas
+**Current pain points:**
 
-#### Persona 1: [Name/Role]
+- **Low perceived value:** 1-3% cashback on premium services feels insignificant → Impact: Clients don't actively choose businesses based on loyalty programs, reducing program ROI
+- **Fragmented rewards:** 8 different apps/cards for 8 different businesses → Impact: Cognitive overhead, forgotten bonuses, ~30% of earned rewards expire unused
+- **No cross-category incentives:** Buying at salon A doesn't unlock anything at restaurant B → Impact: Clients don't discover new businesses in the ecosystem, limiting total ecosystem spend
+- **High CAC for businesses:** Each business fights for same clients independently → Impact: 5-15K₽ CAC eats into margins, especially for smaller premium businesses
+- **Zero network effects:** Traditional loyalty programs don't benefit from multi-business participation → Impact: Each business is limited to their own customer base growth rate
 
-```yaml
-Demographics:
-  - Age: [range]
-  - Role: [job title]
-  - Experience: [years in field]
-  - Tech Savviness: [Low/Medium/High]
+**Who experiences this problem:**
 
-Context:
-  - Team Size: [number]
-  - Tools Currently Using: [list]
-  - Pain Points:
-    - [Pain point 1]
-    - [Pain point 2]
-    - [Pain point 3]
+- **Premium women clients (Primary):** Feel underappreciated despite spending 180-360K₽ annually, struggle to discover trusted new services, leave money on the table with unused bonuses
+- **Premium business owners (Secondary):** Spend 20-30% of revenue on marketing with decreasing ROMI, can't leverage existing client relationships to drive referrals, lack data on client behavior across categories
+- **The ecosystem overall (Tertiary):** Total addressable market fragmented across competitors instead of collaborative growth, no mechanism for businesses to help each other succeed
 
-Goals:
-  - [Goal 1]
-  - [Goal 2]
-  - [Goal 3]
+**Cost of not solving:**
 
-Behaviors:
-  - [Behavior 1]
-  - [Behavior 2]
-```
-
-**Example:**
-
-```yaml
-Persona 1: Sarah - Engineering Team Lead
-
-Demographics:
-  - Age: 32-40
-  - Role: Engineering Manager
-  - Experience: 8+ years in tech
-  - Tech Savviness: High
-
-Context:
-  - Team Size: 10 engineers
-  - Currently Using: Jira, Slack, Google Docs, Notion
-  - Pain Points:
-    - "I spend 2 hours daily in status meetings"
-    - "Task info scattered across 4 tools"
-    - "Hard to see blockers before they're critical"
-
-Goals:
-  - Reduce coordination overhead
-  - Increase team visibility
-  - Ship features faster
-
-Behaviors:
-  - Checks updates 3-4x per day
-  - Prefers async communication
-  - Values data and metrics
-```
-
-*(Add 2-3 personas)*
+- **Financial:** ~30K₽/year per client in unclaimed rewards, 10-20% higher CAC for businesses due to inefficient solo marketing
+- **Opportunity cost:** Clients don't try 2+ category businesses (current: 8% cross-purchase rate vs. target: 25+%), limiting total ecosystem LTV
+- **Market fragmentation:** Premium segment stays fragmented with no player capturing >5% market share, preventing economies of scale in marketing and operations
 
 ---
 
-## P CORE VALUE PROPOSITION
+## 💡 Solution
 
-### What Makes Us Different?
+### Our Approach
 
-[What's unique about this solution? Why would users choose this over alternatives?]
+Свой Круг creates a closed, invitation-based ecosystem where every transaction generates value not just within one business, but across the entire network. Through intelligent cross-promotion chains, status-based gamification, and data-driven analytics, we transform isolated transactions into an interconnected loyalty graph.
 
-**Example:**
+**Core solution pillars:**
 
-Unlike traditional project management tools:
-- Context-aware: Discussions happen right on tasks
-- Real-time: See updates instantly, no refresh needed
-- Smart: AI suggests priorities and identifies blockers
-- Simple: No complex configuration, works out of the box
+1. **Unified Loyalty Currency (Bonuses + Status)**
+   - What: Single bonus balance (5-10% cashback) usable across all 50+ partner businesses, with automatic status progression (Insider → VIP → Elite → Inner Circle)
+   - How: QR-code wallet for instant accrual, real-time balance updates, transparent 12-month rolling status calculation based on spend + category diversity
+   - Why: Simplifies mental model (one app, one balance, clear benefits), creates motivation to increase total ecosystem spend to reach next status tier
 
-### Key Benefits
+2. **Cross-Promotion Chains (A → B → C)**
+   - What: Algorithmic matching of businesses for mutual benefit - purchase at business A automatically unlocks bonus/discount at business B (different category)
+   - How: Win-Win matrix analyzes conversion rates between business pairs, platform suggests optimal chains, automated coupon distribution based on transaction triggers
+   - Why: Drives category exploration (25% cross-purchase rate vs. 8% baseline), creates positive-sum growth where each business benefits from others' client acquisition
 
-**For [User Type 1]:**
--  [Benefit 1]
--  [Benefit 2]
--  [Benefit 3]
+3. **Premium Community & Events**
+   - What: Exclusive access to curated events (wellness workshops, beauty masterclasses, networking dinners), with VIP/Elite members able to propose and vote on event ideas
+   - How: Event Hub with weighted voting (Elite votes = 3x Insider votes), automated budget allocation (2% of all transactions → events fund), transparent proposal system
+   - Why: Builds emotional connection beyond transactional benefits, creates FOMO for non-members, drives status progression motivation ("I want Elite to propose my event idea")
 
-**Example:**
-**For Team Leads:**
--  70% less time in status meetings
--  See entire team's work at a glance
--  Identify blockers before they escalate
+**Key differentiators:**
 
-*(Repeat for each user type)*
+- **Closed ecosystem vs. open marketplace:** We curate 5-10 premium businesses per category (vs. aggregators with 100s of low-quality options), ensuring every partner is premium, every client is qualified
+- **Data-driven cross-promo vs. random discounts:** Our Win-Win analytics identify which business pairings have 40%+ conversion rates, focusing resources on proven chains instead of spray-and-pray marketing
+- **Status-based gamification vs. flat cashback:** Four tiers (Insider/VIP/Elite/Inner Circle) with visible progress bars create aspirational goals, driving 2-3x higher engagement than static cashback programs
+- **B2B2C model vs. B2C:** We solve businesses' CAC problem first (through cross-promo), making them eager partners who promote the platform to their clients, creating viral loop
 
----
+**Innovation elements:**
 
-## <� MUST-HAVE FEATURES (Core Value)
-
-These features define the product. Without them, it's not [Project Name].
-
-### Feature 1: [Name]
-
-**What:** [Brief description]
-**Why:** [User benefit]
-**Example:** [Concrete example of use]
-
-**Example:**
-
-### Feature 1: Real-Time Task Board
-
-**What:** Kanban-style board with live updates
-**Why:** Team sees changes instantly, stays synchronized
-**Example:** When developer moves task to "In Review",
-            team lead sees it immediately and can act
-
-### Feature 2: [Name]
-[Same structure...]
-
-### Feature 3: [Name]
-[Same structure...]
-
-*(List 5-8 must-have features)*
+- Real-time RFM segmentation + churn prediction for all partners (democratizing enterprise analytics for SMBs)
+- Offer Constructor with ROI forecasting (businesses see expected cost before publishing promo)
+- Weighted voting for events (prevents populism, ensures premium members drive agenda)
+- Transparent ecosystem budget (2% of all transactions → shared events fund, visible to all members)
 
 ---
 
-## =� SUCCESS METRICS
+## 🎁 Value Proposition
 
-### How We Measure Success
+### For Premium Women Clients (Primary Users)
 
-**Phase: MVP (First 3 months)**
-- [ ] [Metric 1]: [Target]
-- [ ] [Metric 2]: [Target]
-- [ ] [Metric 3]: [Target]
+**Value delivered:**
+- **5-10% cashback across categories:** Save 15-30K₽ annually (vs. 3-9K₽ with fragmented 1-3% programs) - 3x improvement
+- **Curated discovery:** Trusted recommendations within ecosystem → try 3-5 new businesses per year with confidence (exclusive member status = quality signal)
+- **Status recognition:** Visible Insider/VIP/Elite/Inner Circle badges in all businesses → feel appreciated, get priority service, unlock exclusive events
+- **One-app simplicity:** Single QR wallet replaces 8 separate loyalty cards → reduce cognitive load, never lose bonuses again (30% → 0% expiration rate)
+- **Community access:** 8-12 exclusive events per year (wellness workshops, masterclasses, networking) included in membership
 
-**Example:**
+**Metrics of success:**
+- **Spend increase:** +40% total ecosystem spend per member within 12 months (from discovering 2-3 new businesses via cross-promo)
+- **Time savings:** 5 hours/year saved by unified wallet vs. managing multiple apps/cards
+- **Bonus utilization:** 95% of earned bonuses used (vs. 70% industry average) due to unified balance
+- **Category expansion:** 60% of members try 3+ categories within 6 months (vs. 20% trying new businesses solo)
 
-Phase: MVP
-- [ ] User Activation: 60% of signups create first task within 24h
-- [ ] Retention: 40% of users return weekly
-- [ ] NPS: >30
-- [ ] Time to Value: User completes core workflow in <5 minutes
+### For Premium Business Owners (Secondary Users)
 
-**Phase: Growth (6-12 months)**
-- [ ] [Metric 1]: [Target]
-- [ ] [Metric 2]: [Target]
+**Value delivered:**
+- **Zero-cost qualified leads:** Receive 5-15 new clients per month through cross-promo chains → CAC drops from 10K₽ to <1K₽ (cost of bonus/discount)
+- **RFM analytics + churn prediction:** Enterprise-grade segmentation usually requiring 500K₽ custom development → provided free by platform
+- **Collaborative marketing:** Ecosystem-wide promotions (e.g., "5 businesses, 1 package deal") reach 5x larger audience than solo campaigns
+- **Retention tools:** Automated churn alerts ("Client X hasn't visited in 45 days, high risk") → proactive retention campaigns
+- **Ecosystem network effects:** As ecosystem grows, your business benefits from others' marketing efforts without additional cost
 
-**Long-term (1+ year)**
-- [ ] [Metric 1]: [Target]
-- [ ] [Metric 2]: [Target]
-
----
-
-## <� PRODUCT PRINCIPLES
-
-### Design Principles
-
-1. **[Principle 1]**
-   [What it means in practice]
-
-**Example:**
-
-1. **Simplicity Over Features**
-   When in doubt, do less. Every feature must justify its complexity.
-   Remove features before adding them.
-
-2. **Async-First**
-   Design for async work. Real-time is great, but never required.
-   Team members in different timezones should have equal experience.
-
-3. **Context is King**
-   Never make users hunt for information. Show relevant context
-   everywhere: who, what, when, why.
-
-*(List 3-5 principles)*
-
-### Technical Principles
-
-1. **[Principle 1]**
-   [What it means in practice]
-
-**Example:**
-
-1. **Performance is a Feature**
-   <100ms interactions, <2s page loads. No compromises.
-
-2. **Data Ownership**
-   Users own their data. Easy export, no lock-in.
-
-3. **Security by Default**
-   Secure by design, not as afterthought. Regular audits.
-
-*(List 3-5 principles)*
+**Success metrics:**
+- **CAC reduction:** 70% reduction in customer acquisition cost (from 10K₽ → 3K₽) through cross-promo vs. paid ads
+- **Cross-sell rate:** 40% of referred clients become repeat customers (vs. 15% from cold ads)
+- **LTV increase:** Ecosystem members have 2.5x higher LTV than non-members (due to status progression motivation)
+- **Retention improvement:** 10-15% reduction in churn rate through automated alerts + targeted offers
 
 ---
 
-## =� NON-GOALS (Explicit Scope)
+## 🌟 Success Criteria
 
-What we're **NOT** building (at least not now):
+**Launch criteria (MVP - 12 weeks):**
+- [ ] 200+ registered users (50 beta testers + 150 public launch)
+- [ ] 5 initial partner businesses confirmed and integrated
+- [ ] 2+ CRM integrations live (YCLIENTS + Iiko minimum)
+- [ ] QR wallet functional with bonus accrual/redemption
+- [ ] Cross-promo system operational (simple A→B chains)
+- [ ] 0 critical bugs in production
+- [ ] <2s app load time, <100ms API response time (p95)
 
-- L [Non-goal 1]
-- L [Non-goal 2]
-- L [Non-goal 3]
+**6-month success (v1.5):**
+- User growth: 500+ active members (2.5x MVP)
+- Business growth: 8 partner businesses (5→8, +60%)
+- Engagement: 15% cross-purchase rate (members buying from 2+ categories in 60 days)
+- Retention: <15% monthly churn rate
+- Revenue: 3M₽ total ecosystem GMV (tracked transactions through platform)
+- NPS: >50 (strong promoter base)
 
-**Example:**
-
-- L Time Tracking (use dedicated tools)
-- L Invoicing/Billing (not a finance tool)
-- L Email Client (integrate, don't replace)
-- L Video Calls (Zoom/Meet are fine)
-- L Enterprise Features in MVP (focus on teams <50)
-
-**Why document this?**
-Prevents scope creep. These might be future features, but not now.
-
----
-
-## =� HIGH-LEVEL ROADMAP
-
-### Phase 0: MVP (Months 1-3)
-
-**Goal:** Prove core value proposition
-
-**Must-Have:**
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
-
-**Target Users:** [specific segment]
-
-**Success Criteria:** [metric]
-
-**Example:**
-
-Phase 0: MVP (Months 1-3)
-
-Goal: Small teams can manage tasks better than Trello/Asana
-
-Must-Have:
-- Real-time task board
-- In-context discussions
-- Basic team management
-
-Target Users: Tech teams <15 people
-
-Success: 10 teams using daily, 40% weekly retention
-
-### Phase 1: [Name] (Months 4-6)
-[Same structure...]
-
-### Phase 2: [Name] (Months 7-12)
-[Same structure...]
+**1-year vision (v2.0):**
+- User base: 2,000+ active members across Moscow
+- Business network: 15-20 partner businesses across 10+ categories
+- North Star Metric: 25% cross-purchase rate (2+ categories in 60 days)
+- Ecosystem GMV: 15M₽/month total transaction volume
+- Features: AI recommendations, event constructor, social feed, weighted voting
+- Market position: Recognized as THE premium women's loyalty platform in Moscow
 
 ---
 
-## =� KEY INSIGHTS & CONTEXT
+## 🔄 Related Documentation
 
-### Market Context
-
-[What's the market landscape? Competitors? Timing?]
-
-**Example:**
-
-Market is crowded (Asana, Monday, Jira, etc.) but:
-- Tools are bloated (too many features)
-- Remote work surged (new needs)
-- Younger teams want simpler tools
-- Opportunity: Simple + Real-time + Smart
-
-### Technical Context
-
-[Any technical constraints, opportunities, or decisions?]
-
-**Example:**
-
-- Target: Web-first, mobile later
-- Real-time: Critical (use WebSockets)
-- Scale: Start small (1k users), design for 100k
-- Data: Relational structure (PostgreSQL)
-
-### User Research Insights
-
-[Key learnings from user research, if any]
-
-**Example:**
-
-From 20 user interviews:
-- "Current tools feel like homework" (12/20)
-- "I want to see, not be told" (15/20)
-- "Setup takes too long" (18/20)
-- "Mobile experience is broken" (10/20)
-
-Takeaway: Simplicity and mobile are critical.
+- [PRD](./01_PRD.md) - Product requirements and feature specifications
+- [Roadmap](./02_ROADMAP.md) - 12-week MVP timeline and post-launch phases
+- [Tech Stack](./03_TECH_STACK.md) - Verified November 2025 technology choices
+- [Architecture](./04_ARCHITECTURE.md) - System design and technical architecture
+- [Module Requirements](../requirements/) - Detailed requirements for all 15 modules
 
 ---
 
-## <� USER JOURNEY (Ideal State)
-
-### New User Journey
-
-**Step 1:** [Action]
-**Experience:** [What happens]
-**Feeling:** [How user feels]
-
-**Example:**
-
-Step 1: Sign up
-Experience: Email + password, no verification wait
-Feeling: "That was easy!"
-
-Step 2: Create first task
-Experience: Prompted to add task, auto-tutorial shows
-Feeling: "I'm already productive"
-
-Step 3: Invite team
-Experience: Simple invite link, teammates onboard in seconds
-Feeling: "My team is here, let's collaborate"
-
-Step 4: First collaboration
-Experience: Teammate comments on task, user sees in real-time
-Feeling: "This actually works!"
-
-Result: User becomes power user within 1 week
-
-### Returning User Journey
-
-[Similar format for daily/weekly user experience]
-
----
-
-## =� REFERENCES & INSPIRATION
-
-### Inspiration (What We Like)
-
-- **[Product 1]**: [What we like about it]
-- **[Product 2]**: [What we like about it]
-
-**Example:**
-
-- **Linear**: Speed, keyboard shortcuts, beautiful design
-- **Notion**: Flexibility, clean UI, great async collaboration
-- **Figma**: Real-time collaboration done right
-- **Superhuman**: Onboarding experience, attention to detail
-
-### Anti-Inspiration (What We Avoid)
-
-- **[Product 1]**: [What we don't like]
-- **[Product 2]**: [What we don't like]
-
-**Example:**
-
-- **Jira**: Too complex, overwhelming UI
-- **Trello**: Too simple, doesn't scale
-- **Microsoft Teams**: Cluttered, slow
-
----
-
-## = DOCUMENT EVOLUTION
-
-This is a living document. Update when:
-- Vision evolves
-- User research reveals new insights
-- Market changes
-- Pivot decisions
-
-### Change Log
-
-| Version | Date | Changes | Author |
-|---------|------|---------|--------|
-| 1.0 | [Date] | Initial version (from bootstrap) | Claude Code |
-| 1.1 | [Date] | Updated after user testing | [Name] |
-
----
-
-##  CHECKLIST: Is This Ready?
-
-Use this to verify completeness:
-
-- [ ] Vision is clear and compelling
-- [ ] Target users are specific (not "everyone")
-- [ ] Value proposition is unique
-- [ ] Must-have features are defined
-- [ ] Success metrics are measurable
-- [ ] Scope is clear (goals AND non-goals)
-- [ ] Team alignment achieved (if applicable)
-
-**If all checked:** This document is ready to guide development! =�
-
----
-
-**Next Document:** Read `01_PRD.md` for detailed requirements
+**Last Updated:** 2025-11-17
+**Owner:** Product Team
+**Status:** Approved for Development

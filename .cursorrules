@@ -1,0 +1,291 @@
+# .cursorrules - Свой Круг Development Guidelines
+
+This file contains rules and guidelines for AI-assisted development on the Свой Круг project.
+
+## Project Overview
+
+**Project Name:** Свой Круг (Own Circle)
+**Type:** Premium Women's Loyalty Ecosystem
+**Tech Stack:** FastAPI (Python 3.13) + React Native 0.81 + PostgreSQL 16.11 + ClickHouse 25.8 LTS
+**Architecture:** Modular Monolith with clear domain boundaries
+**Target Users:** Women 30-50, 80K+ monthly income, premium services (Moscow)
+
+## Core Principles
+
+1. **Security First:** All code must comply with 152-ФЗ (Russian data law) and врачебная тайна (medical confidentiality)
+2. **Mobile-First UX:** Premium, elegant, fast (target <2s app load time)
+3. **Cross-Promo is Core:** Module 5 (Cross-Promotion) is the differentiator - prioritize seamless chain triggers
+4. **Data Privacy:** Encrypt sensitive fields with AES-256, never log PII
+5. **Type Safety:** Use TypeScript (mobile), Python type hints (backend), validate all inputs
+
+## Code Style & Standards
+
+### Backend (Python + FastAPI)
+
+- **Python Version:** 3.13 (verified November 2025)
+- **Framework:** FastAPI 0.121.2
+- **Style Guide:** PEP 8, Black formatter (line length 100)
+- **Type Hints:** Mandatory for all functions
+- **Async/Await:** Use `async def` for I/O operations (database, external APIs)
+
+**Example:**
+```python
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+
+router = APIRouter()
+
+@router.post("/api/v1/bonuses/accrue", response_model=BonusResponse)
+async def accrue_bonuses(
+    transaction_id: str,
+    db: AsyncSession = Depends(get_db)
+) -> BonusResponse:
+    """Accrue bonuses based on transaction and user status tier."""
+    transaction = await db.get(Transaction, transaction_id)
+    if not transaction:
+        raise HTTPException(status_code=404, detail="Transaction not found")
+    
+    user = await db.get(User, transaction.user_id)
+    bonus_rate = get_bonus_rate(user.status_tier)  # 5% Insider, 7% VIP, 10% Elite
+    
+    bonus_amount = transaction.amount * bonus_rate
+    # ... rest of logic
+```
+
+### Mobile (React Native + TypeScript)
+
+- **React Native Version:** 0.81
+- **TypeScript:** 5.7 (strict mode enabled)
+- **Component Style:** Functional components with hooks (no class components)
+- **State Management:** Redux Toolkit 2.10.1 + RTK Query
+- **Navigation:** React Navigation 6
+
+**Example:**
+```typescript
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { useGetBonusBalanceQuery } from '@/store/api/bonusApi';
+
+interface BonusCardProps {
+  userId: string;
+}
+
+export const BonusCard: React.FC<BonusCardProps> = ({ userId }) => {
+  const { data: balance, isLoading } = useGetBonusBalanceQuery(userId);
+  
+  if (isLoading) return <Text>Загрузка...</Text>;
+  
+  return (
+    <View style={styles.card}>
+      <Text style={styles.label}>Бонусный баланс</Text>
+      <Text style={styles.amount}>{balance?.total ?? 0} ₽</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  card: {
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 12,
+  },
+  label: {
+    fontSize: 14,
+    color: '#666',
+  },
+  amount: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+});
+```
+
+## Module-Specific Rules
+
+### Module 1: Mobile App
+- **QR Codes:** Use `react-native-vision-camera` for scanning (not deprecated libraries)
+- **Animations:** Lottie for complex animations, Reanimated for simple transitions
+- **Offline Support:** Redux Persist for critical data (user profile, bonus balance)
+
+### Module 2: Loyalty System
+- **Bonus Calculation:** Always round to 2 decimal places, use Decimal type (not float)
+- **Status Tiers:** Insider (<50K), VIP (50-200K), Elite (>200K), Inner Circle (invitation only)
+- **Cashback Rates:** 5% Insider, 7% VIP, 10% Elite (hardcoded constants in `loyalty/constants.py`)
+
+### Module 3: Transactions
+- **Idempotency:** All transaction endpoints must be idempotent (use `transaction_id` as key)
+- **Audit Log:** Every transaction creation/update must log to `audit_logs` table
+- **Refunds:** Deduct bonuses from user balance, cannot refund if balance insufficient
+
+### Module 5: Cross-Promotion
+- **Trigger Speed:** Cross-promo chains must trigger within 1 minute of purchase
+- **Medical Data:** NEVER include medical transactions (is_medical=TRUE) in cross-promo chains
+- **Win-Win Matrix:** Calculate in ClickHouse daily at 1am, cache in Redis
+
+### Module 8: CRM Integrations
+- **Adapter Pattern:** All CRM connectors must implement `BaseCRMAdapter` interface
+- **Error Handling:** Retry 3 times with exponential backoff (2s, 4s, 8s) before marking failed
+- **Data Mapping:** Map CRM-specific fields to our schema in `map_transaction()` method
+
+### Module 12: Notifications
+- **Push Notifications:** Use Firebase Cloud Messaging (FCM) for both iOS + Android
+- **SMS:** SMS.ru integration, rate limit 5 SMS per hour per phone
+- **Email:** SendGrid, use templates for all transactional emails
+
+### Module 13: Security
+- **Encryption:** AES-256 (Fernet) for phone, email, birthdate fields
+- **JWT Tokens:** RS256 signing, 15-min access tokens, 30-day refresh tokens
+- **RBAC:** Enforce role checks at API level: `role in ['member', 'business_owner', 'superadmin']`
+- **152-ФЗ Compliance:** All data stored in Yandex Cloud (ru-central1 region), encrypted at rest
+
+## Database Rules
+
+### PostgreSQL (OLTP)
+- **Migrations:** Use Alembic, never modify schema directly in production
+- **Indexes:** Create indexes for foreign keys and commonly queried fields
+- **Constraints:** Use database constraints (NOT NULL, UNIQUE, CHECK) for data integrity
+
+**Example Migration:**
+```python
+def upgrade():
+    op.create_table(
+        'bonuses',
+        sa.Column('id', sa.UUID(), nullable=False),
+        sa.Column('user_id', sa.UUID(), nullable=False),
+        sa.Column('amount', sa.Numeric(10, 2), nullable=False),
+        sa.Column('type', sa.String(20), nullable=False),  # 'accrual' or 'redemption'
+        sa.Column('created_at', sa.DateTime(), nullable=False),
+        sa.ForeignKeyConstraint(['user_id'], ['users.id']),
+        sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index('idx_bonuses_user_id', 'bonuses', ['user_id'])
+```
+
+### ClickHouse (OLAP)
+- **Data Sync:** PostgreSQL → ClickHouse hourly via Celery
+- **Queries:** Use ClickHouse for aggregations (RFM, Win-Win, cohort analysis)
+- **Tables:** Use `MergeTree` engine with `ORDER BY (business_id, created_at)`
+
+## API Design Rules
+
+### Endpoints
+- **Naming:** Use plural nouns: `/api/v1/bonuses`, `/api/v1/transactions`
+- **Versioning:** Always prefix with `/api/v1/`
+- **Pagination:** Use `?page=1&limit=50` for list endpoints
+- **Filtering:** Use query params: `?status=active&created_after=2025-01-01`
+
+### Response Format
+```json
+{
+  "success": true,
+  "data": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "amount": 500.00,
+    "type": "accrual"
+  },
+  "meta": {
+    "timestamp": "2025-11-17T10:30:00Z"
+  }
+}
+```
+
+### Error Format
+```json
+{
+  "success": false,
+  "error": {
+    "code": "INSUFFICIENT_BALANCE",
+    "message": "Недостаточно бонусов для списания",
+    "details": {
+      "required": 1000,
+      "available": 750
+    }
+  }
+}
+```
+
+## Testing Rules
+
+### Backend Tests
+- **Coverage:** Minimum 80% for critical paths (authentication, transactions, bonuses)
+- **Framework:** pytest + pytest-asyncio
+- **Fixtures:** Use factories (factory-boy) for test data
+
+**Example:**
+```python
+import pytest
+from httpx import AsyncClient
+
+@pytest.mark.asyncio
+async def test_accrue_bonuses_insider_tier(async_client: AsyncClient, db_session):
+    # Given: User with Insider status (5% cashback)
+    user = UserFactory.create(status_tier='Insider')
+    transaction = TransactionFactory.create(user_id=user.id, amount=1000)
+    
+    # When: Bonuses are accrued
+    response = await async_client.post(f"/api/v1/bonuses/accrue/{transaction.id}")
+    
+    # Then: User receives 50₽ (5% of 1000₽)
+    assert response.status_code == 200
+    assert response.json()["data"]["amount"] == 50.00
+```
+
+### Mobile Tests
+- **Framework:** Jest + React Native Testing Library
+- **Coverage:** Minimum 70% for critical screens (Login, QR Wallet, Bonus Balance)
+
+## Git Commit Rules
+
+- **Format:** `[MODULE-XX] Brief description`
+- **Examples:**
+  - `[MOD-02] Add bonus accrual endpoint`
+  - `[MOD-13] Implement AES-256 encryption for PII`
+  - `[MOD-08] Add YCLIENTS adapter with retry logic`
+
+## Performance Targets
+
+- **API Response Time:** p95 <100ms for reads, <300ms for writes
+- **Mobile App Load:** <2 seconds (splash → home screen)
+- **QR Code Scan:** <500ms (scan → validation)
+- **Cross-Promo Trigger:** <1 minute (purchase → coupon issued)
+
+## Compliance Checklist
+
+Before merging any code, verify:
+- [ ] No sensitive data (phone, email, birthdate) logged in plaintext
+- [ ] All sensitive fields encrypted with AES-256
+- [ ] Medical transactions (is_medical=TRUE) isolated from cross-promo
+- [ ] JWT tokens have expiration (15 min access, 30 day refresh)
+- [ ] All database migrations tested on staging first
+- [ ] API endpoints have RBAC checks
+- [ ] User consent tracked for data collection
+
+## Module Priority (for AI assistants)
+
+When suggesting features or fixes, prioritize in this order:
+1. **P0 (MVP Critical):** Modules 1, 2, 3, 4, 5, 8, 12, 13 - Must be perfect for MVP
+2. **P1 (Important):** Modules 6, 7, 9, 10, 11, 15 - Can defer to v1.5
+3. **P2 (Nice-to-have):** Module 14 - v2.0
+
+## Common Pitfalls to Avoid
+
+1. **Don't use float for money:** Use `Decimal` (Python) or `number` with 2 decimal precision (TS)
+2. **Don't log PII:** Phone numbers, emails, birthdates should NEVER appear in logs
+3. **Don't skip encryption:** Medical data MUST be encrypted (врачебная тайна compliance)
+4. **Don't forget timezone:** All timestamps in UTC, convert to Moscow time (UTC+3) in frontend
+5. **Don't hardcode secrets:** Use environment variables for API keys, DB passwords
+
+## Resources
+
+- **PRD:** `docs/core/01_PRD.md`
+- **Architecture:** `docs/core/04_ARCHITECTURE.md`
+- **Module Requirements:** `docs/requirements/module-XX-*.md`
+- **Tech Stack:** `docs/core/03_TECH_STACK.md`
+- **Glossary:** `docs/core/05_GLOSSARY.md`
+
+---
+
+**Last Updated:** 2025-11-17
+**Version:** 1.0 (MVP)
+**Status:** Ready for Development

@@ -1,549 +1,262 @@
-# TECHNOLOGY STACK
+# Свой Круг - Tech Stack
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Fill during bootstrap  
-**Verified:** [Date of last verification]
-
----
-
-## 📋 STACK OVERVIEW
-
-### Technology Summary
-
-Frontend:  [Framework] + [State] + [Styling]
-Backend:   [Runtime] + [Framework] + [Database]
-Infra:     [Hosting] + [CI/CD] + [Monitoring]
-
-**Example:**
-
-Frontend:  React 19 + Zustand + Tailwind CSS
-Backend:   Node.js 22 + Fastify + PostgreSQL 16
-Infra:     Vercel + Railway + GitHub Actions + Sentry
+**Created:** 2025-11-17
+**Version:** 1.0 (November 2025 Verified)
+**Status:** Approved for Production
 
 ---
 
-## 🎯 TECHNOLOGY SELECTION CRITERIA
+## 📋 Stack Overview
 
-### Our Priorities (In Order)
+This document describes the complete technology stack for Свой Круг, verified for November 2025 compatibility through PHASE 3 Tech Verification. All versions have been validated against latest stable releases, security advisories, and community adoption.
 
-1. **[Priority 1]**  
-   [Why this matters]
-
-**Example:**
-
-1. **Developer Velocity**  
-   Fast iteration is critical for MVP. Choose familiar, 
-   well-documented tech with great DX.
-
-2. **Stability & Maturity**  
-   Avoid bleeding edge. Production-ready only.
-
-3. **Community & Ecosystem**  
-   Large community = better support, more libraries.
-
-4. **Performance**  
-   Good enough for target scale (100k users).
-
-5. **Cost**  
-   Keep infrastructure costs <$500/month initially.
+**Key Principles:**
+- **Modern & Stable:** Use latest LTS/stable versions (verified Nov 2025)
+- **Russian Federation Compliance:** Cloud providers and data storage in RF
+- **Production-Ready:** Proven technologies with strong community support
+- **Mobile-First:** React Native for iOS/Android from single codebase
+- **API-Driven:** RESTful APIs with OpenAPI documentation
 
 ---
 
-## 💻 FRONTEND STACK
+## 📱 Frontend (Mobile App)
 
 ### Core Framework
+- **React Native 0.81** (Nov 2025 stable)
+  - Why: Cross-platform iOS/Android, 80%+ code reuse, active community
+  - Alternatives considered: Flutter (rejected: weaker ecosystem for Russian market)
+  - Update from: 0.73 → 0.81 (PHASE 3 recommendation)
 
-**Technology:** [Framework Name] [Version]  
-**Website:** [URL]  
-**License:** [License Type]
-
-**Why We Chose This:**
-- [Reason 1]
-- [Reason 2]
-- [Reason 3]
-
-**Example:**
-
-Technology: React 19.0
-Website: https://react.dev
-License: MIT
-
-Why We Chose This:
-✓ Industry standard (huge community)
-✓ Component-based architecture fits our needs
-✓ Excellent ecosystem (libraries for everything)
-✓ Team already familiar
-✓ React 19 improvements: Server Components, new compiler
-✓ Strong TypeScript support
-
-Alternatives Considered:
-- Vue 3: Smaller ecosystem, team unfamiliar
-- Svelte 5: Smaller bundle but niche, hiring harder
-- Angular: Too heavyweight for our needs
-
-Verification Date: 2025-11-08
-Research Source: [Link to Claude.ai conversation if applicable]
-
-**Key Features Used:**
-- [Feature 1]: [How we use it]
-- [Feature 2]: [How we use it]
-
-**Example:**
-
-Key Features Used:
-- React Server Components: For initial page loads
-- Suspense: Loading states
-- Hooks: State and side effects
-- Context: Theme, auth state
-- Error Boundaries: Graceful error handling
-
-**Version History:**
-
-| Version | Release Date | Status | Notes |
-|---------|--------------|--------|-------|
-| 19.0 | 2025-04 | ✅ Current | Major upgrade from 18.2 |
-| 18.2 | 2022-06 | ⚠️ Previous | Stable but missing new features |
-
-**Migration Notes:**
-- From 18.2 to 19.0: [Link to migration guide]
-- Breaking changes: [List if any]
-- Migration effort: [LOW/MEDIUM/HIGH]
-
----
+- **TypeScript 5.7.x**
+  - Why: Type safety, better IDE support, fewer runtime errors
+  - Strict mode enabled for maximum safety
 
 ### State Management
+- **Redux Toolkit 2.10.1** (latest Nov 2025)
+  - Why: Standard for complex state, devtools, persistence
+  - Update from: 2.0 → 2.10.1 (PHASE 3 CRITICAL)
+  - RTK Query for API caching and synchronization
 
-**Technology:** [State Library] [Version]
+### Navigation
+- **React Navigation 6.x**
+  - Why: De-facto standard for RN navigation, flexible, well-documented
+  - Stack, tab, and drawer navigators for multi-level navigation
 
-**Example:**
+### UI Components
+- **React Native Paper 5.x**
+  - Why: Material Design 3, Tiffany-style theming, accessibility built-in
+  - Custom theme: Tiffany blue (#0ABAB5), premium aesthetic
 
-Technology: Zustand 4.5
-Website: https://zustand-demo.pmnd.rs/
-License: MIT
+### Camera & QR
+- **react-native-vision-camera 4.x**
+  - Why: High-performance camera access, QR scanning, modern architecture
+  - Alternatives: react-native-camera (deprecated)
 
-Why We Chose This:
-✓ Simpler than Redux (less boilerplate)
-✓ Sufficient for our app complexity
-✓ Great TypeScript support
-✓ Small bundle size (3KB)
-✓ Easy to learn and use
+### Notifications
+- **Firebase Cloud Messaging (FCM)**
+  - Why: Free, reliable, iOS + Android support, rich notifications
+  - @react-native-firebase/messaging wrapper
 
-Alternatives Considered:
-- Redux Toolkit: Too complex for our needs
-- Jotai: More atomic, but Zustand more intuitive
-- React Context: Too many re-renders at scale
-
-Usage Pattern:
-// stores/userStore.ts
-import create from 'zustand'
-
-export const useUserStore = create((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-  logout: () => set({ user: null })
-}))
-
----
-
-### Styling
-
-**Technology:** [CSS Framework/Library] [Version]
-
-**Example:**
-
-Technology: Tailwind CSS 4.0
-Website: https://tailwindcss.com
-License: MIT
-
-Why We Chose This:
-✓ Utility-first = fast development
-✓ Industry standard in 2025
-✓ No CSS file management
-✓ Responsive design built-in
-✓ Great with component libraries
-✓ Purges unused styles (small bundle)
-
-Configuration:
-// tailwind.config.js
-export default {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  theme: {
-    extend: {
-      colors: {
-        primary: {...},
-        secondary: {...}
-      }
-    }
-  }
-}
-
-Design Tokens:
-- Colors: Defined in config
-- Spacing: Use Tailwind scale
-- Typography: Custom font stack
+### Analytics & Monitoring
+- **Firebase Analytics** - User behavior tracking
+- **Amplitude** - Product analytics, funnels, retention
+- **Sentry** - Crash reporting, error tracking
 
 ---
 
-### UI Component Library
+## 🔧 Backend
 
-**Technology:** [Component Library] [Version]
+### Language & Framework
+- **Python 3.13** (latest stable Nov 2025)
+  - Why: Fast development, rich ecosystem, ML/analytics libraries
+  - Update from: 3.11 → 3.13 (PHASE 3 CRITICAL - performance improvements)
 
-**Example:**
+- **FastAPI 0.121.2** (latest Nov 2025)
+  - Why: High performance, async support, auto OpenAPI docs, type hints
+  - Update from: 0.104 → 0.121.2 (PHASE 3 CRITICAL - security & features)
 
-Technology: shadcn/ui (Radix UI primitives)
-Website: https://ui.shadcn.com
-License: MIT
+### API & Documentation
+- **OpenAPI 3.0** (Swagger UI)
+  - Why: Auto-generated from FastAPI code, interactive testing, client generation
+  - Endpoint: `/docs` (Swagger), `/redoc` (ReDoc)
 
-Why We Chose This:
-✓ Not a dependency (copy components)
-✓ Fully customizable
-✓ Accessible (Radix UI base)
-✓ Works with Tailwind
-✓ No bloat (only use what we need)
+### Authentication
+- **PyJWT 2.9.x** (latest Nov 2025)
+  - Why: Standard JWT implementation, RS256 support
+  - Access tokens (15 min) + Refresh tokens (30 days)
 
-Components Used:
-- Button, Input, Select (forms)
-- Dialog, Popover (overlays)
-- Toast (notifications)
-- Dropdown Menu (actions)
+### Task Queue
+- **Celery 5.4.x** (latest Nov 2025)
+  - Why: Async task processing (notifications, analytics, integrations)
+  - Update from: 5.3 → 5.4.x (PHASE 3 RECOMMENDED)
+  - Beat scheduler for periodic tasks (RFM calculation, churn prediction)
 
-Alternative: Built our own → Too much time
-Alternative: Material UI → Harder to customize
+### ORM & Database
+- **SQLAlchemy 2.0.44** (latest Nov 2025)
+  - Why: Powerful ORM, async support, migration tools (Alembic)
+  - Update from: 2.0 → 2.0.44 (PHASE 3 CRITICAL - async improvements)
 
----
-
-### Additional Frontend Libraries
-
-| Library | Version | Purpose | Alternatives Considered |
-|---------|---------|---------|------------------------|
-| [Library 1] | [Ver] | [Purpose] | [Alternatives] |
-| [Library 2] | [Ver] | [Purpose] | [Alternatives] |
-
-**Example:**
-| Library | Version | Purpose | Alternatives Considered |
-|---------|---------|---------|------------------------|
-| React Query | 5.0 | Data fetching, caching | SWR (chose React Query for features) |
-| React Router | 6.20 | Client-side routing | Next.js routing (overkill for SPA) |
-| React Hook Form | 7.48 | Form handling | Formik (React Hook Form more performant) |
-| date-fns | 3.0 | Date manipulation | Moment.js (too large), Day.js (smaller ecosystem) |
-| Zod | 3.22 | Schema validation | Yup (Zod better TypeScript) |
+### HTTP Client
+- **httpx 0.28.x** (latest Nov 2025)
+  - Why: Modern async HTTP client for CRM integrations
+  - Update from: 0.24 → 0.28.x (PHASE 3 RECOMMENDED)
 
 ---
 
-## 🔧 BACKEND STACK
+## 🗄️ Databases & Storage
 
-### Runtime
+### Primary Database
+- **PostgreSQL 16.11** (latest stable Nov 2025)
+  - Why: ACID compliance, JSONB support, battle-tested for transactions
+  - Update from: 15 → 16.11 (PHASE 3 RECOMMENDED - performance)
+  - Extensions: pgcrypto (encryption), pg_trgm (full-text search)
 
-**Technology:** [Runtime] [Version]
+### Analytics Database
+- **ClickHouse 25.8 LTS** (latest LTS Nov 2025)
+  - Why: Columnar storage, 100x faster analytics queries than PostgreSQL
+  - Update from: 23 → 25.8 LTS (PHASE 3 RECOMMENDED - LTS stability)
+  - Use cases: RFM segmentation, Win-Win analytics, churn prediction
 
-**Example:**
+### Cache & Session Store
+- **Redis 8.2** (latest stable Nov 2025)
+  - Why: In-memory cache, session storage, Celery broker
+  - Update from: 7 → 8.2 (PHASE 3 CRITICAL - major performance upgrade)
+  - Redis Insight for monitoring
 
-Technology: Node.js 22.x LTS
-Website: https://nodejs.org
-License: MIT
-
-Why We Chose This:
-✓ JavaScript/TypeScript (same as frontend)
-✓ Huge ecosystem (npm)
-✓ Great for I/O-heavy apps
-✓ Team familiar
-✓ Version 22 improvements: Better performance, native TS support
-
-LTS Schedule:
-- v22: LTS until 2027-04
-- v20: Previous LTS (fallback if needed)
-
-Alternatives Considered:
-- Deno: Too new, smaller ecosystem
-- Bun: Fast but immature ecosystem
-- Python: Different language, slower for our use case
+### Search Engine
+- **Elasticsearch 9.3.0** (latest Nov 2025)
+  - Why: Full-text search for businesses, events, transactions
+  - Update from: 8 → 9.3.0 (PHASE 3 RECOMMENDED - new features)
 
 ---
 
-### Backend Framework
+## ☁️ Infrastructure & DevOps
 
-**Technology:** [Framework] [Version]
+### Cloud Provider
+- **Yandex Cloud** (primary)
+  - Why: Russian data residency (152-ФЗ compliance), low latency, ruble billing
+  - Services: Compute Cloud (VMs), Managed PostgreSQL, Object Storage
+- **VK Cloud** (backup/failover)
+  - Why: Geographic redundancy, Russian jurisdiction
 
-**Example:**
+### Containerization
+- **Docker 27.x** (latest Nov 2025)
+  - Why: Consistent environments, easy deployment, microservices-ready
+  - Docker Compose for local development
+  - Update from: 24.x → 27.x (PHASE 3 RECOMMENDED)
 
-Technology: Fastify 5.0
-Website: https://fastify.dev
-License: MIT
+### CI/CD
+- **GitHub Actions**
+  - Why: Native GitHub integration, free for public repos, flexible workflows
+  - Pipelines: lint → test → build → deploy (staging/production)
 
-Why We Chose This:
-✓ Faster than Express (2x+ throughput)
-✓ TypeScript-first (better DX)
-✓ Plugin ecosystem
-✓ Schema validation built-in
-✓ Async/await native
+### Monitoring & Logging
+- **Prometheus 3.3.0** (latest Nov 2025)
+  - Why: Metrics collection, time-series DB, alerting
+  - Update from: 2.x → 3.3.0 (PHASE 3 CRITICAL - major upgrade)
 
-Migration from Express:
-- Similar API (easy transition)
-- Better performance
-- Modern patterns
-- Effort: 2-3 days
+- **Grafana 11.5.0** (latest Nov 2025)
+  - Why: Metrics visualization, dashboards, alerts
+  - Update from: 10.x → 11.5.0 (PHASE 3 RECOMMENDED)
 
-Example:
-import Fastify from 'fastify'
+- **Loki 3.3.0** (latest Nov 2025)
+  - Why: Log aggregation, Grafana integration
+  - Update from: 2.x → 3.3.0 (PHASE 3 RECOMMENDED)
 
-const fastify = Fastify({ logger: true })
+- **Sentry**
+  - Why: Error tracking for backend + frontend, release tracking
 
-fastify.get('/api/users', async (request, reply) => {
-  return { users: [...] }
-})
-
-await fastify.listen({ port: 3000 })
-
----
-
-### Database
-
-**Primary Database:**
-
-**Technology:** [Database] [Version]
-
-**Example:**
-
-Technology: PostgreSQL 16
-Website: https://www.postgresql.org
-License: PostgreSQL License (Open Source)
-
-Why We Chose This:
-✓ Relational data fits our model
-✓ ACID compliance (data integrity)
-✓ JSON support (flexibility)
-✓ Mature and stable
-✓ Great performance
-✓ Strong ecosystem
-
-Data Model:
-- Users, Teams, Tasks (relational)
-- Comments, Activity (mixed)
-- Settings (JSON columns)
-
-Schema Management:
-- Migrations: Drizzle ORM
-- Version control: SQL files in /migrations/
-- Rollback: Supported
-
-Alternatives Considered:
-- MongoDB: Not suitable for relational data
-- MySQL: PostgreSQL has better JSON support
-- SQLite: Not suitable for multi-user production
-
-**ORM/Query Builder:**
-
-**Example:**
-
-Technology: Drizzle ORM 0.29
-Website: https://orm.drizzle.team
-License: MIT
-
-Why We Chose This:
-✓ Type-safe queries (TypeScript)
-✓ Lightweight (vs Prisma)
-✓ SQL-like syntax (familiar)
-✓ Great performance
-✓ Auto-migrations
-
-Example Schema:
-import { pgTable, uuid, varchar } from 'drizzle-orm/pg-core'
-
-export const users = pgTable('users', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  email: varchar('email', { length: 255 }).notNull().unique(),
-  name: varchar('name', { length: 255 })
-})
-
-Alternatives:
-- Prisma: Heavier, but considered
-- TypeORM: Decorator-based (preference for Drizzle)
-- Knex: Not type-safe enough
-
-**Caching:**
-
-**Example:**
-
-Technology: Redis 7.2
-Purpose: Session storage, cache, rate limiting
-
-Usage:
-- Session store (Express sessions)
-- API response caching (hot data)
-- Rate limiting (track requests)
-- Pub/sub (real-time features)
-
-Hosting: Railway Redis addon
-Cost: Included in hosting tier
+### Object Storage
+- **Yandex Object Storage** (S3-compatible)
+  - Why: Images, event photos, user avatars, backups
+  - CDN for fast content delivery
 
 ---
 
-### Authentication & Security
+## 🔌 External Integrations
 
-**Authentication:**
+### CRM Systems
+1. **YCLIENTS REST API** - Миндаль (салон красоты)
+2. **Iiko API** - Лисичкино (гастромаркет)
+3. **1С REST API** - Skinerica, Лисичкино
+4. **Bitrix24 REST API** - Skinerica
+5. **AMO CRM API** - Стим Центр (стоматология)
+6. **МИС Renovatio API** - Миллениум (медцентр)
+7. **CSV Upload** - Fallback for any system
 
-**Example:**
+### Payment Gateways
+- **ЮKassa** (primary)
+  - Why: Russian bank support, low fees, well-documented
+- **CloudPayments** (backup)
+  - Why: Alternative for redundancy, international cards
 
-Technology: JWT (JSON Web Tokens)
-Library: jsonwebtoken 9.0
+### SMS & Communications
+- **SMS.ru API** (primary)
+  - Why: Reliable delivery, competitive pricing, Russian phone support
+- **SMSC.ru API** (backup)
+  - Why: Failover, bulk pricing
 
-Strategy:
-- Access token: Short-lived (15 min)
-- Refresh token: Long-lived (7 days)
-- Stored: httpOnly cookies
-
-Security:
-- Tokens signed with RS256
-- Secret rotation supported
-- XSS protection (httpOnly)
-- CSRF protection (SameSite cookies)
-
-Alternatives:
-- Sessions: Less scalable
-- OAuth only: Need email/password too
-- Passport.js: Too heavyweight
-
-**Security Libraries:**
-
-| Library | Purpose | Why Chosen |
-|---------|---------|------------|
-| helmet | HTTP headers | Industry standard |
-| bcrypt | Password hashing | Secure, configurable |
-| rate-limiter-flexible | Rate limiting | Redis-backed |
-| validator | Input validation | Comprehensive |
+### Push Notifications
+- **Firebase Cloud Messaging (FCM)**
+  - Why: Free, reliable, iOS + Android, rich notifications
 
 ---
 
-### API Design
+## 📦 Development Tools
 
-**API Style:** REST (RESTful APIs)
+### Package Managers
+- **npm / yarn** - Frontend dependencies
+- **pip / poetry** - Backend dependencies
 
-**Example:**
+### Code Quality
+- **ESLint + Prettier** - Frontend linting/formatting
+- **Ruff 0.8.x** - Python linting (fast, modern)
+- **mypy** - Python type checking
 
-Why REST (not GraphQL):
-✓ Simpler for our needs
-✓ Better caching (HTTP)
-✓ Team familiar
-✓ Easier to document
-
-Structure:
-GET    /api/users          → List users
-GET    /api/users/:id      → Get user
-POST   /api/users          → Create user
-PATCH  /api/users/:id      → Update user
-DELETE /api/users/:id      → Delete user
-
-Response Format:
-{
-  "success": true,
-  "data": {...},
-  "pagination": {...}  // if list
-}
-
-Error Format:
-{
-  "success": false,
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "User-friendly message",
-    "details": {...}  // optional
-  }
-}
-
-**Documentation:**
-
-Tool: OpenAPI 3.1 (Swagger)
-Auto-generated from: Code annotations
-Access: /api/docs
-Format: Interactive Swagger UI
+### Testing
+- **Jest + React Native Testing Library** - Frontend unit tests
+- **pytest + pytest-asyncio** - Backend unit tests
+- **Playwright** - E2E testing for web admin panel
 
 ---
 
-### Background Jobs
+## 🔒 Security & Compliance
 
-**Technology:** [Job Queue] [Version]
+### Data Protection
+- **152-ФЗ Compliance** - Russian personal data law
+- **HTTPS/TLS 1.3** - All API traffic encrypted
+- **At-rest encryption** - PostgreSQL transparent data encryption
+- **Врачебная тайна** - Medical data isolation (Module 13)
 
-**Example:**
-
-Technology: BullMQ 5.0
-Website: https://docs.bullmq.io
-License: MIT
-
-Why We Chose This:
-✓ Redis-based (already have Redis)
-✓ Reliable (retries, failures)
-✓ Observable (monitoring)
-✓ Scheduled jobs
-
-Use Cases:
-- Email sending (async)
-- Report generation
-- Data cleanup (scheduled)
-- Webhook retries
-
-Example:
-import { Queue, Worker } from 'bullmq'
-
-const emailQueue = new Queue('emails')
-
-// Add job
-await emailQueue.add('welcome', {
-  to: 'user@example.com',
-  template: 'welcome'
-})
-
-// Process jobs
-const worker = new Worker('emails', async job => {
-  await sendEmail(job.data)
-})
+### Authentication
+- **JWT (RS256)** - Asymmetric tokens for security
+- **SMS OTP** - Two-factor authentication
+- **Rate limiting** - 5 requests/min for auth endpoints
 
 ---
 
-## 🌐 INFRASTRUCTURE
+## 🔄 Migration Effort (from Initial Stack)
 
-### Frontend Hosting
+**Estimated effort:** 2-3 weeks across Sprint 1-3
 
-**Technology:** [Hosting Platform]
-
-**Example:**
-
-Platform: Vercel
-Website: https://vercel.com
-Tier: Pro ($20/month)
-
-Why We Chose This:
-✓ Zero-config React deployment
-✓ Edge network (fast globally)
-✓ Automatic HTTPS
-✓ Preview deployments (PRs)
-✓ Excellent DX
-✓ Built-in analytics
-
-Deployment:
-- Push to main → Auto deploy to production
-- PR → Auto deploy preview
-- Rollback: One click
-
-Cost:
-- Pro: $20/month
-- Bandwidth: 1TB included
-- Builds: Unlimited
-- Team: 10 members
-
-Alternatives:
-- Netlify: Similar, chose Vercel for better Next.js if we migrate
-- Cloudflare Pages: Cheaper but less features
-- AWS S3 + CloudFront: More complex setup
+**Critical updates:**
+1. Python 3.11 → 3.13 (2 days - testing, compatibility checks)
+2. FastAPI 0.104 → 0.121.2 (1 day - breaking changes review)
+3. Redux Toolkit 2.0 → 2.10.1 (3 days - migration guide)
+4. SQLAlchemy async improvements (2 days - refactor queries)
+5. Redis 7 → 8.2 (1 day - configuration updates)
+6. Prometheus 2.x → 3.3.0 (2 days - major version upgrade)
 
 ---
 
-### Backend Hosting
+## 🔄 Related Documentation
 
-**Technology:** [Hosting Platform]
+- [Architecture](./04_ARCHITECTURE.md) - System design and data models
+- [Module Requirements](../requirements/) - Detailed module specifications
+- [PHASE 3 Verification](../../UPMT/bootstrap/verification/tech-stack-analysis.md) - Full verification analysis
 
-**Example:**
+---
 
-Platform: Railway
-Website: https://railway.app
-Tier: Pro ($20/month)
+**Last Updated:** 2025-11-17
+**Owner:** Engineering Team
+**Status:** Approved for Development

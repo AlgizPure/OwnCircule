@@ -1,282 +1,224 @@
-# PROJECT ROADMAP
+# Свой Круг - Development Roadmap
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Fill during bootstrap
-
----
-
-## 📊 OVERVIEW
-
-### Project Timeline
-
-[Start Date] ──────────────────────► [End Date / Ongoing]
-     │                │               │
-   MVP            Phase 1          Phase 2
- (3 months)      (3 months)      (6 months)
-
-### Current Status
-
-| Metric | Value |
-|--------|-------|
-| **Current Phase** | [MVP / Phase 1 / etc.] |
-| **Overall Progress** | [X]% complete |
-| **Next Milestone** | [Milestone name] on [Date] |
-| **Team Velocity** | [X] story points/week |
+**Created:** 2025-11-17
+**Version:** 1.0
+**Status:** Active
 
 ---
 
-## 🎯 PHASES
+## 📅 Development Phases
 
-### PHASE 0: MVP (Months 1-3)
+### Phase 1: Foundation (Weeks 1-4)
+**Duration:** 4 weeks (Sprints 1-2)
+**Goal:** Establish core infrastructure and authentication
+**Deliverables:**
+- Backend foundation (FastAPI + PostgreSQL + Redis)
+- Mobile app shell (React Native 0.81 + Redux Toolkit)
+- Authentication system (SMS OTP, JWT tokens)
+- User profile management
+- Basic admin panel structure
+- CI/CD pipeline (GitHub Actions)
+- Development environment setup
 
-**Goal:** [What defines success for MVP?]
-
-**Example:**
-
-Goal: Prove core value - small teams can manage tasks 
-      better than existing tools
-
-**Duration:** [Start Date] → [End Date] ([X] weeks)
-
-**Key Features:**
-
-| Feature | Priority | Status | Effort | Target Week |
-|---------|----------|--------|--------|-------------|
-| [Feature 1] | Must Have | ✅ Complete | 5 days | Week 2 |
-| [Feature 2] | Must Have | 🔄 In Progress | 8 days | Week 5 |
-| [Feature 3] | Should Have | 📋 Not Started | 3 days | Week 7 |
-
-**Milestones:**
-
-- [ ] **Week 2:** Authentication complete
-- [ ] **Week 5:** Core features implemented
-- [ ] **Week 8:** Alpha testing begins
-- [ ] **Week 10:** Beta launch
-- [ ] **Week 12:** MVP launch
+**Critical Modules:**
+- Module 1.1: Authentication & Onboarding (12 functions)
+- Module 1.4: User Profile (12 functions)
+- Backend: User management, auth APIs
+- Infrastructure: Docker setup, cloud deployment
 
 **Success Criteria:**
-- [ ] [Metric 1]: [Target]
-- [ ] [Metric 2]: [Target]
-- [ ] [Metric 3]: [Target]
-
-**Example:**
-
-Success Criteria:
-- [ ] 50 teams actively using (10+ tasks/week)
-- [ ] 40% week-over-week retention
-- [ ] NPS >30
-- [ ] <5% bug rate
-
-**Team:**
-- [Role 1]: [Name(s)]
-- [Role 2]: [Name(s)]
+- [ ] Users can register and log in via SMS
+- [ ] User profiles can be created and updated
+- [ ] Basic API endpoints operational
+- [ ] CI/CD pipeline deploys to staging
 
 ---
 
-### PHASE 1: [Phase Name] (Months 4-6)
+### Phase 2: Core Loyalty Features (Weeks 5-8)
+**Duration:** 4 weeks (Sprints 3-4)
+**Goal:** Implement loyalty system and transaction tracking
+**Deliverables:**
+- Bonus system (accrual, redemption, balance)
+- Status system (Insider/VIP/Elite/Inner Circle)
+- Transaction history and tracking
+- QR code wallet (scanning, generation)
+- Business catalog with filtering
+- First CRM integration (YCLIENTS for Миндаль salon)
 
-[Same structure as Phase 0...]
+**Critical Modules:**
+- Module 2.1: Bonus System (15 functions)
+- Module 2.2: Status System (12 functions)
+- Module 3: Transactions & History (12 functions)
+- Module 1.3: QR Wallet (8 functions)
+- Module 8.1: CRM Connectors (partial - YCLIENTS)
 
----
-
-### PHASE 2: [Phase Name] (Months 7-12)
-
-[Same structure as Phase 0...]
-
----
-
-## 📅 DETAILED SCHEDULE
-
-### Current Sprint/Week
-
-**Sprint #:** [Number]  
-**Dates:** [Start] → [End]  
-**Goal:** [Sprint goal]
-
-**Planned Work:**
-
-| Task | Owner | Status | Notes |
-|------|-------|--------|-------|
-| [Task 1] | [Name] | In Progress | [Notes] |
-| [Task 2] | [Name] | Blocked | Waiting on [X] |
-| [Task 3] | [Name] | Not Started | - |
-
-**Capacity:**
-- [Developer 1]: [X] days available
-- [Developer 2]: [X] days available
-- Total: [X] days
-
-**Risks:**
-- ⚠️ [Risk 1]: [Mitigation plan]
-- ⚠️ [Risk 2]: [Mitigation plan]
+**Success Criteria:**
+- [ ] Users earn bonuses on purchases (5-10% by status)
+- [ ] Status automatically calculated from spend + categories
+- [ ] QR codes work for bonus accrual/redemption
+- [ ] YCLIENTS integration syncs transactions
+- [ ] Transaction history displays correctly
 
 ---
 
-## 📈 PROGRESS TRACKING
+### Phase 3: Integration & Cross-Promo (Weeks 9-10)
+**Duration:** 2 weeks (Sprint 5)
+**Goal:** Connect partner businesses and enable cross-promotion
+**Deliverables:**
+- Second CRM integration (Iiko for Лисичкино gastromarket)
+- Simple cross-promo chains (A → B)
+- Coupon system (distribution, redemption)
+- Basic business analytics dashboard
+- Event Hub with registration
 
-### Overall Progress
+**Critical Modules:**
+- Module 5.1: Simple Cross-Promo Chains (8 functions)
+- Module 2.3: Coupons & Promo (18 functions)
+- Module 8.1: CRM Connectors (Iiko)
+- Module 4.1: Event Management (10 functions)
+- Module 7.1: Business Analytics (8 functions)
 
-MVP: ████████░░ 80%
-
-Phase 1: ███░░░░░░░ 30%
-
-Phase 2: ░░░░░░░░░░ 0%
-
-### Module Breakdown
-
-| Module | Phase | Priority | Progress | Status | Target Date |
-|--------|-------|----------|----------|--------|-------------|
-| Auth | MVP | Must | 100% | ✅ Complete | Week 2 |
-| Profile | MVP | Must | 60% | 🔄 In Progress | Week 5 |
-| Tasks | MVP | Must | 30% | 🔄 In Progress | Week 7 |
-| Comments | MVP | Should | 0% | 📋 Not Started | Week 9 |
-
-**Example visualization:**
-
-Auth:     ██████████ 100% ✅
-Profile:  ██████░░░░ 60% 🔄
-Tasks:    ███░░░░░░░ 30% 🔄
-Comments: ░░░░░░░░░░ 0% 📋
+**Success Criteria:**
+- [ ] 2 CRM integrations operational (YCLIENTS + Iiko)
+- [ ] Cross-promo chains trigger coupons automatically
+- [ ] Users can redeem coupons at partner businesses
+- [ ] Events visible in app with registration
+- [ ] Business owners see basic analytics
 
 ---
 
-## 🎯 MILESTONES
+### Phase 4: Testing & Launch (Weeks 11-12)
+**Duration:** 2 weeks (Sprint 6)
+**Goal:** Beta test, fix bugs, production launch
+**Deliverables:**
+- Beta testing with 50 participants
+- Bug fixes and performance optimization
+- Push notifications system
+- SMS/Email notifications
+- Production deployment
+- Marketing materials and onboarding
 
-### Upcoming Milestones
+**Critical Modules:**
+- Module 12: Notifications & Communications (18 functions)
+- Module 13: Security & Compliance (8 functions)
+- All previous modules: testing, optimization
 
-| Milestone | Date | Status | Criteria |
-|-----------|------|--------|----------|
-| Alpha Testing | Week 8 | 📋 Upcoming | All Must-Have features done |
-| Beta Launch | Week 10 | 📋 Upcoming | Bug rate <2%, 20 test users |
-| MVP Launch | Week 12 | 📋 Upcoming | All acceptance criteria met |
-
-### Past Milestones
-
-| Milestone | Planned Date | Actual Date | Variance | Notes |
-|-----------|--------------|-------------|----------|-------|
-| Kickoff | Week 0 | Week 0 | On time ✅ | - |
-| Auth Complete | Week 2 | Week 2.5 | +0.5 weeks | Slight delay OK |
-
----
-
-## 🔄 ITERATION HISTORY
-
-### What We've Learned
-
-**After MVP Week 4:**
-- ✅ **Working Well:** Daily standups, clear requirements
-- ⚠️ **Needs Improvement:** Estimation accuracy, testing coverage
-- 🔄 **Changes Made:** Added buffer time, more test writing
-
-### Velocity Tracking
-
-| Sprint | Planned | Completed | Velocity |
-|--------|---------|-----------|----------|
-| Sprint 1 | 20 pts | 18 pts | 90% |
-| Sprint 2 | 22 pts | 22 pts | 100% |
-| Sprint 3 | 25 pts | 20 pts | 80% |
-
-**Average Velocity:** [X] story points/sprint
+**Success Criteria:**
+- [ ] 50 beta testers complete onboarding
+- [ ] 0 critical bugs in production
+- [ ] <2s app load time, <100ms API response (p95)
+- [ ] 200+ registrations in first 2 weeks post-launch
+- [ ] 5 partner businesses confirmed and integrated
 
 ---
 
-## 🚧 RISKS & DEPENDENCIES
+## 🗓️ Module Implementation Order
 
-### Risks
+### Critical Path (MVP Required)
+1. **Authentication & User Management** (Week 1-2)
+2. **Loyalty System** (Week 3-4)
+3. **Transactions & QR Wallet** (Week 5-6)
+4. **CRM Integrations** (Week 7-8)
+5. **Cross-Promo Chains** (Week 9-10)
+6. **Notifications & Testing** (Week 11-12)
 
-| Risk | Probability | Impact | Mitigation | Owner |
-|------|-------------|--------|------------|-------|
-| [Risk 1] | High | Critical | [Plan] | [Name] |
-| [Risk 2] | Medium | Moderate | [Plan] | [Name] |
+### Important (Post-MVP, v1.5 - Months 4-6)
+7. **Referral Program** (Module 11)
+8. **Advanced Events** (Module 4.2-4.3)
+9. **Business Admin Panel** (Module 9)
+10. **Win-Win Analytics** (Module 5.4)
+11. **Offer Constructor** (Module 6)
 
-**Example:**
-| Risk | Probability | Impact | Mitigation | Owner |
-|------|-------------|--------|------------|-------|
-| Third-party API downtime | Medium | High | Build fallback, cache data | Tech Lead |
-| Key developer leaves | Low | Critical | Knowledge sharing, documentation | PM |
-
-### External Dependencies
-
-| Dependency | Provider | Status | Risk Level |
-|------------|----------|--------|------------|
-| [Dependency 1] | [Provider] | ✅ Ready | Low |
-| [Dependency 2] | [Provider] | ⚠️ Delayed | Medium |
-
-**Example:**
-| Dependency | Provider | Status | Risk Level |
-|------------|----------|--------|------------|
-| Email API | SendGrid | ✅ Ready | Low |
-| Design System | Design team | 🔄 In Progress | Medium |
+### Nice-to-Have (v2.0 - Months 7-12)
+12. **Event Constructor** (Module 1.6)
+13. **Advanced Analytics** (Module 7.2-7.5)
+14. **Gamification & Badges** (Module 14)
+15. **Sequential/Cyclical Chains** (Module 5.2-5.3)
 
 ---
 
-## 📊 RESOURCE ALLOCATION
+## 📊 Progress Tracking
 
-### Team Allocation (Current Sprint)
+**Current Status:** PHASE 5 - Documentation Generation
 
-Developer 1:  ████████░░ 80% Feature A
-              ██░░░░░░░░ 20% Bug fixes
-
-Developer 2:  ██████████ 100% Feature B
-
-Designer:     ██████░░░░ 60% Feature C designs
-              ████░░░░░░ 40% MVP polish
-
-### Budget (If Applicable)
-
-| Category | Budgeted | Spent | Remaining |
-|----------|----------|-------|-----------|
-| Development | $X | $Y | $Z |
-| Infrastructure | $X | $Y | $Z |
-| Tools | $X | $Y | $Z |
+| Phase | Status | Progress | ETA |
+|-------|--------|----------|-----|
+| PHASE 1: Analysis | ✅ Complete | 100% | 2025-11-17 |
+| PHASE 2: Interview | ✅ Complete | 100% | 2025-11-17 |
+| PHASE 3: Tech Verification | ✅ Complete | 100% | 2025-11-17 |
+| PHASE 4: Synthesis | ✅ Complete | 100% | 2025-11-17 |
+| PHASE 5: Documentation | 🔄 In Progress | 40% | 2025-11-17 |
+| PHASE 5.5: Design System | ⏳ Pending | 0% | TBD |
+| PHASE 6: Setup Instructions | ⏳ Pending | 0% | TBD |
+| PHASE 7: Validation | ⏳ Pending | 0% | TBD |
+| PHASE 8: Final Report | ⏳ Pending | 0% | TBD |
 
 ---
 
-## 🔄 CHANGE LOG
+## 🎯 Milestones
 
-| Version | Date | Changes | Reason |
-|---------|------|---------|--------|
-| 1.0 | [Date] | Initial roadmap | Bootstrap |
-| 1.1 | [Date] | Moved Feature X to Phase 2 | Timeline pressure |
-| 1.2 | [Date] | Added Feature Y to MVP | User feedback |
+### M1: Infrastructure Ready (Week 4)
+- Backend APIs operational
+- Mobile app shell deployed
+- Authentication working
+- CI/CD pipeline live
 
----
+### M2: Loyalty System Live (Week 8)
+- Bonuses + status system functional
+- QR wallet operational
+- 2 CRM integrations complete
+- First transactions tracked
 
-## ✅ ROADMAP HEALTH CHECK
+### M3: Cross-Promo Active (Week 10)
+- Cross-promotion chains working
+- Coupon distribution automated
+- Event Hub with registrations
+- Business analytics dashboard
 
-Review these regularly:
-
-**Scope:**
-- [ ] All phases have clear goals
-- [ ] Features properly prioritized
-- [ ] No scope creep
-
-**Timeline:**
-- [ ] Milestones realistic
-- [ ] Dependencies mapped
-- [ ] Buffer time included
-
-**Resources:**
-- [ ] Team capacity adequate
-- [ ] Skills available
-- [ ] Budget sufficient
-
-**Risks:**
-- [ ] Major risks identified
-- [ ] Mitigation plans in place
-- [ ] Monitoring in progress
-
-**Communication:**
-- [ ] Stakeholders informed
-- [ ] Team aligned
-- [ ] Progress visible
-
-**If issues found:** Update roadmap, inform stakeholders, adjust plans
+### M4: Production Launch (Week 12)
+- Beta testing complete (50 users)
+- All critical bugs fixed
+- 200+ registrations achieved
+- 5 partner businesses live
 
 ---
 
-**Related Documents:**
-- Features: See `PRD.md`
-- Technical details: See `ARCHITECTURE.md`
-- Progress: See `/PROGRESS_TRACKING/`
+## ⚠️ Risks & Mitigation
+
+### Technical Risks
+1. **CRM Integration Complexity**
+   - Risk: YCLIENTS/Iiko APIs may have undocumented limitations
+   - Mitigation: Start integration testing in Sprint 3, build CSV fallback
+
+2. **Performance at Scale**
+   - Risk: Real-time bonus calculation may slow down at 1000+ transactions/day
+   - Mitigation: Implement Redis caching, ClickHouse for analytics, load testing
+
+3. **Mobile App Store Approval**
+   - Risk: iOS/Android approval may take 1-2 weeks, delaying launch
+   - Mitigation: Submit for review in Sprint 5, have TestFlight ready
+
+### Business Risks
+1. **Partner Onboarding Delays**
+   - Risk: Businesses may delay providing CRM access
+   - Mitigation: Sign agreements early, have manual CSV upload as backup
+
+2. **User Adoption**
+   - Risk: Target 200 registrations may not be met
+   - Mitigation: Pre-launch marketing, partner promotion, referral incentives
+
+---
+
+## 🔄 Related Documentation
+
+- [Project Essence](./00_PROJECT_ESSENCE.md) - Vision and problem statement
+- [PRD](./01_PRD.md) - Product requirements
+- [Tech Stack](./03_TECH_STACK.md) - Technology choices
+- [Architecture](./04_ARCHITECTURE.md) - System design
+- [Module Requirements](../requirements/) - Detailed module specs
+
+---
+
+**Last Updated:** 2025-11-17
+**Owner:** Product Team
+**Status:** Active

@@ -1,198 +1,495 @@
-# PROJECT METADATA
-
-# ═══════════════════════════════════════════════════════════════════════
-# AUTO-FILL MODE
-# ═══════════════════════════════════════════════════════════════════════
-# Leave sections below empty or partially filled.
-# Claude Code will read raw data and ask questions to complete this file.
-# You only need to answer questions during bootstrap.
-#
-# HOW IT WORKS:
-# 1. Add your raw data to chats/, documents/, notes/
-# 2. Run bootstrap (Claude reads all data automatically)
-# 3. Claude asks 5-10 questions to clarify ambiguities
-# 4. This file fills automatically based on data + your answers
-#
-# NO NEED to manually fill every field!
-# ═══════════════════════════════════════════════════════════════════════
-
-# ═══════════════════════════════════════════════════════════════════════
-# EXISTING PROJECT MODE
-# ═══════════════════════════════════════════════════════════════════════
-# If adding to existing project, set enabled: true below
-# Claude Code will analyze existing code automatically
-# ═══════════════════════════════════════════════════════════════════════
-
-existing_project:
-  enabled: false  # Set to true if existing code
-  github_repo: ""  # GitHub repo URL (e.g., https://github.com/user/project)
-  code_location: "../"  # Relative path to code (for CLI) or repo URL (for Web)
-  # Claude Code will analyze existing code automatically:
-  # - Detect implemented features
-  # - Extract tech stack from package.json
-  # - Compare code vs raw data requirements
-  # - Recommend modernization where needed
-
-# ═══════════════════════════════════════════════════════════════════════
-# PROJECT INFO (Auto-filled by Claude Code)
-# ═══════════════════════════════════════════════════════════════════════
+# metadata.yaml - Метаданные проекта "Свой Круг"
+# Auto-generated from PHASE 1 & PHASE 2 analysis
+# Date: 2025-11-17
 
 project:
-  name: "Your Project Name Here"  # Will be filled during bootstrap
-  type: "Web Application / Mobile App / SaaS / etc"  # Will be detected from raw data
-  status: "Pre-development / Planning / In Progress"  # Will be determined
-  target_audience: "Brief description of who will use this"  # Will be extracted
+  name: "Свой Круг"
+  name_en: "Own Circle"
+  description: "Женский премиум клуб с кросс-промо между бизнесами. Закрытая экосистема лояльности для женщин 30-50 лет с доходом 80K+ рублей/месяц."
+  type: "new_project"
+  domain: "loyalty_ecosystem"
+  vertical: "multi_business_loyalty_platform"
+  geo: "Russia"
 
-# ═══════════════════════════════════════════════════════════════════════
-# DATA INFO (Auto-filled by Claude Code)
-# ═══════════════════════════════════════════════════════════════════════
-# Claude Code will scan all files and fill this section automatically
+target_audience:
+  primary: "Женщины 30-50 лет, доход 80K+/месяц, траты на бьюти/wellness 15-30K/месяц"
+  secondary: "Собственники премиум бизнесов (бьюти, wellness, гастрономия)"
+  segments:
+    - "Постоянные клиенты партнёров (Skinerica, Лисичкино, etc)"
+    - "Предприниматели женщины"
+    - "Руководители среднего и высшего звена"
+  initial_user_base: "200+ регистраций к концу MVP"
+  beta_testers: "50 участниц"
 
-data_info:
-  total_chats: 0        # Will be counted automatically
-  total_documents: 0    # Will be counted automatically
-  total_notes: 0        # Will be counted automatically
-  date_range: "YYYY-MM to YYYY-MM"  # Will be detected from file dates
+timeline:
+  start_date: "2025-11-17"
+  mvp_deadline: "2026-02-09"  # 12 недель от старта
+  phases:
+    - name: "MVP Development"
+      duration: "12 weeks"
+      sprints: 6
+      description: "Аутентификация, бонусы, интеграции, бета-тест, продакшн"
+    - name: "v1.5 Release"
+      duration: "3 months after MVP"
+      features: "Реферальная программа, push-уведомления, базовые мероприятия, +3 бизнеса"
+    - name: "v2.0 Release"
+      duration: "6 months after v1.5"
+      features: "Конструктор мероприятий, голосование с весом, AI-рекомендации, соц.лента"
 
-  # Sources will be auto-detected from files in chats/, documents/, notes/
-  # You can add manual entries if needed, or leave empty for auto-fill
-  sources:
-    - name: "Gemini - Vision Discussion"
-      files:
-        - "gemini-vision-2025-01.txt"
-      topics:
-        - "Project vision"
-        - "Target audience"
-        - "Core value proposition"
-      date: "2025-01"
-      word_count: 15000  # Approximate
-      quality: "High"    # High/Medium/Low
+tech_stack:
+  verified_date: "2025-11-17"
+  verification_status: "APPROVED"
 
-    - name: "Claude - Technical Architecture"
-      files:
-        - "claude-architecture-2025-08.md"
-      topics:
-        - "System architecture"
-        - "Technology stack"
-        - "Database design"
-      date: "2025-08"
-      word_count: 12000
-      quality: "High"
+  frontend:
+    - name: "React Native"
+      version: "0.81"
+      verified: "2025-11-17"
+      purpose: "iOS/Android мобильное приложение"
+      notes: "Android 16 support, 10x faster iOS builds"
+    - name: "TypeScript"
+      version: "5.7.x"
+      purpose: "Type safety"
+    - name: "Redux Toolkit"
+      version: "2.10.1"
+      purpose: "State management"
+    - name: "RTK Query"
+      version: "2.10.1"
+      purpose: "API calls & caching (included in Redux Toolkit)"
+    - name: "React Navigation"
+      version: "6.x"
+      purpose: "Navigation"
+    - name: "React Native Paper"
+      version: "5.x"
+      purpose: "UI components (Tiffany-style, Material Design 3)"
+    - name: "react-native-vision-camera"
+      version: "4.x"
+      purpose: "QR-сканирование"
+    - name: "Firebase Cloud Messaging"
+      version: "@react-native-firebase/messaging 21.x"
+      purpose: "Push-уведомления"
+    - name: "Firebase Analytics"
+      version: "@react-native-firebase/analytics 21.x"
+      purpose: "Аналитика"
+    - name: "Amplitude"
+      version: "@amplitude/analytics-react-native 1.x"
+      purpose: "Product analytics"
+    - name: "Sentry"
+      version: "@sentry/react-native 6.x"
+      purpose: "Crash reporting"
 
-    # Add more sources as needed
-    # - name: "..."
-    #   files: ["..."]
-    #   topics: ["..."]
-    #   date: "..."
+  backend:
+    - name: "Python"
+      version: "3.13"
+      verified: "2025-11-17"
+      notes: "JIT compiler, 2-year support, performance boost"
+    - name: "FastAPI"
+      version: "0.121.2"
+      verified: "2025-11-17"
+      purpose: "REST API framework"
+      notes: "CRITICAL UPDATE from 0.104+"
+    - name: "Celery"
+      version: "5.4.x"
+      purpose: "Async tasks, scheduled jobs"
+    - name: "SQLAlchemy"
+      version: "2.0.44"
+      verified: "2025-11-17"
+      purpose: "ORM"
+    - name: "Alembic"
+      version: "1.14.x"
+      purpose: "Database migrations"
+    - name: "PyJWT"
+      version: "2.9.x"
+      verified: "2025-11-17"
+      purpose: "JWT authentication"
+      notes: "REPLACED python-jose (better maintenance)"
+    - name: "Pydantic"
+      version: "2.10.x"
+      verified: "2025-11-17"
+      purpose: "Data validation"
+      notes: "Required for FastAPI 0.121.2"
+    - name: "httpx"
+      version: "0.28.x"
+      purpose: "HTTP client для интеграций"
+    - name: "firebase-admin"
+      version: "6.6.x"
+      purpose: "Server-side Firebase operations"
 
-# ═══════════════════════════════════════════════════════════════════════
-# KNOWN DECISIONS (Optional - Claude will extract from raw data)
-# ═══════════════════════════════════════════════════════════════════════
-# List only if you want to emphasize certain decisions
-# Claude Code will extract most decisions automatically from raw data
+  databases:
+    - name: "PostgreSQL"
+      version: "16.11"
+      verified: "2025-11-17"
+      purpose: "Основные данные (пользователи, транзакции, мероприятия, бизнесы)"
+      notes: "RECOMMENDED UPDATE from 15 (security fixes, performance)"
+    - name: "ClickHouse"
+      version: "25.8 LTS"
+      verified: "2025-11-17"
+      purpose: "Аналитика, метрики, RFM-сегментация, события"
+      notes: "RECOMMENDED UPDATE from 23 (2 years improvements)"
+    - name: "Redis"
+      version: "8.2"
+      verified: "2025-11-17"
+      purpose: "Кеш, сессии, очереди Celery, rate limiting"
+      notes: "CRITICAL UPDATE from 7 (91% faster, 37% memory reduction)"
+    - name: "Elasticsearch"
+      version: "9.3.0"
+      verified: "2025-11-17"
+      purpose: "Полнотекстовый поиск по бизнесам, мероприятиям"
+      notes: "RECOMMENDED UPDATE from 8 (EOL avoidance, AI features)"
 
-known_decisions:
-  - "Project Name: [Your Project Name]"
-  - "Target Audience: [Who is this for?]"
-  - "Core Features: [List must-have features]"
-  - "Timeline: [Any deadlines or target dates?]"
+  infrastructure:
+    cloud:
+      - provider: "Yandex Cloud"
+        status: "PRIMARY"
+        region: "ru-central1"
+        services: "Compute Cloud, Object Storage, Managed PostgreSQL 16, Managed Redis 8"
+        notes: "152-ФЗ compliance (Russian data residency)"
+      - provider: "VK Cloud"
+        status: "BACKUP"
+        notes: "Failover/disaster recovery"
+    containers:
+      - name: "Docker"
+        version: "Engine 27.x"
+      - name: "Docker Compose"
+        version: "2.31.x"
+    ci_cd:
+      - name: "GitHub Actions"
+        runners: "ubuntu-24.04"
+    monitoring:
+      - name: "Prometheus"
+        version: "2.55.x"
+      - name: "Grafana"
+        version: "11.x"
+      - name: "Sentry"
+        version: "sentry-sdk 2.19.x"
+      - name: "Loki"
+        version: "latest"
+        purpose: "Log aggregation"
+    storage:
+      - "Yandex Object Storage (S3-compatible)"
+    domains: "[TO BE CONFIRMED]"
+    ssl: "Let's Encrypt + Yandex Certificate Manager"
 
-  # Examples:
-  # - "Project Name: TaskFlow"
-  # - "Target Audience: Remote teams of 5-15 people"
-  # - "Core Features: Task board, comments, team management"
-  # - "Timeline: MVP in 3 months"
+  dev_tools:
+    - name: "Ruff"
+      version: "0.7.x"
+      purpose: "Python linter & formatter (replaces black, flake8, isort)"
+    - name: "mypy"
+      version: "1.13.x"
+      purpose: "Python type checker"
+    - name: "ESLint"
+      version: "9.x"
+      purpose: "TypeScript/JavaScript linter"
+    - name: "Prettier"
+      version: "3.x"
+      purpose: "Code formatter"
+    - name: "pre-commit"
+      version: "4.x"
+      purpose: "Git hooks"
 
-# ═══════════════════════════════════════════════════════════════════════
-# KNOWN CONTRADICTIONS (Optional - Claude will detect automatically)
-# ═══════════════════════════════════════════════════════════════════════
-# Claude Code will find contradictions in raw data and ask you to resolve them
-# You can list known contradictions here to speed up the process
+team:
+  size: "[TO BE CONFIRMED]"
+  structure: "[TO BE CONFIRMED - нужна команда или есть?]"
+  roles:
+    - role: "Backend Developer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Python, FastAPI, PostgreSQL, Redis, опыт интеграций с CRM"
+    - role: "Frontend Developer (Mobile)"
+      count: "[TO BE CONFIRMED]"
+      skills: "React Native, Redux, опыт iOS/Android разработки"
+    - role: "DevOps Engineer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Docker, GitHub Actions, Yandex Cloud/VK Cloud"
+    - role: "QA Engineer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Mobile testing, API testing"
+    - role: "UI/UX Designer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Figma, mobile design, Tiffany-style брендинг"
+    - role: "Product Owner"
+      count: 1
+      skills: "Управление продуктом, приоритизация"
+  integration_experience: "[TO BE CONFIRMED - опыт с 1С/YCLIENTS/AMO CRM?]"
 
-known_contradictions:
-  - "Database: MongoDB mentioned in early chats, PostgreSQL in later discussions"
-  - "Feature Priority: Social login was Must Have, then moved to Phase 2"
+priorities:
+  critical:
+    - "Аутентификация (SMS-код, JWT)"
+    - "Профиль пользователя с балансом бонусов"
+    - "QR-кошелек для начисления бонусов"
+    - "Интеграция с YCLIENTS (Миндаль)"
+    - "Интеграция с Iiko (Лисичкино)"
+    - "Базовая бонусная система (кешбэк 5-10%)"
+    - "Безопасность: 152-ФЗ compliance"
+  important:
+    - "Система статусов (Insider/VIP/Elite/Inner Circle)"
+    - "История транзакций"
+    - "Каталог бизнесов-партнёров"
+    - "Push-уведомления о бонусах"
+    - "Админ-панель для бизнесов"
+  nice_to_have:
+    - "Реферальная программа"
+    - "Геймификация и бейджи"
+    - "События (Events Hub)"
+    - "Конструктор мероприятий"
+    - "AI-рекомендации"
 
-  # Examples:
-  # - "Tech stack: React vs Vue discussed"
-  # - "Hosting: AWS vs Vercel vs Railway"
-  # - "Timeline: 3 months vs 6 months in different chats"
+modules:
+  total: 15
+  total_functions: 325
+  list:
+    - id: 1
+      name: "Мобильное приложение (Frontend)"
+      functions: 68
+      priority: "critical"
+    - id: 2
+      name: "Система лояльности"
+      functions: 45
+      priority: "critical"
+    - id: 3
+      name: "Транзакции и история покупок"
+      functions: 12
+      priority: "critical"
+    - id: 4
+      name: "Мероприятия и Events Hub"
+      functions: 28
+      priority: "important"
+    - id: 5
+      name: "Кросс-промо и цепочки"
+      functions: 22
+      priority: "important"
+    - id: 6
+      name: "Конструктор предложений"
+      functions: 18
+      priority: "important"
+    - id: 7
+      name: "Аналитика для бизнесов"
+      functions: 25
+      priority: "important"
+    - id: 8
+      name: "Интеграции с CRM"
+      functions: 20
+      priority: "critical"
+    - id: 9
+      name: "Админ-панель для бизнесов"
+      functions: 22
+      priority: "critical"
+    - id: 10
+      name: "Суперадмин экосистемы"
+      functions: 18
+      priority: "critical"
+    - id: 11
+      name: "Реферальная программа"
+      functions: 10
+      priority: "nice_to_have"
+    - id: 12
+      name: "Уведомления и коммуникации"
+      functions: 18
+      priority: "important"
+    - id: 13
+      name: "Безопасность и Compliance"
+      functions: 8
+      priority: "critical"
+    - id: 14
+      name: "Геймификация и бейджи"
+      functions: 7
+      priority: "nice_to_have"
+    - id: 15
+      name: "Система бюджета мероприятий"
+      functions: 4
+      priority: "nice_to_have"
 
-# ═══════════════════════════════════════════════════════════════════════
-# QUESTIONS TO RESOLVE (Optional - Claude will generate questions)
-# ═══════════════════════════════════════════════════════════════════════
-# Claude Code will identify unclear areas and ask you during bootstrap
-# You can pre-list questions here if you know what needs clarification
+integrations:
+  external_systems:
+    - name: "1С"
+      type: "CRM/ERP"
+      partners: ["Skinerica", "Лисичкино"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+      version: "[TO BE CONFIRMED]"
+    - name: "Bitrix24"
+      type: "CRM"
+      partners: ["Skinerica"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+    - name: "YCLIENTS"
+      type: "CRM для салонов красоты"
+      partners: ["Миндаль"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+      priority: "MVP Sprint 5-6"
+    - name: "AMO CRM"
+      type: "CRM"
+      partners: ["Стим Центр"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+    - name: "МИС Renovatio"
+      type: "Медицинская информационная система"
+      partners: ["Миллениум"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+    - name: "Iiko"
+      type: "Автоматизация ресторанов"
+      partners: ["Лисичкино"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+      priority: "MVP Sprint 5-6"
+    - name: "ЮKassa"
+      type: "Платёжный шлюз"
+      status: "planned"
+      note: "Для будущего функционала (сейчас только кешбэк)"
+    - name: "CloudPayments"
+      type: "Платёжный шлюз"
+      status: "planned"
+      note: "Альтернатива ЮKassa"
+    - name: "SMS.ru"
+      type: "SMS-шлюз"
+      status: "planned"
+      purpose: "SMS-коды для аутентификации"
+    - name: "SMSC.ru"
+      type: "SMS-шлюз"
+      status: "planned"
+      purpose: "Альтернатива SMS.ru"
+    - name: "Firebase"
+      type: "Push-уведомления, Analytics"
+      status: "planned"
+      priority: "MVP Sprint 1-2"
+  fallback_strategy: "CSV-загрузчик как временное решение до готовности API-интеграций"
 
-questions_to_resolve:
-  - "Final tech stack decisions?"
-  - "Exact MVP scope (which features)?"
-  - "Architecture pattern (MVC / microservices / serverless)?"
-  - "Database choice final decision?"
-  - "Hosting platform preference?"
+partners:
+  initial_count: 5
+  list:
+    - name: "Skinerica"
+      type: "Косметология"
+      crm: ["1С", "Bitrix24"]
+      status: "confirmed"
+    - name: "Лисичкино"
+      type: "Гастромаркет"
+      crm: ["Iiko", "1С"]
+      status: "confirmed"
+    - name: "Стим Центр"
+      type: "Стоматология"
+      crm: ["AMO CRM"]
+      status: "confirmed"
+    - name: "Миндаль"
+      type: "Салон красоты"
+      crm: ["YCLIENTS"]
+      status: "confirmed"
+    - name: "Миллениум"
+      type: "Медицинский центр"
+      crm: ["МИС Renovatio"]
+      status: "confirmed"
+  expansion_plan: "+3 бизнеса к v1.5 (через 3 месяца после MVP)"
 
-  # Examples:
-  # - "Use TypeScript or plain JavaScript?"
-  # - "Monorepo or separate repos?"
-  # - "Authentication strategy (JWT / session / OAuth)?"
+metrics:
+  north_star: "% клиентов, совершивших ≥2 покупки в разных категориях за 60 дней"
+  north_star_target: "25% к концу 6-го месяца"
+  kpis:
+    - name: "CAC"
+      description: "Customer Acquisition Cost"
+      target: "[TO BE DEFINED]"
+    - name: "LTV"
+      description: "Lifetime Value"
+      target: "[TO BE DEFINED]"
+    - name: "Retention Rate"
+      target: "[TO BE DEFINED]"
+    - name: "Churn Rate"
+      target: "< 20% monthly"
+    - name: "NPS"
+      description: "Net Promoter Score"
+      target: "> 50"
+    - name: "Cross-Purchase Rate"
+      description: "% users buying from 2+ categories"
+      target: "25% (tied to NSM)"
+    - name: "Ecosystem Revenue Share"
+      description: "% revenue distributed to partners"
+      target: "[TO BE DEFINED]"
+  mvp_success_criteria:
+    - "200+ регистраций"
+    - "50+ активных участниц бета-теста"
+    - "2+ интеграции работают (YCLIENTS + Iiko)"
+    - "Система бонусов функционирует"
+    - "0 critical bugs в production"
 
-# Additional context (optional)
-additional_context:
-  team_size: 1-3  # How many developers?
-  timeline_pressure: "Medium"  # High/Medium/Low
-  budget_constraints: "Minimal hosting costs (<$100/month)"
-  technical_constraints: "None" # Any limitations?
-  user_research_done: false  # true/false
-  competitor_analysis_done: false
+user_statuses:
+  - name: "Insider"
+    requirements: "Регистрация + 1 покупка"
+    benefits: "Кешбэк 5%"
+  - name: "VIP"
+    requirements: "≥30,000₽ потрачено + ≥3 категории"
+    benefits: "Кешбэк 7%, приоритет на мероприятия"
+  - name: "Elite"
+    requirements: "≥100,000₽ потрачено + ≥5 категорий"
+    benefits: "Кешбэк 10%, доступ к конструктору мероприятий"
+  - name: "Inner Circle"
+    requirements: "По приглашению"
+    benefits: "Статус амбассадора, эксклюзивные мероприятия"
 
-# Bootstrap preferences (optional)
-bootstrap_preferences:
-  # How much detail do you want in generated docs?
-  detail_level: "high"  # high/medium/low
+design:
+  style: "Tiffany-inspired (роскошь, женственность, доверие)"
+  color_primary: "#0ABAB5"  # Tiffany blue
+  color_secondary: "[TO BE CONFIRMED]"
+  ui_kit: "React Native Paper"
+  figma_link: "[TO BE CONFIRMED]"
+  assets_status: "[TO BE CONFIRMED - есть ли готовые экраны?]"
+  branding_status: "[TO BE CONFIRMED - есть ли брендбук?]"
 
-  # Should Claude Code infer missing information?
-  allow_inference: true  # true/false
+security:
+  compliance:
+    - name: "152-ФЗ"
+      description: "Персональные данные"
+      level: "[TO BE CONFIRMED - базовый или полная тех.защита?]"
+      requirements:
+        - "Согласия пользователей"
+        - "Политика конфиденциальности"
+        - "Шифрование в transit (HTTPS)"
+        - "Шифрование at rest (PostgreSQL encryption)"
+    - name: "Врачебная тайна"
+      description: "Для медицинских партнёров"
+      level: "[TO BE CONFIRMED - сертификация нужна?]"
+      approach: "Не храним диагнозы, только транзакции (суммы, даты)"
+  authentication:
+    - "SMS-код (одноразовый пароль)"
+    - "JWT токены"
+    - "Опционально: Biometric (Face ID / Touch ID)"
+  data_protection:
+    - "HTTPS everywhere"
+    - "PostgreSQL encryption at rest"
+    - "Redis password protection"
+    - "RBAC (Role-Based Access Control)"
+    - "Audit logs для админ-панели"
+  payment_security:
+    - "PCI DSS (через ЮKassa/CloudPayments)"
+    - "Не храним данные карт"
 
-  # Should Claude Code ask questions in batches or one by one?
-  question_style: "batches"  # batches/individual
+environments:
+  development:
+    status: "[TO BE CONFIRMED]"
+    url: "[TO BE DEFINED]"
+  staging:
+    status: "[TO BE CONFIRMED]"
+    url: "[TO BE DEFINED]"
+  production:
+    status: "[TO BE CONFIRMED]"
+    url: "[TO BE DEFINED]"
 
-  # Which areas are most important to get right?
-  focus_areas:
-    - "Tech stack selection"
-    - "Architecture design"
-    - "Feature prioritization"
+documentation:
+  files_analyzed:
+    - "Свой круг PRD_.md"
+    - "Промты для презентации и описание UI.md"
+    - "Проект «Свой Круг» стратегия.md"
+    - "Архитектура.md"
+    - "PITCH_DECK_SVOY_KRUG.md"
+    - "EXECUTIVE_SUMMARY.md"
+    - "MVP_TECHNICAL_SPECIFICATION.md"
+    - "CONSTRUCTOR_QUICK_START.md"
+    - "SVOY_KRUG_FULL_DESCRIPTION.md"
+    - "OFFER_CONSTRUCTOR_MECHANICS.md"
+  generated_files:
+    - "UPMT/bootstrap/00_RAW_DATA_TEMPLATE/extracted_features.md (325 functions)"
+    - "UPMT/bootstrap/00_RAW_DATA_TEMPLATE/modules_list.md (15 modules)"
 
-  # Any specific concerns?
-  concerns:
-    - "Timeline is aggressive, need realistic estimates"
-    - "Tech stack must be modern and verified"
-
-# Notes for Claude Code (optional)
-notes_for_claude:
-  - "Pay special attention to contradictions - some chats are outdated"
-  - "Timeline estimates in early chats were too optimistic"
-  - "User mentioned they're familiar with React but not Vue"
-  - "Budget is limited, prefer free/cheap hosting options"
-
-# ═══════════════════════════════════════════════════════════════════════
-# Version tracking (Auto-filled by Claude Code)
-# ═══════════════════════════════════════════════════════════════════════
-metadata_version: "1.0"
-last_updated: "YYYY-MM-DD"  # Will be filled with current date
-updated_by: "Your Name"  # Will be filled during bootstrap
-
-# ═══════════════════════════════════════════════════════════════════════
-# SUMMARY: How to Use AUTO-FILL Mode
-# ═══════════════════════════════════════════════════════════════════════
-#
-# QUICK START:
-# 1. Add raw data files to chats/, documents/, notes/
-# 2. (Optional) Set existing_project.enabled: true if adding to existing code
-# 3. Run bootstrap with Claude Code
-# 4. Answer 5-10 clarifying questions
-# 5. This file fills automatically!
-#
-# You CAN leave most fields empty - Claude Code will fill them!
-# Only fill fields manually if you want to emphasize specific information.
-#
-# ═══════════════════════════════════════════════════════════════════════
+notes:
+  - "Поля с [TO BE CONFIRMED] требуют уточнения от команды/клиента"
+  - "MVP фокус на 2 интеграциях: YCLIENTS (Миндаль) + Iiko (Лисичкино)"
+  - "CSV-загрузчик как fallback стратегия для остальных партнёров"
+  - "Дизайн-система и Figma макеты статус неизвестен - требуется уточнение"
+  - "Команда разработки не определена - нужно уточнить состав и опыт"

@@ -1,433 +1,424 @@
-- Redis cache
+# Свой Круг - System Architecture
 
-Deployment:
-- GitHub integration
-- Auto-deploy on push
-- Zero-downtime deploys
-
-Cost Estimate:
-- Base: $20/month
-- Database: $5/month (storage)
-- Redis: $5/month
-- Total: ~$30/month
-
-Scaling:
-- Vertical: Auto-scale RAM/CPU
-- Horizontal: Add replicas (when needed)
-
-Alternatives:
-- Render: Similar, chose Railway for better DX
-- Heroku: Too expensive
-- AWS: Too complex for MVP
-- DigitalOcean: More manual setup
+**Created:** 2025-11-17
+**Version:** 1.0
+**Status:** Active
 
 ---
 
-### Database Hosting
+## 🏗️ High-Level Architecture
 
-**Example:**
+Свой Круг uses a **mobile-first, API-driven architecture** with a modular monolith backend and React Native frontend. The system is designed for rapid MVP development while maintaining clear boundaries for future microservices extraction if needed.
 
-Included in: Railway (managed PostgreSQL)
-
-Configuration:
-- Version: PostgreSQL 16
-- Storage: 10GB (expandable)
-- Backups: Daily automated
-- Connection pooling: PgBouncer
-
-Access:
-- Direct connection (Drizzle ORM)
-- Connection string in env vars
-- SSL enforced
-
-Backup Strategy:
-- Daily automatic backups (7 days retention)
-- Pre-deployment manual backup
-- Export scripts for critical data
-
----
-
-### CI/CD
-
-**Technology:** [CI/CD Platform]
-
-**Example:**
-
-Platform: GitHub Actions
-Website: https://github.com/features/actions
-Cost: Free (within limits)
-
-Why We Chose This:
-✓ Integrated with GitHub
-✓ Free for public/private repos
-✓ YAML configuration (version controlled)
-✓ Large marketplace (actions)
-
-Workflows:
-
-1. Test & Build (on every PR):
-   - Run linter
-   - Run tests
-   - Build frontend
-   - Build backend
-   - Report coverage
-
-2. Deploy Staging (on push to develop):
-   - Run tests
-   - Deploy to staging
-   - Run smoke tests
-
-3. Deploy Production (on push to main):
-   - Run tests
-   - Deploy to production
-   - Monitor errors
-   - Notify team
-
-Example Workflow:
-name: Test & Deploy
-on: [push]
-jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: npm test
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - run: npm run deploy
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    MOBILE CLIENTS                           │
+│  ┌─────────────────────┐    ┌─────────────────────┐        │
+│  │   iOS App           │    │   Android App       │        │
+│  │ (React Native 0.81) │    │ (React Native 0.81) │        │
+│  └─────────────────────┘    └─────────────────────┘        │
+└──────────────────────┬──────────────────────────────────────┘
+                       │ HTTPS/TLS 1.3
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   API GATEWAY / LOAD BALANCER               │
+│                  (Yandex Application Load Balancer)         │
+└──────────────────────┬──────────────────────────────────────┘
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    BACKEND (FastAPI)                        │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │ Auth Service │  │ Loyalty Core │  │ CRM Connector│     │
+│  │  (JWT, SMS)  │  │ (Bonus/Status)│  │  (Adapters)  │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │ Transaction  │  │ Event Manager│  │ Analytics    │     │
+│  │  Service     │  │              │  │ Service      │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+└──────────────────────┬──────────────────────────────────────┘
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│                   DATA LAYER                                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │ PostgreSQL   │  │ ClickHouse   │  │ Redis        │     │
+│  │ (Primary DB) │  │ (Analytics)  │  │ (Cache/Queue)│     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+│  ┌──────────────┐  ┌──────────────┐                        │
+│  │Elasticsearch │  │ Object Store │                        │
+│  │  (Search)    │  │  (S3/Yandex) │                        │
+│  └──────────────┘  └──────────────┘                        │
+└─────────────────────────────────────────────────────────────┘
+                       ▲
+                       │
+┌──────────────────────┴──────────────────────────────────────┐
+│              EXTERNAL INTEGRATIONS                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │  YCLIENTS    │  │     Iiko     │  │     1С       │     │
+│  │  (REST API)  │  │  (REST API)  │  │  (REST API)  │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐     │
+│  │   AMO CRM    │  │ МИС Renovatio│  │  ЮKassa      │     │
+│  │  (REST API)  │  │  (REST API)  │  │  (Payments)  │     │
+│  └──────────────┘  └──────────────┘  └──────────────┘     │
+└─────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-### Monitoring & Logging
+## 🧱 Backend Architecture
 
-**Error Tracking:**
+### Modular Monolith Design
 
-**Example:**
+The backend is organized as a **modular monolith** with clear domain boundaries:
 
-Tool: Sentry
-Website: https://sentry.io
-Tier: Developer ($26/month)
+```
+backend/
+├── app/
+│   ├── api/                    # API routes (FastAPI routers)
+│   │   ├── v1/
+│   │   │   ├── auth.py         # Authentication endpoints
+│   │   │   ├── users.py        # User management
+│   │   │   ├── loyalty.py      # Bonuses, status
+│   │   │   ├── transactions.py # Transaction tracking
+│   │   │   ├── events.py       # Event Hub
+│   │   │   ├── businesses.py   # Business catalog
+│   │   │   └── admin.py        # Admin endpoints
+│   ├── core/                   # Core business logic
+│   │   ├── loyalty/            # Bonus & status calculations
+│   │   ├── cross_promo/        # Cross-promotion engine
+│   │   ├── analytics/          # RFM, churn prediction
+│   │   └── notifications/      # Push, SMS, Email
+│   ├── integrations/           # External CRM connectors
+│   │   ├── yclients/
+│   │   ├── iiko/
+│   │   ├── amo_crm/
+│   │   ├── renovatio/
+│   │   └── base_adapter.py     # Abstract connector
+│   ├── models/                 # SQLAlchemy ORM models
+│   │   ├── user.py
+│   │   ├── transaction.py
+│   │   ├── bonus.py
+│   │   ├── business.py
+│   │   └── event.py
+│   ├── schemas/                # Pydantic validation schemas
+│   ├── services/               # Business logic layer
+│   ├── tasks/                  # Celery async tasks
+│   └── utils/                  # Shared utilities
+└── main.py                     # FastAPI app entry point
+```
 
-Why We Chose This:
-✓ Industry standard
-✓ Frontend + backend errors
-✓ Source map support
-✓ User context (who saw error)
-✓ Performance monitoring
-✓ Slack integration
+### API Design Patterns
 
-Configuration:
-- Auto-capture errors
-- Sample rate: 100% (MVP)
-- User identification
-- Breadcrumbs (user actions)
+**RESTful Endpoints:**
+- `POST /api/v1/auth/send-code` - Send SMS OTP
+- `POST /api/v1/auth/verify-code` - Verify OTP, get JWT
+- `GET /api/v1/users/me` - Get current user profile
+- `GET /api/v1/loyalty/balance` - Get bonus balance
+- `POST /api/v1/transactions/scan` - Scan QR code to process transaction
+- `GET /api/v1/events` - List events with filters
+- `POST /api/v1/events/{id}/register` - Register for event
 
-Alerts:
-- New error type → Slack
-- Error spike → Email + Slack
-- Critical error → Page on-call
+**Authentication Flow:**
+1. User enters phone number → `POST /auth/send-code`
+2. Backend generates 6-digit code, sends via SMS.ru
+3. User enters code → `POST /auth/verify-code`
+4. Backend validates code, returns JWT access + refresh tokens
+5. All subsequent requests include `Authorization: Bearer <access_token>`
+
+**Response Format:**
+```json
+{
+  "success": true,
+  "data": { /* payload */ },
+  "meta": {
+    "timestamp": "2025-11-17T10:30:00Z",
+    "request_id": "uuid-here"
+  }
+}
+```
+
+---
+
+## 🗃️ Database Schema Overview
+
+### PostgreSQL (Primary OLTP Database)
+
+**Core Tables:**
+
+```sql
+-- Users
+users (
+  id UUID PRIMARY KEY,
+  phone VARCHAR(15) UNIQUE NOT NULL,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  email VARCHAR(255),
+  status_tier VARCHAR(20) DEFAULT 'Insider',
+  total_spent DECIMAL(10,2) DEFAULT 0,
+  categories_visited INT DEFAULT 0,
+  created_at TIMESTAMP,
+  updated_at TIMESTAMP
+)
+
+-- Transactions
+transactions (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  business_id UUID REFERENCES businesses(id),
+  amount DECIMAL(10,2) NOT NULL,
+  bonus_accrued DECIMAL(10,2),
+  bonus_redeemed DECIMAL(10,2),
+  transaction_type VARCHAR(20), -- 'purchase' | 'refund'
+  external_id VARCHAR(255),     -- CRM system transaction ID
+  created_at TIMESTAMP
+)
+
+-- Bonuses
+bonuses (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  balance DECIMAL(10,2) DEFAULT 0,
+  lifetime_earned DECIMAL(10,2) DEFAULT 0,
+  lifetime_spent DECIMAL(10,2) DEFAULT 0,
+  updated_at TIMESTAMP
+)
+
+-- Businesses
+businesses (
+  id UUID PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  category VARCHAR(50),          -- 'beauty' | 'wellness' | 'gastronomy' | 'health'
+  crm_type VARCHAR(50),          -- 'yclients' | 'iiko' | '1c' | 'amo_crm'
+  crm_credentials JSON,          -- Encrypted API keys
+  cashback_percent DECIMAL(5,2), -- Base cashback rate
+  created_at TIMESTAMP
+)
+
+-- Events
+events (
+  id UUID PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  date TIMESTAMP,
+  location VARCHAR(255),
+  max_participants INT,
+  min_status_tier VARCHAR(20),  -- 'Insider' | 'VIP' | 'Elite'
+  created_by UUID REFERENCES users(id),
+  status VARCHAR(20),            -- 'proposed' | 'approved' | 'active' | 'completed'
+  created_at TIMESTAMP
+)
+
+-- Coupons
+coupons (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  business_id UUID REFERENCES businesses(id),
+  discount_type VARCHAR(20),     -- 'percent' | 'fixed' | 'bonus'
+  discount_value DECIMAL(10,2),
+  expires_at TIMESTAMP,
+  redeemed_at TIMESTAMP NULL,
+  source_chain_id UUID           -- Cross-promo chain that generated this
+)
+```
+
+**Indexes:**
+- `idx_transactions_user_created` on (user_id, created_at DESC)
+- `idx_transactions_business` on (business_id)
+- `idx_coupons_user_expires` on (user_id, expires_at) WHERE redeemed_at IS NULL
+
+### ClickHouse (Analytics OLAP Database)
+
+**Fact Tables:**
+
+```sql
+-- Transaction facts (immutable, append-only)
+transaction_facts (
+  transaction_id UUID,
+  user_id UUID,
+  business_id UUID,
+  amount Decimal64(2),
+  bonus_accrued Decimal64(2),
+  category String,
+  timestamp DateTime
+) ENGINE = MergeTree()
+PARTITION BY toYYYYMM(timestamp)
+ORDER BY (user_id, timestamp)
+
+-- User RFM snapshots (daily aggregation)
+rfm_snapshots (
+  snapshot_date Date,
+  user_id UUID,
+  recency_days Int32,
+  frequency_count Int32,
+  monetary_value Decimal64(2),
+  rfm_segment String,           -- '111' to '555'
+  churn_risk_score Float32      -- 0.0 to 1.0
+) ENGINE = ReplacingMergeTree(snapshot_date)
+ORDER BY (user_id, snapshot_date)
+```
+
+### Redis (Cache & Queue)
+
+**Key Patterns:**
+- `session:{user_id}` - JWT session data (TTL: 30 days)
+- `bonus:balance:{user_id}` - Cached bonus balance (TTL: 5 min)
+- `qr:code:{code}` - QR code metadata (TTL: 5 min)
+- `rate_limit:auth:{phone}` - Rate limiting for auth (TTL: 1 min)
+- `celery:*` - Celery task queue
+
+---
+
+## 📱 Mobile App Architecture
+
+### State Management (Redux Toolkit)
+
+```
+src/
+├── store/
+│   ├── slices/
+│   │   ├── authSlice.ts        # User auth state
+│   │   ├── userSlice.ts        # Profile, status, bonuses
+│   │   ├── transactionSlice.ts # Transaction history
+│   │   ├── eventSlice.ts       # Event Hub state
+│   │   └── businessSlice.ts    # Business catalog
+│   ├── api/                    # RTK Query API definitions
+│   │   ├── authApi.ts
+│   │   ├── loyaltyApi.ts
+│   │   └── eventsApi.ts
+│   └── store.ts                # Redux store config
+```
+
+**Global State:**
+- `auth`: { isAuthenticated, accessToken, refreshToken }
+- `user`: { id, phone, firstName, statusTier, bonusBalance }
+- `transactions`: { items: [], pagination, filters }
+- `events`: { upcoming: [], registered: [], past: [] }
+
+### Navigation Structure
+
+```
+Root Navigator (Stack)
+├── Auth Flow (if not authenticated)
+│   ├── PhoneInput
+│   ├── OTPVerification
+│   └── Onboarding (welcome video + profile setup)
+└── Main Flow (if authenticated)
+    └── Tab Navigator
+        ├── Home Tab (Stack)
+        │   ├── HomeScreen (status card, quick actions)
+        │   └── QRScannerScreen
+        ├── Events Tab (Stack)
+        │   ├── EventsListScreen
+        │   ├── EventDetailsScreen
+        │   └── EventConstructorScreen (VIP/Elite only)
+        ├── Businesses Tab (Stack)
+        │   ├── BusinessCatalogScreen
+        │   └── BusinessDetailsScreen
+        └── Profile Tab (Stack)
+            ├── ProfileScreen
+            ├── TransactionHistoryScreen
+            ├── ReferralScreen
+            └── SettingsScreen
+```
+
+---
+
+## 🔄 Integration Architecture
+
+### CRM Adapter Pattern
+
+All CRM integrations implement a common `BaseCRMAdapter` interface:
+
+```python
+class BaseCRMAdapter(ABC):
+    @abstractmethod
+    async def fetch_transactions(
+        self, 
+        since: datetime, 
+        until: datetime
+    ) -> List[Transaction]:
+        """Fetch transactions from CRM within date range."""
+        pass
+    
+    @abstractmethod
+    async def get_customer_by_phone(
+        self, 
+        phone: str
+    ) -> Optional[Customer]:
+        """Find customer in CRM by phone number."""
+        pass
+    
+    @abstractmethod
+    async def apply_bonus(
+        self, 
+        customer_id: str, 
+        amount: Decimal
+    ) -> bool:
+        """Apply bonus to customer account in CRM."""
+        pass
+```
+
+**Implemented Adapters:**
+- `YCLIENTSAdapter` - REST API for Миндаль salon
+- `IikoAdapter` - REST API for Лисичкино gastromarket
+- `OneCAdapter` - REST API for Skinerica, Лисичкино
+- `AMOCRMAdapter` - REST API for Стим Центр
+- `RenovatioAdapter` - REST API for Миллениум medical center
+
+**Sync Strategy:**
+- Celery Beat runs sync tasks every 5 minutes
+- Fetch new transactions since last sync timestamp
+- Match by phone number, create/update user records
+- Calculate bonuses, update balances
+- Store transaction history in PostgreSQL + ClickHouse
+
+---
+
+## 🔐 Security Architecture
+
+### Data Protection Layers
+
+1. **Transport Layer:** TLS 1.3 for all API traffic
+2. **Authentication:** JWT (RS256) with 15-min access tokens
+3. **Authorization:** Role-based access control (RBAC)
+   - User roles: `member`, `vip`, `elite`, `inner_circle`
+   - Business roles: `owner`, `staff`, `viewer`
+   - Admin roles: `superadmin`, `moderator`
+4. **Data Encryption:** 
+   - At-rest: PostgreSQL transparent data encryption
+   - In-transit: TLS 1.3
+   - Sensitive fields: AES-256 for CRM credentials
+5. **Medical Data Isolation:** 
+   - Transactions from medical businesses (Миллениум, Стим Центр) flagged with `is_medical=true`
+   - Medical transactions excluded from cross-business analytics (врачебная тайна compliance)
+
+---
+
+## 📊 Monitoring & Observability
+
+**Metrics Collection:**
+- Prometheus scrapes `/metrics` endpoint every 15s
+- Custom metrics: bonus_accrued_total, cross_promo_triggered_total, qr_scans_total
 
 **Logging:**
+- Structured JSON logs (FastAPI + python-json-logger)
+- Loki aggregation with Grafana visualization
+- Log levels: DEBUG (dev), INFO (staging), WARN+ (production)
 
-**Example:**
-
-Tool: Built-in (Fastify logger) + Vercel logs
-
-Structure:
-{
-  "level": "info",
-  "time": 1234567890,
-  "msg": "User logged in",
-  "userId": "abc123",
-  "ip": "1.2.3.4"
-}
-
-Log Levels:
-- ERROR: Errors (always log)
-- WARN: Warnings (always log)
-- INFO: Important events (production)
-- DEBUG: Detailed info (development only)
-
-Retention:
-- Vercel: 7 days
-- Railway: 7 days
-- Sentry: 90 days (errors)
-
-Future: Consider Datadog/LogRocket for more
-
-**Analytics:**
-
-**Example:**
-
-Tool: Mixpanel
-Website: https://mixpanel.com
-Tier: Free (up to 100k events/month)
-
-Why We Chose This:
-✓ Event-based (not just pageviews)
-✓ User journey tracking
-✓ Funnels and cohorts
-✓ Free tier sufficient for MVP
-
-Events Tracked:
-- User Registration
-- User Login
-- Task Created
-- Task Completed
-- Feature X Used
-- Error Encountered
-
-Properties:
-- User ID, email
-- Team ID
-- Plan type
-- Feature flags
-
-Alternative: PostHog (open source)
-Will reconsider if need self-hosted
-
-**Uptime Monitoring:**
-
-**Example:**
-
-Tool: UptimeRobot
-Website: https://uptimerobot.com
-Tier: Free
-
-Monitors:
-- Homepage: Check every 5 min
-- API: Check every 5 min
-- Database: Connection check
-
-Alerts:
-- Down → Email + SMS
-- Slow (>5s) → Email
-
-Cost: Free for 50 monitors
+**Alerting:**
+- PagerDuty integration for critical alerts
+- Alerts: API error rate >1%, p95 latency >500ms, database connection failures
 
 ---
 
-## 🔐 SECURITY STACK
+## 🔄 Related Documentation
 
-### SSL/TLS
-
-Provider: Let's Encrypt (via Vercel/Railway)
-Certificates: Auto-renewed
-Grade: A+ (SSL Labs)
-Protocols: TLS 1.3 only
-
-### Secrets Management
-
-**Example:**
-
-Tool: Environment Variables (Railway/Vercel)
-
-Never in Code:
-- API keys
-- Database passwords
-- JWT secrets
-- Third-party credentials
-
-Stored:
-- Railway: Environment variables
-- Vercel: Environment variables
-- Local: .env file (gitignored)
-
-Access Control:
-- Production secrets: Team leads only
-- Staging secrets: All developers
-- Development: Local .env
-
-Rotation:
-- JWT secret: Every 6 months
-- API keys: On leave/compromise
-- Database password: Yearly
-
-### Vulnerability Scanning
-
-**Example:**
-
-Tool: Snyk
-Integration: GitHub (auto-scan PRs)
-Tier: Free for open source
-
-Scans:
-- npm dependencies
-- Docker images (if using)
-- Code (static analysis)
-
-Actions:
-- Critical vulnerability → Block PR
-- High severity → Warning + create issue
-- Medium/low → Report only
-
-Alternative: npm audit (built-in)
+- [Tech Stack](./03_TECH_STACK.md) - Technology choices and versions
+- [PRD](./01_PRD.md) - Product requirements
+- [Module Requirements](../requirements/) - Detailed module specifications
 
 ---
 
-## 📧 THIRD-PARTY SERVICES
-
-### Email
-
-**Example:**
-
-Service: SendGrid (Twilio)
-Website: https://sendgrid.com
-Tier: Free (100 emails/day)
-
-Why We Chose This:
-✓ Reliable delivery
-✓ Good free tier
-✓ Transactional + marketing
-✓ Template support
-✓ Analytics
-
-Email Types:
-- Welcome email
-- Password reset
-- Notifications
-- Weekly digest
-
-Upgrade Path:
-- $20/month for 40k emails (when needed)
-
-Alternatives:
-- AWS SES: Cheaper but more setup
-- Postmark: Good but more expensive
-- Mailgun: Similar to SendGrid
-
-### File Storage
-
-**Example:**
-
-Service: AWS S3
-Website: https://aws.amazon.com/s3/
-Tier: Pay-as-you-go
-
-Why We Chose This:
-✓ Industry standard
-✓ Reliable (99.99% uptime)
-✓ Cheap storage ($0.023/GB)
-✓ CDN integration (CloudFront)
-
-Usage:
-- User avatars
-- File attachments
-- Exports/reports
-
-Configuration:
-- Bucket: [project]-production
-- Region: us-east-1
-- Public read for avatars
-- Private for attachments
-
-Cost Estimate:
-- Storage: $1/month (43GB)
-- Bandwidth: $5/month
-- Requests: <$1/month
-Total: ~$7/month
-
-Alternatives:
-- Cloudflare R2: Cheaper egress
-- Backblaze B2: Cheapest storage
-- Chose S3: Industry standard, reliable
-
----
-
-## 🛠️ DEVELOPMENT TOOLS
-
-### Package Manager
-
-**Example:**
-
-Tool: npm (comes with Node.js)
-Version: 10.x
-
-Why Not Alternatives:
-- Yarn: npm works fine, one less tool
-- pnpm: Faster but npm sufficient for now
-
-Will reconsider if:
-- Monorepo needed (Yarn workspaces)
-- Speed becomes issue (pnpm)
-
-### Code Quality
-
-**Linter:**
-
-**Example:**
-
-Tool: ESLint 9.0
-Config: eslint-config-airbnb-typescript
-
-Rules:
-- TypeScript strict mode
-- React hooks rules
-- Accessibility (jsx-a11y)
-- Import order
-
-Run:
-- On save (IDE)
-- Pre-commit (Husky)
-- In CI (GitHub Actions)
-
-**Formatter:**
-
-**Example:**
-
-Tool: Prettier 3.0
-Config: .prettierrc
-
-Settings:
-- Semi: true
-- Single quotes: true
-- Tab width: 2
-- Print width: 100
-
-Integration:
-- Format on save (IDE)
-- Pre-commit (lint-staged)
-
-**Type Checking:**
-
-**Example:**
-
-Tool: TypeScript 5.3
-Config: tsconfig.json (strict mode)
-
-Settings:
-- strict: true
-- noImplicitAny: true
-- strictNullChecks: true
-
-Benefits:
-- Catch errors early
-- Better IDE support
-- Self-documenting code
-
----
-
-### Testing
-
-**Unit Testing:**
-
-**Example:**
-
-Tool: Vitest 1.0
-Website: https://vitest.dev
-
-Why We Chose This:
-✓ Fast (native ES modules)
-✓ Jest-compatible API
-✓ Great with Vite
-✓ TypeScript support
-
-Example:
-import { describe, it, expect } from 'vitest'
-
-describe('User Service', () => {
-  it('creates user with valid data', () => {
-    const user = createUser({ email: 'test@example.com' })
-    expect(user.email).toBe('test@example.com')
+**Last Updated:** 2025-11-17
+**Owner:** Engineering Team
+**Status:** Approved for Development
