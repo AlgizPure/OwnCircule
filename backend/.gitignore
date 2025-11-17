@@ -27,10 +27,6 @@ venv.bak/
 *.db
 *.sqlite3
 
-# Alembic
-alembic/versions/*.py
-!alembic/versions/__init__.py
-
 # Testing
 .coverage
 htmlcov/
