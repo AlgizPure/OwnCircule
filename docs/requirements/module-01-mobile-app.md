@@ -912,6 +912,121 @@ Scenario: Get directions
 
 ---
 
+## 7. UI/UX REQUIREMENTS
+
+### 7.1 Design System Reference
+
+**Foundation:**
+- **Colors:** See [docs/design/foundation/colors.md](../design/foundation/colors.md)
+  - Primary: Tiffany Blue (#0ABAB5) for buttons, links, active states
+  - Background: Champagne Beige (#F5F1E8) for warmth
+  - Accent: Champagne Gold (#D4AF37) for achievements, VIP elements
+  - Text: Charcoal (#2A2D34) primary, Taupe (#8B7355) secondary
+
+- **Typography:** See [docs/design/foundation/typography.md](../design/foundation/typography.md)
+  - SF Pro Display/Text (iOS), Roboto (Android)
+  - H1: 28px/700 for screen titles
+  - H3: 18px/600 for card titles
+  - Body: 14px/400 for descriptions
+  - Caption: 12px/400 for metadata
+
+- **Spacing:** See [docs/design/foundation/spacing.md](../design/foundation/spacing.md)
+  - Base unit: 8px
+  - Component padding: 16px standard, 24px generous
+  - Touch targets: Minimum 44x44px
+
+- **Elevation:** See [docs/design/foundation/elevation.md](../design/foundation/elevation.md)
+  - Cards: Level 2 (soft shadow)
+  - Modals: Level 4
+  - Bottom nav: Level 3
+
+### 7.2 Components Used
+
+**Navigation:**
+- [Bottom Navigation](../design/components/bottom-navigation.md) - 5 tabs (Home, Partners, Events, Profile, QR)
+- Top bar with back button and screen title
+
+**Data Display:**
+- [Card](../design/components/card.md) - Partner cards, Event cards, Status cards
+- [Status Badge](../design/components/status-badge.md) - Bronze/Silver/Gold/Elite tiers
+- [QR Code Display](../design/components/qr-code-display.md) - Wallet screen, expandable view
+
+**Forms & Inputs:**
+- [Input](../design/components/input.md) - Phone, Name, Email variants
+- [Button](../design/components/button.md) - Primary (Tiffany Blue), Secondary, Accent (Gold)
+
+**Other:**
+- Progress indicators (onboarding dots)
+- Empty states (no events, no bonuses)
+- Loading skeletons
+- Toast notifications
+
+### 7.3 Screen-Specific Design Notes
+
+**Onboarding Screens:**
+- Full-screen illustrations with Champagne Beige background
+- Tiffany Blue progress dots
+- Typography: Display (34px) for headlines
+- CTA button: Primary (Tiffany Blue), minimum 48px height
+
+**Home Dashboard:**
+- Status card at top (Champagne Beige background, Gold accents for VIP+)
+- Level progress bar (Tiffany Blue fill)
+- Partner carousel (horizontal scroll)
+- Bottom navigation always visible
+
+**QR Wallet:**
+- White card with black QR code, centered
+- "Свой Круг" branding above QR
+- Points display below (H2 size, Charcoal text)
+- Expandable to full-screen modal
+
+**Events Hub:**
+- Event cards with partner photos
+- Date/time in Caption size (12px)
+- "Записаться" button (Tiffany Blue primary)
+- Filter chips at top (default/active states)
+
+**Profile:**
+- Avatar (circular, 80px diameter)
+- Status badge overlay (top-right of avatar)
+- Settings list (white cards with subtle shadows)
+- Logout button (tertiary style, subtle)
+
+### 7.4 Accessibility Compliance
+
+See [docs/design/accessibility/overview.md](../design/accessibility/overview.md)
+
+**Requirements:**
+- ✅ WCAG 2.1 Level AA compliance
+- ✅ VoiceOver/TalkBack screen reader support (all screens)
+- ✅ Minimum touch targets: 44x44px
+- ✅ Color contrast: ≥4.5:1 for text, ≥3:1 for UI components
+- ✅ Keyboard navigation (focus indicators visible)
+- ✅ Text scaling support (up to 200%)
+- ✅ Reduced motion support (prefers-reduced-motion)
+
+**Testing:**
+- Use VoiceOver (iOS) and TalkBack (Android) for every screen
+- Test with Accessibility Inspector (Xcode) / Accessibility Scanner (Android Studio)
+- Validate color contrast with WebAIM Contrast Checker
+- Test with actual users (accessibility testing sessions)
+
+### 7.5 Design Assets
+
+**Figma Files:**
+- See [docs/design/resources/figma-links.md](../design/resources/figma-links.md)
+
+**Design Screenshots:**
+- Reference: `UPMT/bootstrap/00_DESIGN_RAW_DATA/screenshots/` (13 PNG files)
+- Mobile app screens, UI layouts, status cards, QR wallet examples
+
+**Design Tokens:**
+- Import from `docs/design/resources/design-tokens.json`
+- Use for consistent colors, typography, spacing across app
+
+---
+
 ## 🔄 Dependencies
 
 - **Backend APIs:**

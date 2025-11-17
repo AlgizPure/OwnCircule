@@ -1,315 +1,343 @@
-# SPACING
+# Spacing System
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Will be filled during bootstrap
+## Overview
 
----
+The spacing system defines consistent, predictable spacing values used throughout the Свой Круг design system. Based on an 8px unit grid, our spacing system ensures visual harmony, improved readability, and easier implementation across iOS and Android platforms.
 
-## 📐 SPACING SCALE
+This foundational element creates rhythm and balance in our interface, helping users navigate content intuitively and reducing cognitive load through consistent visual hierarchies.
 
-**Base Unit:** 4px (0.25rem)
+## Specifications
 
-**Scale:** Multiples of 4
+### Spacing Units
 
-```yaml
-0:   0px      (0rem)      # No space
-1:   4px      (0.25rem)   # Micro
-2:   8px      (0.5rem)    # Tiny
-3:   12px     (0.75rem)   # Small
-4:   16px     (1rem)      # Base
-5:   20px     (1.25rem)   # Medium-small
-6:   24px     (1.5rem)    # Medium
-8:   32px     (2rem)      # Large
-10:  40px     (2.5rem)    # Extra large
-12:  48px     (3rem)      # 2X large
-16:  64px     (4rem)      # 3X large
-20:  80px     (5rem)      # 4X large
-24:  96px     (6rem)      # 5X large
+Our spacing system is built on an 8px base unit with a geometric progression approach:
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `spacing-0` | 0px | Reset/none |
+| `spacing-xs` | 4px | Small gaps, internal spacing |
+| `spacing-sm` | 8px | Base unit, button padding |
+| `spacing-md` | 12px | Component gaps |
+| `spacing-lg` | 16px | Sections, containers |
+| `spacing-xl` | 24px | Major sections |
+| `spacing-2xl` | 32px | Page-level spacing |
+| `spacing-3xl` | 40px | Large containers |
+| `spacing-4xl` | 48px | Hero sections |
+
+### Geometric Progression
+
+We follow an 8px base with 1.5x scaling multiplier for larger values:
+
+```
+Base: 8px
+8px × 1 = 8px
+8px × 1.5 = 12px
+8px × 2 = 16px
+8px × 3 = 24px
+8px × 4 = 32px
+8px × 5 = 40px
+8px × 6 = 48px
 ```
 
-**Why 4px?**
-- Scales well (4, 8, 16, 32, 64...)
-- Divisible (works with most grids)
-- Industry standard
-- Aligns with typography line heights
+This creates harmonious relationships between values while maintaining the 8px grid alignment.
 
----
+## Usage Guidelines
 
-## 🎯 USAGE GUIDELINES
+### Component Padding
 
-### Component Spacing (Internal)
+- **Buttons**: 8px vertical, 16px horizontal (spacing-sm, spacing-lg)
+- **Input Fields**: 12px vertical, 16px horizontal (spacing-md, spacing-lg)
+- **Cards**: 16px padding (spacing-lg)
+- **Cell Rows**: 12px vertical, 16px horizontal (spacing-md, spacing-lg)
 
-```yaml
-Micro (4px):
-  Usage: Between icon and text in button
-  Example: [Icon] 4px "Button Text"
+### Margin & Layout Spacing
 
-Tiny (8px):
-  Usage: Inside components (padding)
-  Example: Badge padding, chip spacing
+- **Between Components**: 16-24px (spacing-lg to spacing-xl)
+- **Between Sections**: 32-40px (spacing-2xl to spacing-3xl)
+- **Section Edges**: 16px minimum (spacing-lg)
+- **Top Safe Area**: 8px minimum above content
+- **Bottom Safe Area**: 8px minimum below content
 
-Small (12px):
-  Usage: Component padding
-  Example: Button padding (12px vertical)
+### Spacing Scale in Layouts
 
-Base (16px):
-  Usage: Standard padding/margin
-  Example: Card padding, input padding
-
-Medium (24px):
-  Usage: Section spacing
-  Example: Between form fields
-
-Large (32px):
-  Usage: Component separation
-  Example: Between cards in grid
+```
+Body Content
+├─ Top Margin: spacing-2xl (32px)
+├─ Section 1
+│  ├─ Padding: spacing-lg (16px)
+│  └─ Child Spacing: spacing-md (12px)
+├─ Gap Between Sections: spacing-xl (24px)
+├─ Section 2
+│  ├─ Padding: spacing-lg (16px)
+│  └─ Child Spacing: spacing-md (12px)
+└─ Bottom Margin: spacing-2xl (32px)
 ```
 
-### Layout Spacing (Page Level)
+### Mobile-Specific Considerations
 
-```yaml
-Medium (24px):
-  Usage: Between sections (mobile)
+- Minimum touch target height: 44px (includes spacing-lg padding)
+- Minimum touch target width: 44px
+- Reduce spacing-4xl on small screens to spacing-3xl
+- Use spacing-xl as minimum between tap targets
+- Maintain spacing-lg horizontal padding on screen edges
+
+### Premium Density
+
+Our premium aesthetic benefits from generous spacing:
+
+- Avoid spacing-0 and spacing-xs in primary UI
+- Use spacing-lg as minimum for primary content
+- Stack vertical spacing generously for visual breathing room
+- Horizontal edges maintain spacing-lg minimum for elegance
+
+## Accessibility Considerations
+
+### Visual Spacing & Cognitive Load
+
+- Adequate spacing reduces visual overwhelm
+- Consistent spacing improves predictability for cognitive disabilities
+- Generous spacing aids readability for low-vision users
+- Clear visual hierarchy through spacing benefits dyslexic users
+
+### Touch Target Accessibility
+
+- All interactive elements must be minimum 44x44pt
+- Minimum 8px spacing between adjacent touch targets
+- Use spacing-xl (24px) for better touch accuracy
+- Avoid cramped layouts that cause mis-taps
+
+### WCAG 2.1 Compliance
+
+- Spacing does not prevent content accessibility
+- Zoom to 200% must maintain usable spacing
+- Text spacing adjustments (1.5x line-height, etc.) must be supported
+- No fixed spacing that breaks responsive layouts
+
+### Color Contrast & Spacing
+
+Adequate spacing helps users with color blindness:
+- Don't rely on spacing alone to convey structure
+- Combine spacing with visual separators
+- Use consistent spacing patterns for recognition
+
+## Design Tokens & Code Examples
+
+### CSS/Design System Variables
+
+```css
+--spacing-0: 0px;
+--spacing-xs: 4px;
+--spacing-sm: 8px;
+--spacing-md: 12px;
+--spacing-lg: 16px;
+--spacing-xl: 24px;
+--spacing-2xl: 32px;
+--spacing-3xl: 40px;
+--spacing-4xl: 48px;
+```
+
+### React Native Implementation
+
+```javascript
+// tokens/spacing.ts
+export const spacing = {
+  0: 0,
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 24,
+  '2xl': 32,
+  '3xl': 40,
+  '4xl': 48,
+} as const;
+
+export type SpacingToken = keyof typeof spacing;
+
+// Usage in components
+const styles = StyleSheet.create({
+  container: {
+    padding: spacing.lg,
+    marginVertical: spacing.xl,
+  },
+  section: {
+    marginTop: spacing['2xl'],
+  },
+  card: {
+    padding: spacing.lg,
+    marginHorizontal: spacing.lg,
+    marginVertical: spacing.md,
+  },
+});
+```
+
+### TypeScript Helper
+
+```typescript
+// utils/spacing.ts
+export const createSpacing = (
+  top?: SpacingToken,
+  right?: SpacingToken,
+  bottom?: SpacingToken,
+  left?: SpacingToken
+) => {
+  const t = spacing[top ?? 'md'];
+  const r = spacing[right ?? 'lg'];
+  const b = spacing[bottom ?? 'md'];
+  const l = spacing[left ?? 'lg'];
   
-Large (32px):
-  Usage: Between sections (tablet)
+  return { marginTop: t, marginRight: r, marginBottom: b, marginLeft: l };
+};
 
-Extra Large (40px):
-  Usage: Between sections (desktop)
+// Usage
+const cardMargin = createSpacing('lg', 'lg', 'xl', 'lg');
+```
 
-2X Large (48px):
-  Usage: Major sections
+### Tailwind-Style Utility
+
+```typescript
+// For styled-components or similar
+type Side = 'top' | 'right' | 'bottom' | 'left' | 'vertical' | 'horizontal' | 'all';
+
+export const margin = (token: SpacingToken, side: Side = 'all') => {
+  const value = spacing[token];
   
-3X Large (64px):
-  Usage: Page sections with emphasis
-```
-
----
-
-## 📱 RESPONSIVE SPACING
-
-### Mobile (< 768px)
-
-```yaml
-Page padding: 16px
-Section spacing: 24px
-Component spacing: 16px
-```
-
-### Tablet (768px - 1023px)
-
-```yaml
-Page padding: 24px
-Section spacing: 32px
-Component spacing: 20px
-```
-
-### Desktop (≥1024px)
-
-```yaml
-Page padding: 32px
-Section spacing: 48px
-Component spacing: 24px
-```
-
----
-
-## 🏗️ COMMON PATTERNS
-
-### Card
-
-```css
-.card {
-  padding: 24px;        /* Content padding */
-  margin-bottom: 16px;  /* Space between cards */
-  gap: 16px;            /* Internal spacing (flex/grid) */
-}
-```
-
-### Form
-
-```css
-.form-field {
-  margin-bottom: 24px;  /* Between fields */
-}
-
-.input {
-  padding: 12px 16px;   /* Inside input */
-}
-
-.label {
-  margin-bottom: 8px;   /* Label to input */
-}
-```
-
-### Button
-
-```css
-.button {
-  padding: 12px 24px;   /* Vertical / Horizontal */
-  gap: 8px;             /* Icon to text */
-}
-
-.button-small {
-  padding: 8px 16px;
-}
-
-.button-large {
-  padding: 16px 32px;
-}
-```
-
-### Grid
-
-```css
-.grid {
-  gap: 24px;            /* Between grid items */
-}
-
-@media (max-width: 768px) {
-  .grid {
-    gap: 16px;          /* Tighter on mobile */
+  switch (side) {
+    case 'top': return { marginTop: value };
+    case 'bottom': return { marginBottom: value };
+    case 'right': return { marginRight: value };
+    case 'left': return { marginLeft: value };
+    case 'vertical': return { marginVertical: value };
+    case 'horizontal': return { marginHorizontal: value };
+    case 'all': return { margin: value };
   }
-}
+};
 ```
 
----
+## Examples by Component Type
 
-## 🔧 IMPLEMENTATION
+### Button Component
 
-### CSS Variables
-
-```css
-:root {
-  --spacing-0: 0;
-  --spacing-1: 0.25rem;  /* 4px */
-  --spacing-2: 0.5rem;   /* 8px */
-  --spacing-3: 0.75rem;  /* 12px */
-  --spacing-4: 1rem;     /* 16px */
-  --spacing-5: 1.25rem;  /* 20px */
-  --spacing-6: 1.5rem;   /* 24px */
-  --spacing-8: 2rem;     /* 32px */
-  --spacing-10: 2.5rem;  /* 40px */
-  --spacing-12: 3rem;    /* 48px */
-  --spacing-16: 4rem;    /* 64px */
-  --spacing-20: 5rem;    /* 80px */
-  --spacing-24: 6rem;    /* 96px */
-}
-
-/* Usage */
-.card {
-  padding: var(--spacing-6);  /* 24px */
-  gap: var(--spacing-4);      /* 16px */
-}
+```typescript
+const buttonStyles = StyleSheet.create({
+  container: {
+    paddingVertical: spacing.sm,      // 8px
+    paddingHorizontal: spacing.lg,    // 16px
+    borderRadius: 8,
+  },
+  text: {
+    fontSize: 16,
+  },
+});
 ```
 
-### Tailwind (Built-in)
+### Card Component
 
-```html
-<!-- Padding -->
-<div class="p-4">      <!-- 16px padding all sides -->
-<div class="px-6">     <!-- 24px padding horizontal -->
-<div class="py-3">     <!-- 12px padding vertical -->
-
-<!-- Margin -->
-<div class="m-4">      <!-- 16px margin all sides -->
-<div class="mb-6">     <!-- 24px margin bottom -->
-
-<!-- Gap (flexbox/grid) -->
-<div class="gap-4">    <!-- 16px gap -->
-<div class="gap-x-6">  <!-- 24px horizontal gap -->
+```typescript
+const cardStyles = StyleSheet.create({
+  container: {
+    padding: spacing.lg,              // 16px all sides
+    marginHorizontal: spacing.lg,     // 16px left/right
+    marginVertical: spacing.md,       // 12px top/bottom
+    borderRadius: 12,
+  },
+  title: {
+    marginBottom: spacing.sm,         // 8px below title
+    fontSize: 18,
+  },
+  content: {
+    marginTop: spacing.md,            // 12px above content
+  },
+});
 ```
 
----
+### List Item Component
 
-## ⚖️ CONSISTENCY RULES
-
-### Do's
-
-- ✅ Use spacing scale values only (4, 8, 16, 24...)
-- ✅ Consistent spacing = visual harmony
-- ✅ Larger spacing = more emphasis
-- ✅ Group related items (small spacing)
-- ✅ Separate sections (large spacing)
-
-### Don'ts
-
-- ❌ Don't use arbitrary values (13px, 17px, 23px)
-- ❌ Don't mix too many spacing values
-- ❌ Don't use spacing for alignment (use flexbox/grid)
-- ❌ Don't forget responsive spacing
-
----
-
-## 🎨 VISUAL EXAMPLES
-
-### Spacing Hierarchy
-
-```
-Large Section Spacing (48px)
-├─ Content Block
-│  ├─ Heading
-│  ├─ Medium Spacing (24px)
-│  ├─ Paragraph
-│  ├─ Small Spacing (16px)
-│  └─ Button Group
-│     ├─ Button
-│     ├─ Tiny Spacing (8px)
-│     └─ Button
-└─ Large Section Spacing (48px)
+```typescript
+const listItemStyles = StyleSheet.create({
+  container: {
+    paddingVertical: spacing.md,      // 12px vertical
+    paddingHorizontal: spacing.lg,    // 16px horizontal
+    borderBottomWidth: 1,
+  },
+  avatar: {
+    marginRight: spacing.md,          // 12px gap from avatar
+  },
+  text: {
+    marginBottom: spacing.xs,         // 4px between lines
+  },
+});
 ```
 
-### Card Example
+### Modal/Dialog Component
 
+```typescript
+const modalStyles = StyleSheet.create({
+  overlay: {
+    padding: spacing.lg,              // 16px padding
+  },
+  content: {
+    padding: spacing.xl,              // 24px padding
+    borderRadius: 16,
+  },
+  header: {
+    marginBottom: spacing.lg,         // 16px below header
+  },
+  actions: {
+    marginTop: spacing.lg,            // 16px above actions
+    gap: spacing.md,                  // 12px between buttons
+  },
+});
 ```
-Card Container (padding: 24px)
-├─ Header
-├─ 16px spacing
-├─ Content
-│  ├─ Label
-│  ├─ 8px spacing
-│  └─ Value
-├─ 24px spacing
-└─ Footer (buttons with 8px gap)
+
+## Responsive Spacing
+
+### Mobile (320px - 767px)
+
+- Primary spacing: spacing-lg (16px)
+- Section spacing: spacing-xl (24px)
+- Edge padding: spacing-lg (16px)
+
+### Tablet (768px - 1024px)
+
+- Primary spacing: spacing-lg to spacing-xl (16-24px)
+- Section spacing: spacing-2xl (32px)
+- Edge padding: spacing-xl (24px)
+
+### Desktop (1024px+)
+
+- Primary spacing: spacing-xl (24px)
+- Section spacing: spacing-3xl (40px)
+- Edge padding: spacing-2xl (32px)
+
+## Common Spacing Patterns
+
+### Card Stack Pattern
+```
+Cards separated by: spacing-md (12px)
+Card internal padding: spacing-lg (16px)
+Card margin edges: spacing-lg (16px)
 ```
 
----
+### Form Pattern
+```
+Field spacing: spacing-lg (16px)
+Label to input: spacing-sm (8px)
+Error message to field: spacing-xs (4px)
+Button group gap: spacing-md (12px)
+```
 
-## 📊 DESIGN TOKENS
+### Section Divider Pattern
+```
+Before divider: spacing-xl (24px)
+After divider: spacing-xl (24px)
+Divider height: spacing-xs (4px)
+```
 
-See [design-tokens.json](../resources/design-tokens.json) for spacing tokens.
+## Related Documentation
 
----
-
-## 🔄 WHEN TO UPDATE
-
-Update spacing when:
-- Layout feels cramped or too loose
-- Adding new component sizes
-- Responsive adjustments needed
-- Consistency issues found
-
-**Process:**
-1. Identify spacing issue
-2. Update scale if needed
-3. Update this file
-4. Update design-tokens.json
-5. Test responsive behavior
-6. Update changelog
-
----
-
-## ✅ CHECKLIST
-
-- [ ] Using 4px base unit
-- [ ] Spacing scale is consistent
-- [ ] Responsive spacing tested
-- [ ] No arbitrary values in code
-- [ ] Design tokens match Figma
-- [ ] Components use spacing scale
-
----
-
-**Consistent spacing = Visual harmony.** 📐
-
+- [Elevation System](./elevation.md) - Depth and layering
+- [Motion System](./motion.md) - Transitions and timing
+- [Design Tokens](../00_DESIGN_SYSTEM.md) - Complete token system
+- [Accessibility Guidelines](../accessibility/wcag.md) - Accessibility standards
+- [Component Library](../components/README.md) - Component usage

@@ -764,6 +764,76 @@ Scenario: Share coupon with friend (if transferable)
 
 ---
 
+## 7. UI/UX REQUIREMENTS
+
+### 7.1 Design System Reference
+
+**Foundation:**
+- **Colors:** See [docs/design/foundation/colors.md](../design/foundation/colors.md)
+  - Primary: Tiffany Blue (#0ABAB5) for active states, progress bars
+  - Accent: Champagne Gold (#D4AF37) for VIP/Elite tier indicators
+  - Status Colors: Bronze (#E8B4BC), Silver, Gold (#D4AF37)
+  - Semantic: Success (#7CB342), Error (#E57373)
+
+- **Typography:** See [docs/design/foundation/typography.md](../design/foundation/typography.md)
+  - H2: 22px/600 for points display
+  - H3: 18px/600 for card titles
+  - Body: 14px/400 for descriptions
+  - Caption: 12px/400 for metadata (expiry dates, T&C)
+
+- **Spacing & Components:** See [docs/design/foundation/spacing.md](../design/foundation/spacing.md) and [docs/design/components/](../design/components/)
+
+### 7.2 Components Used
+
+- [Status Badge](../design/components/status-badge.md) - Tier indicators (Bronze/Silver/Gold/Elite)
+- [Card](../design/components/card.md) - Bonus cards, coupon cards, transaction history
+- [Button](../design/components/button.md) - Redeem buttons, Apply coupon buttons
+- Progress bars for tier progress
+- Empty states (no bonuses, no coupons)
+
+### 7.3 Screen-Specific Design Notes
+
+**Bonus Balance Card:**
+- Displays current bonus balance prominently on Home screen within gamification ring
+- Large typography (22px/600) showing "7,250₽" with Tiffany Blue accent
+- Tappable to reveal modal with breakdown: Available/Pending/Lifetime earned/Lifetime spent
+- Card background: white with subtle shadow, border-radius 12px
+
+**Tier Progress Visualization:**
+- Circular progress ring showing overall progress toward next tier
+- Inner ring: spending progress (% of 30K/100K/200K needed)
+- Outer ring: category count progress (% of 3/5 categories)
+- Center shows current tier name and % complete (e.g., "Insider 58%")
+- Tappable for tooltip: "Осталось 15,000₽ и 1 категория до VIP"
+- Uses Tiffany Blue for progress fill, light gray for background
+
+**Coupon Cards:**
+- Grid of redeemable coupons with business logo, discount description, expiry date
+- "Активировать" button with countdown timer when active
+- Status badge (Active/Expired/Redeemed) using semantic colors
+- Swipe to reveal details: min purchase amount, T&C, shared coupon option
+- Empty state: "У вас нет активных купонов. Совершите покупку!"
+
+**Redemption Flow:**
+- QR scan at checkout triggers auto-redeem (if enabled) or manual selection
+- Confirmation dialog showing: bonus amount, cash amount, new balance after redemption
+- Tiffany Blue "Подтвердить" button, gray "Отменить" button
+- Real-time balance update after redemption
+
+### 7.4 Accessibility
+
+- See [docs/design/accessibility/overview.md](../design/accessibility/overview.md)
+- WCAG 2.1 Level AA compliance required
+- Screen reader labels for tier badges, point values, expiry dates
+- Color contrast validation for all status colors
+
+### 7.5 Design Assets
+
+- **Design Tokens:** `docs/design/resources/design-tokens.json`
+- **Screenshots:** `UPMT/bootstrap/00_DESIGN_RAW_DATA/screenshots/` (status cards, bonus displays)
+
+---
+
 ## 🔄 Dependencies
 
 - **Module 3 (Transactions):** Trigger bonus accrual after each transaction

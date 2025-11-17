@@ -1,369 +1,496 @@
-# ICONOGRAPHY
+# Iconography System
 
-**Version:** 1.0  
-**Last Updated:** [YYYY-MM-DD]  
-**Status:** Template - Will be filled during bootstrap
+## Overview
 
----
+Icons are a critical part of the Свой Круг design language. Our iconography system emphasizes clarity, elegance, and premium aesthetics aligned with the Tiffany & Co inspired visual identity. Icons serve as visual communication shortcuts, improving scannability and reducing cognitive load.
 
-## 🎨 ICON LIBRARY
+Our approach balances minimalism with distinctive personality—each icon should be instantly recognizable while maintaining visual harmony with our premium brand aesthetic.
 
-**Recommended:** [Choose during bootstrap]
+## Specifications
 
-**Popular options:**
-- **Heroicons** (Tailwind) - clean, modern, 2 styles
-- **Material Icons** (Google) - comprehensive, familiar
-- **Lucide** (Feather fork) - minimal, consistent
-- **Phosphor** - flexible, 6 weights
-- **Tabler Icons** - stroke-based, crisp
+### Icon Grid System
 
-**Decision criteria:**
-- Style matches design system
-- Comprehensive coverage
-- License (open-source)
-- Format (SVG preferred)
-- Maintenance (actively updated)
+All icons are designed on a 24x24px base grid at 1x scale:
 
----
+| Grid Size | Scale | Usage |
+|-----------|-------|-------|
+| 24x24px | 1x (100%) | Primary icons, navigation, actions |
+| 32x32px | 1.33x (133%) | Larger contexts, hero sections |
+| 40x40px | 1.67x (167%) | Prominent features, CTAs |
+| 48x48px | 2x (200%) | Large features, onboarding |
+| 16x16px | 0.67x (67%) | Compact contexts, inline |
 
-## 📏 ICON SIZES
+### Design Principles
 
-```yaml
-Micro:
-  Size: 12px (0.75rem)
-  Usage: Inline with caption text, tiny badges
-  
-Small:
-  Size: 16px (1rem)
-  Usage: Inline with body text, buttons, inputs
-  
-Medium (Default):
-  Size: 20px (1.25rem)
-  Usage: Navigation, toolbar, standalone icons
-  
-Large:
-  Size: 24px (1.5rem)
-  Usage: Headers, important actions, large buttons
-  
-Extra Large:
-  Size: 32px (2rem)
-  Usage: Feature icons, empty states
-  
-Huge:
-  Size: 48px (3rem)
-  Usage: Hero sections, illustrations
+#### Stroke Weight
+- **Primary**: 1.5px stroke (24x24px base)
+- **Compact**: 1px stroke (16x16px)
+- **Large**: 2px stroke (40x48px)
+
+Consistency in stroke weight maintains visual cohesion across all sizes.
+
+#### Optical Sizing
+- Thin strokes optically lighter at small sizes; account for visual weight
+- Thicker strokes maintain boldness at larger scales
+- Negative space must be balanced across sizes
+
+#### Rounded Corners
+- **Primary corners**: 1.5px radius
+- **Inner curves**: Smooth, consistent radius
+- **Endpoints**: Slight rounding for premium feel (not squared)
+
+### Icon Categories
+
+#### Navigation Icons
+- Home, Explore, Rewards, Profile, Settings
+- Always visible, frequently used
+- Clear, straightforward forms
+- Immediate recognition priority
+
+#### Action Icons
+- Add, Edit, Delete, Save, Share, More
+- Clear visual metaphors
+- Directional clarity
+- Distinction from navigation icons
+
+#### Status Icons
+- Success, Warning, Error, Info
+- Quick comprehension required
+- Often paired with color
+- Accessibility-critical
+
+#### Feature Icons
+- Product categories, loyalty tiers, benefits
+- Brand personality
+- Distinctive character
+- Context-dependent
+
+#### Utility Icons
+- Search, Filter, Sort, Close, Menu
+- Essential functionality
+- Minimal, efficient design
+- Universal understanding
+
+### Color Application
+
+#### Tiffany Blue Primary (#0ABAB5)
+- Default icon color
+- Interactive, active states
+- Primary call-to-action icons
+- Navigation highlights
+
+#### Champagne Gold (#D4AF37)
+- Premium, special features
+- Loyalty/rewards elements
+- Premium tier indicators
+- Accent and decorative
+
+#### Neutral Gray (#757575)
+- Inactive states
+- Secondary actions
+- Disabled states
+- Supporting information
+
+#### White (#FFFFFF)
+- Icons on dark backgrounds
+- Contrast on Tiffany Blue
+- Premium/invert usage
+- Elevation overlays
+
+#### Status Colors
+- Success: #4CAF50
+- Warning: #FF9800
+- Error: #F44336
+- Info: #2196F3
+
+## Design Guidelines
+
+### Clarity & Legibility
+
+- Icons must be instantly recognizable
+- No overly complex details
+- Clear negative space
+- Distinguishable from other icons
+- Readable at minimum 16x16px
+
+### Visual Balance
+
+- Center weight optically within grid
+- Equal visual weight across designs
+- Balanced positive/negative space
+- Consistent outer dimensions
+- Geometric alignment
+
+### Consistency
+
+- Uniform stroke weight within system
+- Consistent corner radii
+- Similar visual complexity
+- Aligned to grid consistently
+- Matching geometric language
+
+### Accessibility
+
+All icons require:
+- Meaningful alt text when standalone
+- Clear visual distinction (not color alone)
+- Sufficient contrast (minimum 3:1)
+- Semantic relationship to content
+- Never convey critical information through icon only
+
+### States & Variations
+
+Each icon should support:
+- **Default**: Primary state
+- **Active/Selected**: Highlight state (usually filled or colored)
+- **Disabled**: Reduced opacity or gray
+- **Loading**: Rotatable version (if applicable)
+- **Hover**: Subtle color shift on web
+
+## Design Tokens & Code Examples
+
+### Icon Token System
+
+```typescript
+// tokens/icons.ts
+export const iconSizes = {
+  xs: 16,      // Compact, inline
+  sm: 24,      // Primary/default
+  md: 32,      // Medium/larger
+  lg: 40,      // Large/prominent
+  xl: 48,      // Extra large/hero
+} as const;
+
+export const iconColors = {
+  primary: '#0ABAB5',      // Tiffany Blue
+  secondary: '#D4AF37',    // Champagne Gold
+  neutral: '#757575',      // Gray
+  white: '#FFFFFF',
+  success: '#4CAF50',
+  warning: '#FF9800',
+  error: '#F44336',
+  info: '#2196F3',
+} as const;
+
+export const iconStrokeWeights = {
+  compact: 1,              // 16px size
+  primary: 1.5,            // 24px size
+  large: 2,                // 40-48px sizes
+} as const;
+
+export type IconSize = keyof typeof iconSizes;
+export type IconColor = keyof typeof iconColors;
 ```
 
-**Rule:** Icon size should match adjacent text size.
+### Icon Component (React Native)
 
----
+```typescript
+// components/Icon.tsx
+import { View, ViewStyle } from 'react-native';
+import Svg, { Path, Circle, Rect } from 'react-native-svg';
+import { iconSizes, iconColors } from '../tokens/icons';
 
-## 🎯 USAGE GUIDELINES
+interface IconProps {
+  name: string;
+  size?: IconSize;
+  color?: IconColor;
+  style?: ViewStyle;
+  filled?: boolean;
+  disabled?: boolean;
+}
 
-### Icon + Text
+export const Icon: React.FC<IconProps> = ({
+  name,
+  size = 'sm',
+  color = 'primary',
+  style,
+  filled = false,
+  disabled = false,
+}) => {
+  const dimension = iconSizes[size];
+  const fillColor = disabled ? iconColors.neutral : iconColors[color];
 
-```html
-<!-- Button with icon -->
-<button>
-  <icon size="16px" />
-  <span>Button Text (16px)</span>
-</button>
-
-<!-- Icon matches text size -->
-```
-
-**Alignment:**
-- Center align icon with text
-- Use `gap: 8px` between icon and text
-
----
-
-### Standalone Icons
-
-```html
-<!-- Icon button (no text) -->
-<button aria-label="Close">
-  <icon size="20px" />
-</button>
-```
-
-**CRITICAL:** Always provide `aria-label` for standalone icons!
-
----
-
-### Icon in Input
-
-```html
-<div class="input-wrapper">
-  <icon size="16px" /> <!-- Matches input text -->
-  <input type="text" placeholder="Search..." />
-</div>
-```
-
----
-
-## 🎨 ICON STYLES
-
-### Stroke vs Fill
-
-**Stroke (Outline):**
-- Light, minimal, modern
-- Better for small sizes
-- Consistent weight
-
-**Fill (Solid):**
-- Strong, bold, emphasis
-- Better for large sizes
-- More visual weight
-
-**Recommendation:** Choose ONE style for consistency.
-
-**Exception:** Use filled icons for active/selected states.
-
----
-
-### Icon Weight
-
-If using weighted icons (Phosphor, SF Symbols):
-
-```yaml
-Thin: Use for large decorative icons
-Light: Use for subtle, secondary icons
-Regular: Default weight (most common)
-Bold: Use for emphasis, selected states
-```
-
----
-
-## 🎨 ICON COLORS
-
-### Default States
-
-```yaml
-Primary Icons:
-  Color: gray-900 (on light bg)
-  Usage: Main navigation, important actions
-
-Secondary Icons:
-  Color: gray-500
-  Usage: Secondary actions, metadata icons
-
-Disabled Icons:
-  Color: gray-400
-  Usage: Disabled buttons, inactive states
-
-On Primary:
-  Color: white
-  Usage: Icons on primary-colored backgrounds
-```
-
-### Interactive States
-
-```yaml
-Hover:
-  Color: primary-600
-  Usage: Icon buttons on hover
-
-Active/Selected:
-  Color: primary-500
-  Usage: Active navigation item, selected state
-
-Danger:
-  Color: error-500
-  Usage: Delete, remove actions
-```
-
----
-
-## 🔧 IMPLEMENTATION
-
-### SVG Icons (Inline)
-
-```html
-<svg width="20" height="20" fill="currentColor">
-  <path d="..." />
-</svg>
-```
-
-**Use `currentColor`** - inherits text color!
-
----
-
-### Icon Component (React Example)
-
-```jsx
-const Icon = ({ name, size = 20, color = 'currentColor' }) => {
   return (
-    <svg 
-      width={size} 
-      height={size} 
-      fill={color}
-      aria-hidden="true"
-    >
-      <use href={`#icon-${name}`} />
-    </svg>
+    <View style={[{ width: dimension, height: dimension }, style]}>
+      <Svg width={dimension} height={dimension} viewBox={`0 0 24 24`}>
+        {/* Dynamic icon rendering based on name */}
+        {getIconPath(name, fillColor, filled)}
+      </Svg>
+    </View>
   );
 };
 
-// Usage
-<Icon name="search" size={16} />
+// Helper to get icon paths dynamically
+const getIconPath = (name: string, color: string, filled: boolean) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    heart: (
+      <Path
+        d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+        fill={filled ? color : 'none'}
+        stroke={color}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    ),
+    // Add more icons...
+  };
+
+  return iconMap[name] || null;
+};
 ```
 
----
+### Icon Library Definition
 
-### CSS Variables
+```typescript
+// libraries/icons/index.ts
+export const ICONS = {
+  // Navigation
+  HOME: 'home',
+  EXPLORE: 'explore',
+  REWARDS: 'rewards',
+  PROFILE: 'profile',
+  SETTINGS: 'settings',
 
-```css
-:root {
-  --icon-size-sm: 16px;
-  --icon-size-md: 20px;
-  --icon-size-lg: 24px;
-  
-  --icon-color-primary: var(--gray-900);
-  --icon-color-secondary: var(--gray-500);
-  --icon-color-disabled: var(--gray-400);
-}
+  // Actions
+  ADD: 'add',
+  EDIT: 'edit',
+  DELETE: 'delete',
+  SAVE: 'save',
+  SHARE: 'share',
+  MORE: 'more',
 
-.icon {
-  width: var(--icon-size-md);
-  height: var(--icon-size-md);
-  color: var(--icon-color-primary);
-}
+  // Status
+  SUCCESS: 'success',
+  WARNING: 'warning',
+  ERROR: 'error',
+  INFO: 'info',
+  CHECKMARK: 'checkmark',
+
+  // Utility
+  SEARCH: 'search',
+  FILTER: 'filter',
+  SORT: 'sort',
+  CLOSE: 'close',
+  MENU: 'menu',
+  BACK: 'back',
+  FORWARD: 'forward',
+
+  // Feature
+  GIFT: 'gift',
+  HEART: 'heart',
+  STAR: 'star',
+  LOCK: 'lock',
+  UNLOCK: 'unlock',
+  CLOCK: 'clock',
+  BELL: 'bell',
+} as const;
+
+export type IconName = typeof ICONS[keyof typeof ICONS];
 ```
 
----
+### Using Icons in Components
 
-## ⚖️ BEST PRACTICES
-
-**Do's:**
-- ✅ Consistent icon library (don't mix)
-- ✅ Match icon size to text size
-- ✅ Use `aria-label` for standalone icons
-- ✅ Use `currentColor` for flexibility
-- ✅ Optimize SVGs (remove extra attributes)
-
-**Don'ts:**
-- ❌ Don't mix icon styles (stroke + fill)
-- ❌ Don't use icons without context
-- ❌ Don't scale icons beyond intended sizes
-- ❌ Don't forget accessibility labels
-
----
-
-## ♿ ACCESSIBILITY
-
-### Decorative Icons
-
-```html
-<!-- Icon is decorative (text provides context) -->
-<button>
-  <icon aria-hidden="true" />
-  <span>Save</span>
-</button>
+```typescript
+// Usage examples
+<Icon name={ICONS.HEART} size="sm" color="primary" />
+<Icon name={ICONS.STAR} size="lg" color="secondary" filled={true} />
+<Icon name={ICONS.CHECKMARK} color="success" />
+<Icon name={ICONS.CLOSE} color="error" disabled={true} />
 ```
 
-Use `aria-hidden="true"` when text is present.
+### SVG Icon Template
 
----
+```typescript
+// Consistent SVG template for all icons (24x24px base)
+import Svg, { Path } from 'react-native-svg';
 
-### Functional Icons
+const HeartIcon = ({ color = '#0ABAB5', size = 24, filled = false }) => (
+  <Svg width={size} height={size} viewBox="0 0 24 24">
+    <Path
+      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+      fill={filled ? color : 'none'}
+      stroke={color}
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+);
 
-```html
-<!-- Icon is functional (no text) -->
-<button aria-label="Close modal">
-  <icon />
-</button>
+export default HeartIcon;
 ```
 
-Always provide `aria-label` or `aria-labelledby`.
+## Icon States & Variations
 
----
+### Default State
+- Primary color (#0ABAB5)
+- 1.5px stroke (24px size)
+- Outlined style (unless filled variant exists)
 
-### Icon Buttons
+### Active/Selected State
+- Same color, typically filled
+- May show background highlight
+- Consistent visual weight
 
-```html
-<!-- Good: accessible -->
-<button aria-label="Settings">
-  <icon name="settings" />
-</button>
+### Disabled State
+- Neutral gray (#757575)
+- Reduced opacity (60-70%)
+- No interactive behavior
 
-<!-- Bad: screen reader can't understand -->
-<button>
-  <icon name="settings" />
-</button>
+### Loading State
+- Rotating animation
+- 200ms rotation timing
+- Linear easing
+- Continuous loop
+
+```typescript
+// Loading state example
+const [rotation, setRotation] = useState(new Animated.Value(0));
+
+useEffect(() => {
+  const animation = Animated.loop(
+    Animated.timing(rotation, {
+      toValue: 1,
+      duration: 1000,
+      useNativeDriver: true,
+    })
+  );
+  animation.start();
+}, []);
+
+const rotateInterpolate = rotation.interpolate({
+  inputRange: [0, 1],
+  outputRange: ['0deg', '360deg'],
+});
 ```
 
----
+## Accessibility Guidelines
 
-## 📝 COMMON PATTERNS
+### Icon + Text Pairing
 
-### Navigation
+When icons appear with text:
+- Icon alone should not be sole conveyor of meaning
+- Text provides redundancy and clarity
+- Sufficient contrast between icon and background
 
-```html
-<nav>
-  <a href="/dashboard" aria-label="Dashboard">
-    <icon name="home" size="20" />
-    <span>Dashboard</span>
-  </a>
-</nav>
+### Icon-Only Usage
+
+When icons appear without text:
+- Must be in universally understood contexts (e.g., close button)
+- Tooltip or aria-label required for clarity
+- Alternative text in code comments
+
+### Color Accessibility
+
+- Don't rely on color alone to convey meaning
+- Status icons paired with symbols (checkmark, X, !)
+- Test with colorblind simulations
+- Minimum 3:1 contrast ratio
+
+### Touch Target Sizes
+
+- Minimum 44x44pt touch area
+- Icon can be 24x24px within larger target
+- Padding around icon for easier interaction
+- Maintain 8px minimum spacing between targets
+
+## Platform-Specific Considerations
+
+### iOS
+
+- Use SF Symbols system integration
+- Consistent with iOS design language
+- Custom icons exported as PDF/SVG
+- Weight variations (light, regular, bold)
+
+### Android
+
+- Follow Material Design 3 icon guidelines
+- 24dp default size (aligns with 24px)
+- Consistent stroke weight
+- Proper safe area for interactive padding
+
+### Web
+
+- Export as optimized SVG
+- Inline SVG for color flexibility
+- Font icons as fallback (Font Awesome, etc.)
+- CSS for sizing and coloring
+
+## Icon Library Structure
+
+```
+assets/
+├── icons/
+│   ├── navigation/
+│   │   ├── home.svg
+│   │   ├── explore.svg
+│   │   ├── rewards.svg
+│   │   ├── profile.svg
+│   │   └── settings.svg
+│   ├── actions/
+│   │   ├── add.svg
+│   │   ├── edit.svg
+│   │   ├── delete.svg
+│   │   └── ...
+│   ├── status/
+│   │   ├── success.svg
+│   │   ├── warning.svg
+│   │   ├── error.svg
+│   │   └── info.svg
+│   └── utility/
+│       ├── search.svg
+│       ├── filter.svg
+│       ├── close.svg
+│       └── ...
+└── icon-map.ts
 ```
 
----
+## Icon Design Best Practices
 
-### Input with Icon
+### Do's
+- Keep icons simple and clear
+- Maintain consistent visual language
+- Use geometric, balanced forms
+- Test at small sizes (16-24px)
+- Ensure accessibility through labels
+- Document icon usage and meanings
+- Version icons with design system
 
-```html
-<div class="input-wrapper">
-  <icon name="search" size="16" aria-hidden="true" />
-  <input type="text" placeholder="Search..." />
-</div>
-```
+### Don'ts
+- Don't create overly complex details
+- Don't mix icon styles within system
+- Don't rely on color alone
+- Don't use non-standard sizes (stick to grid)
+- Don't animate unnecessarily
+- Don't ignore accessibility needs
+- Don't forget disabled states
 
----
+## Testing Icons
 
-### Status Icons
+### Visual Verification
+- Print at 16x24px sizes to verify clarity
+- Compare across platforms
+- Check contrast ratios
+- Verify visual weight consistency
 
-```html
-<!-- Success -->
-<div class="status-success">
-  <icon name="check" color="success-500" />
-  <span>Completed</span>
-</div>
+### Accessibility Testing
+- Screen reader alt text
+- Color contrast verification
+- Keyboard navigation compatibility
+- Touch target sizing
 
-<!-- Error -->
-<div class="status-error">
-  <icon name="x" color="error-500" />
-  <span>Failed</span>
-</div>
-```
+### Performance
+- SVG optimization (remove unnecessary data)
+- Icon loading performance
+- Animation frame rates
+- Memory usage for icon libraries
 
----
+## Related Documentation
 
-## 📦 ICON SET
-
-**To be populated during bootstrap:**
-
-```yaml
-Common Icons Needed:
-  - Navigation: home, settings, user, menu, search
-  - Actions: edit, delete, save, add, close
-  - Status: check, x, alert, info
-  - Arrows: arrow-left, arrow-right, chevron-down
-  - Media: play, pause, volume
-  - UI: eye, eye-off, copy, download, upload
-```
-
----
-
-## 🔄 WHEN TO UPDATE
-
-Update iconography when:
-- Adding new features (new icons needed)
-- Consistency issues (mixing styles)
-- Accessibility gaps found
-- Switching icon libraries
-
----
-
-**Icons communicate instantly. Use them wisely.** 🎨
-
+- [Color System](./color.md) - Icon colors and accessibility
+- [Motion System](./motion.md) - Icon animations and transitions
+- [Spacing System](./spacing.md) - Icon padding and touch targets
+- [Accessibility Guidelines](../accessibility/wcag.md) - Icon accessibility
+- [Components](../components/README.md) - Component icon usage

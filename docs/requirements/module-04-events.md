@@ -446,6 +446,86 @@ event_votes (
 
 ---
 
+## 7. UI/UX REQUIREMENTS
+
+### 7.1 Design System Reference
+
+**Foundation:**
+- **Colors:** See [docs/design/foundation/colors.md](../design/foundation/colors.md)
+  - Primary: Tiffany Blue (#0ABAB5) for active states, progress bars
+  - Accent: Champagne Gold (#D4AF37) for VIP/Elite tier indicators
+  - Status Colors: Bronze (#E8B4BC), Silver, Gold (#D4AF37)
+  - Semantic: Success (#7CB342), Error (#E57373)
+
+- **Typography:** See [docs/design/foundation/typography.md](../design/foundation/typography.md)
+  - H2: 22px/600 for points display
+  - H3: 18px/600 for card titles
+  - Body: 14px/400 for descriptions
+  - Caption: 12px/400 for metadata (expiry dates, T&C)
+
+- **Spacing & Components:** See [docs/design/foundation/spacing.md](../design/foundation/spacing.md) and [docs/design/components/](../design/components/)
+
+### 7.2 Components Used
+
+- [Status Badge](../design/components/status-badge.md) - Tier indicators (Bronze/Silver/Gold/Elite)
+- [Card](../design/components/card.md) - Bonus cards, coupon cards, transaction history
+- [Button](../design/components/button.md) - Redeem buttons, Apply coupon buttons
+- Progress bars for tier progress
+- Empty states (no bonuses, no coupons)
+
+### 7.3 Screen-Specific Design Notes
+
+**Event Cards (Hub List):**
+- Full-width cards with event cover photo (16:9 aspect ratio, max 5MB)
+- Gradient overlay on photo with event title (H3: 18px/600) in white
+- Date/time display below photo: "17 ноября 2025 | 19:00-21:00" (Caption: 12px/400)
+- Location text: "Миндаль, ул. Тверская 10" with location pin icon
+- Min status tier badge (top-right): "VIP+" using tier colors
+- Participants count: "18/20 свободных мест" or "Полный список ожидания"
+- "Записаться" button (Tiffany Blue, full-width)
+
+**Date/Time Display:**
+- Inline date-time format: "17 ноября | 19:00"
+- Format consistent across all event references
+- Timezone: Moscow (MSK, UTC+3) default, noted in event details
+- Countdown if event within 24 hours: "Завтра в 19:00"
+
+**Event Detail Modal/Screen:**
+- Hero image (16:9) at top with status overlay
+- Event title (H2: 22px/600) and subtitle (description Body: 14px/400)
+- Tab navigation: "Детали" | "Программа" | "Спикеры" | "Отзывы"
+- Prominent "Записаться" button (Tiffany Blue, fixed at bottom)
+- Registration status if already signed up: "✅ Вы зарегистрированы"
+
+**Registration Flow:**
+- Confirmation dialog before "Записаться" with event details
+- Optional toggle: "Взять +1 гостя?"
+- Guest details form (if enabled): Name, Phone
+- Dietary restrictions field (optional text)
+- "Подтвердить" (Tiffany Blue) and "Отменить" buttons
+- Success message with QR ticket preview
+
+**QR Ticket Display:**
+- Full QR code centered, scannable (minimum 200x200px)
+- Above QR: Event title, date, time, location
+- Below QR: Member name, Status badge, Ticket ID (small monospace font)
+- Downloadable/shareable as image or PDF
+- Email backup with printable ticket option
+
+### 7.4 Accessibility
+
+- See [docs/design/accessibility/overview.md](../design/accessibility/overview.md)
+- WCAG 2.1 Level AA compliance required
+- Screen reader labels for tier badges, point values, expiry dates
+- Color contrast validation for all status colors
+
+### 7.5 Design Assets
+
+- **Design Tokens:** `docs/design/resources/design-tokens.json`
+- **Screenshots:** `UPMT/bootstrap/00_DESIGN_RAW_DATA/screenshots/` (status cards, bonus displays)
+
+---
+
 ## 🔄 Dependencies
 
 - **Module 1 (Mobile App):** Event Hub UI, registration flow, QR tickets
