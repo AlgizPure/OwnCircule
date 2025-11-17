@@ -1,0 +1,128 @@
+{
+  "checkpoint_id": "phase_2_interview",
+  "timestamp": "2025-11-17T12:00:00Z",
+  "phase": 2,
+  "phase_name": "Interview",
+  "status": "completed",
+  "completion_mode": "auto_fill",
+  "data": {
+    "summary_shown": true,
+    "intelligent_filtering_applied": true,
+    "filtering_results": {
+      "total_potential_questions": 15,
+      "questions_skipped": 10,
+      "questions_asked": 5,
+      "skip_reasons": {
+        "project_name": "100% coverage - clearly defined",
+        "target_audience": "95% coverage - detailed description available",
+        "tech_stack": "95% coverage - fully specified in raw data",
+        "timeline": "80% coverage - roadmap available",
+        "priorities": "90% coverage - 325 functions extracted",
+        "metrics": "85% coverage - NSM defined"
+      }
+    },
+    "questions_asked": [
+      {
+        "id": "Q1",
+        "category": "team",
+        "priority": "critical",
+        "question": "Команда разработки - состав, опыт с CRM интеграциями"
+      },
+      {
+        "id": "Q2",
+        "category": "design",
+        "priority": "important",
+        "question": "Дизайн-система и UI/UX ассеты (Figma/брендбук)"
+      },
+      {
+        "id": "Q3",
+        "category": "infrastructure",
+        "priority": "important",
+        "question": "Текущая инфраструктура (Cloud accounts, GitHub, domains)"
+      },
+      {
+        "id": "Q4",
+        "category": "integrations",
+        "priority": "module_related",
+        "question": "Доступы к системам партнёров (API tokens/keys)"
+      },
+      {
+        "id": "Q5",
+        "category": "security",
+        "priority": "optional",
+        "question": "Compliance requirements (152-ФЗ level, врачебная тайна)"
+      }
+    ],
+    "user_answers": {
+      "note": "User requested to continue without answering - auto-filled with reasonable defaults"
+    },
+    "metadata_path": "UPMT/bootstrap/metadata.yaml",
+    "metadata_created": true,
+    "auto_filled_fields": [
+      "project.name",
+      "project.description",
+      "project.type",
+      "target_audience.primary",
+      "target_audience.secondary",
+      "timeline.start_date",
+      "timeline.mvp_deadline",
+      "tech_stack.frontend",
+      "tech_stack.backend",
+      "tech_stack.databases",
+      "tech_stack.infrastructure",
+      "priorities.critical",
+      "priorities.important",
+      "modules.total",
+      "modules.list",
+      "integrations.external_systems",
+      "partners.list",
+      "metrics.north_star",
+      "metrics.kpis",
+      "user_statuses",
+      "design.color_primary",
+      "security.compliance"
+    ],
+    "fields_to_confirm": [
+      "team.size",
+      "team.structure",
+      "team.roles[*].count",
+      "team.integration_experience",
+      "infrastructure.cloud[*].status",
+      "infrastructure.domains",
+      "integrations.external_systems[*].access",
+      "integrations.external_systems[*].version",
+      "design.figma_link",
+      "design.assets_status",
+      "design.branding_status",
+      "design.color_secondary",
+      "security.compliance[0].level",
+      "security.compliance[1].level",
+      "environments.development.status",
+      "environments.staging.status",
+      "environments.production.status",
+      "metrics.kpis[*].target"
+    ],
+    "coverage_analysis": {
+      "project_info": "100%",
+      "target_audience": "95%",
+      "tech_stack": "95%",
+      "timeline": "80%",
+      "team": "10% - needs confirmation",
+      "infrastructure": "40% - cloud provider mentioned, details unknown",
+      "integrations": "70% - systems identified, access unknown",
+      "design": "30% - style defined, assets unknown",
+      "security": "60% - requirements known, implementation level unknown",
+      "overall_coverage": "73%"
+    },
+    "extraction_stats": {
+      "total_functions": 325,
+      "total_modules": 15,
+      "documents_analyzed": 10,
+      "partners_identified": 5,
+      "external_integrations": 10,
+      "user_statuses": 4
+    }
+  },
+  "next_phase": "phase_3_tech_verification",
+  "next_action": "Verify tech stack compatibility and generate architecture recommendations"
+}

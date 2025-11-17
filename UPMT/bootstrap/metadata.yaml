@@ -1,0 +1,425 @@
+# metadata.yaml - Метаданные проекта "Свой Круг"
+# Auto-generated from PHASE 1 & PHASE 2 analysis
+# Date: 2025-11-17
+
+project:
+  name: "Свой Круг"
+  name_en: "Own Circle"
+  description: "Женский премиум клуб с кросс-промо между бизнесами. Закрытая экосистема лояльности для женщин 30-50 лет с доходом 80K+ рублей/месяц."
+  type: "new_project"
+  domain: "loyalty_ecosystem"
+  vertical: "multi_business_loyalty_platform"
+  geo: "Russia"
+
+target_audience:
+  primary: "Женщины 30-50 лет, доход 80K+/месяц, траты на бьюти/wellness 15-30K/месяц"
+  secondary: "Собственники премиум бизнесов (бьюти, wellness, гастрономия)"
+  segments:
+    - "Постоянные клиенты партнёров (Skinerica, Лисичкино, etc)"
+    - "Предприниматели женщины"
+    - "Руководители среднего и высшего звена"
+  initial_user_base: "200+ регистраций к концу MVP"
+  beta_testers: "50 участниц"
+
+timeline:
+  start_date: "2025-11-17"
+  mvp_deadline: "2026-02-09"  # 12 недель от старта
+  phases:
+    - name: "MVP Development"
+      duration: "12 weeks"
+      sprints: 6
+      description: "Аутентификация, бонусы, интеграции, бета-тест, продакшн"
+    - name: "v1.5 Release"
+      duration: "3 months after MVP"
+      features: "Реферальная программа, push-уведомления, базовые мероприятия, +3 бизнеса"
+    - name: "v2.0 Release"
+      duration: "6 months after v1.5"
+      features: "Конструктор мероприятий, голосование с весом, AI-рекомендации, соц.лента"
+
+tech_stack:
+  frontend:
+    - name: "React Native"
+      version: "0.73+"
+      purpose: "iOS/Android мобильное приложение"
+    - name: "Redux Toolkit"
+      purpose: "State management"
+    - name: "RTK Query"
+      purpose: "API calls & caching"
+    - name: "React Navigation"
+      version: "6"
+      purpose: "Navigation"
+    - name: "React Native Paper"
+      purpose: "UI components (Tiffany-style)"
+    - name: "react-native-vision-camera"
+      purpose: "QR-сканирование"
+    - name: "Firebase Cloud Messaging"
+      purpose: "Push-уведомления"
+    - name: "Firebase Analytics"
+      purpose: "Аналитика"
+    - name: "Amplitude"
+      purpose: "Product analytics"
+    - name: "Sentry"
+      purpose: "Crash reporting"
+
+  backend:
+    - name: "Python"
+      version: "3.11+"
+    - name: "FastAPI"
+      version: "0.104+"
+      purpose: "REST API framework"
+    - name: "Celery"
+      purpose: "Async tasks, scheduled jobs"
+    - name: "SQLAlchemy"
+      version: "2.0"
+      purpose: "ORM"
+    - name: "Alembic"
+      purpose: "Database migrations"
+    - name: "python-jose"
+      purpose: "JWT authentication"
+    - name: "Pydantic"
+      purpose: "Data validation"
+    - name: "httpx"
+      purpose: "HTTP client для интеграций"
+
+  databases:
+    - name: "PostgreSQL"
+      version: "15"
+      purpose: "Основные данные (пользователи, транзакции, мероприятия, бизнесы)"
+    - name: "ClickHouse"
+      version: "23"
+      purpose: "Аналитика, метрики, RFM-сегментация, события"
+    - name: "Redis"
+      version: "7"
+      purpose: "Кеш, сессии, очереди Celery, rate limiting"
+    - name: "Elasticsearch"
+      version: "8"
+      purpose: "Полнотекстовый поиск по бизнесам, мероприятиям"
+
+  infrastructure:
+    cloud:
+      - provider: "Yandex Cloud"
+        status: "[TO BE CONFIRMED]"
+        services: "Compute Cloud, Object Storage, Managed PostgreSQL, Managed Redis"
+      - provider: "VK Cloud"
+        status: "[TO BE CONFIRMED - альтернатива]"
+    containers:
+      - "Docker"
+      - "Docker Compose"
+    ci_cd:
+      - "GitHub Actions"
+    monitoring:
+      - "Prometheus"
+      - "Grafana"
+      - "Sentry"
+    storage:
+      - "S3-compatible storage (Yandex Object Storage / VK Cloud)"
+    domains: "[TO BE CONFIRMED]"
+    ssl: "Let's Encrypt / Cloud provider SSL"
+
+team:
+  size: "[TO BE CONFIRMED]"
+  structure: "[TO BE CONFIRMED - нужна команда или есть?]"
+  roles:
+    - role: "Backend Developer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Python, FastAPI, PostgreSQL, Redis, опыт интеграций с CRM"
+    - role: "Frontend Developer (Mobile)"
+      count: "[TO BE CONFIRMED]"
+      skills: "React Native, Redux, опыт iOS/Android разработки"
+    - role: "DevOps Engineer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Docker, GitHub Actions, Yandex Cloud/VK Cloud"
+    - role: "QA Engineer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Mobile testing, API testing"
+    - role: "UI/UX Designer"
+      count: "[TO BE CONFIRMED]"
+      skills: "Figma, mobile design, Tiffany-style брендинг"
+    - role: "Product Owner"
+      count: 1
+      skills: "Управление продуктом, приоритизация"
+  integration_experience: "[TO BE CONFIRMED - опыт с 1С/YCLIENTS/AMO CRM?]"
+
+priorities:
+  critical:
+    - "Аутентификация (SMS-код, JWT)"
+    - "Профиль пользователя с балансом бонусов"
+    - "QR-кошелек для начисления бонусов"
+    - "Интеграция с YCLIENTS (Миндаль)"
+    - "Интеграция с Iiko (Лисичкино)"
+    - "Базовая бонусная система (кешбэк 5-10%)"
+    - "Безопасность: 152-ФЗ compliance"
+  important:
+    - "Система статусов (Insider/VIP/Elite/Inner Circle)"
+    - "История транзакций"
+    - "Каталог бизнесов-партнёров"
+    - "Push-уведомления о бонусах"
+    - "Админ-панель для бизнесов"
+  nice_to_have:
+    - "Реферальная программа"
+    - "Геймификация и бейджи"
+    - "События (Events Hub)"
+    - "Конструктор мероприятий"
+    - "AI-рекомендации"
+
+modules:
+  total: 15
+  total_functions: 325
+  list:
+    - id: 1
+      name: "Мобильное приложение (Frontend)"
+      functions: 68
+      priority: "critical"
+    - id: 2
+      name: "Система лояльности"
+      functions: 45
+      priority: "critical"
+    - id: 3
+      name: "Транзакции и история покупок"
+      functions: 12
+      priority: "critical"
+    - id: 4
+      name: "Мероприятия и Events Hub"
+      functions: 28
+      priority: "important"
+    - id: 5
+      name: "Кросс-промо и цепочки"
+      functions: 22
+      priority: "important"
+    - id: 6
+      name: "Конструктор предложений"
+      functions: 18
+      priority: "important"
+    - id: 7
+      name: "Аналитика для бизнесов"
+      functions: 25
+      priority: "important"
+    - id: 8
+      name: "Интеграции с CRM"
+      functions: 20
+      priority: "critical"
+    - id: 9
+      name: "Админ-панель для бизнесов"
+      functions: 22
+      priority: "critical"
+    - id: 10
+      name: "Суперадмин экосистемы"
+      functions: 18
+      priority: "critical"
+    - id: 11
+      name: "Реферальная программа"
+      functions: 10
+      priority: "nice_to_have"
+    - id: 12
+      name: "Уведомления и коммуникации"
+      functions: 18
+      priority: "important"
+    - id: 13
+      name: "Безопасность и Compliance"
+      functions: 8
+      priority: "critical"
+    - id: 14
+      name: "Геймификация и бейджи"
+      functions: 7
+      priority: "nice_to_have"
+    - id: 15
+      name: "Система бюджета мероприятий"
+      functions: 4
+      priority: "nice_to_have"
+
+integrations:
+  external_systems:
+    - name: "1С"
+      type: "CRM/ERP"
+      partners: ["Skinerica", "Лисичкино"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+      version: "[TO BE CONFIRMED]"
+    - name: "Bitrix24"
+      type: "CRM"
+      partners: ["Skinerica"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+    - name: "YCLIENTS"
+      type: "CRM для салонов красоты"
+      partners: ["Миндаль"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+      priority: "MVP Sprint 5-6"
+    - name: "AMO CRM"
+      type: "CRM"
+      partners: ["Стим Центр"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+    - name: "МИС Renovatio"
+      type: "Медицинская информационная система"
+      partners: ["Миллениум"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+    - name: "Iiko"
+      type: "Автоматизация ресторанов"
+      partners: ["Лисичкино"]
+      status: "planned"
+      access: "[TO BE CONFIRMED]"
+      priority: "MVP Sprint 5-6"
+    - name: "ЮKassa"
+      type: "Платёжный шлюз"
+      status: "planned"
+      note: "Для будущего функционала (сейчас только кешбэк)"
+    - name: "CloudPayments"
+      type: "Платёжный шлюз"
+      status: "planned"
+      note: "Альтернатива ЮKassa"
+    - name: "SMS.ru"
+      type: "SMS-шлюз"
+      status: "planned"
+      purpose: "SMS-коды для аутентификации"
+    - name: "SMSC.ru"
+      type: "SMS-шлюз"
+      status: "planned"
+      purpose: "Альтернатива SMS.ru"
+    - name: "Firebase"
+      type: "Push-уведомления, Analytics"
+      status: "planned"
+      priority: "MVP Sprint 1-2"
+  fallback_strategy: "CSV-загрузчик как временное решение до готовности API-интеграций"
+
+partners:
+  initial_count: 5
+  list:
+    - name: "Skinerica"
+      type: "Косметология"
+      crm: ["1С", "Bitrix24"]
+      status: "confirmed"
+    - name: "Лисичкино"
+      type: "Гастромаркет"
+      crm: ["Iiko", "1С"]
+      status: "confirmed"
+    - name: "Стим Центр"
+      type: "Стоматология"
+      crm: ["AMO CRM"]
+      status: "confirmed"
+    - name: "Миндаль"
+      type: "Салон красоты"
+      crm: ["YCLIENTS"]
+      status: "confirmed"
+    - name: "Миллениум"
+      type: "Медицинский центр"
+      crm: ["МИС Renovatio"]
+      status: "confirmed"
+  expansion_plan: "+3 бизнеса к v1.5 (через 3 месяца после MVP)"
+
+metrics:
+  north_star: "% клиентов, совершивших ≥2 покупки в разных категориях за 60 дней"
+  north_star_target: "25% к концу 6-го месяца"
+  kpis:
+    - name: "CAC"
+      description: "Customer Acquisition Cost"
+      target: "[TO BE DEFINED]"
+    - name: "LTV"
+      description: "Lifetime Value"
+      target: "[TO BE DEFINED]"
+    - name: "Retention Rate"
+      target: "[TO BE DEFINED]"
+    - name: "Churn Rate"
+      target: "< 20% monthly"
+    - name: "NPS"
+      description: "Net Promoter Score"
+      target: "> 50"
+    - name: "Cross-Purchase Rate"
+      description: "% users buying from 2+ categories"
+      target: "25% (tied to NSM)"
+    - name: "Ecosystem Revenue Share"
+      description: "% revenue distributed to partners"
+      target: "[TO BE DEFINED]"
+  mvp_success_criteria:
+    - "200+ регистраций"
+    - "50+ активных участниц бета-теста"
+    - "2+ интеграции работают (YCLIENTS + Iiko)"
+    - "Система бонусов функционирует"
+    - "0 critical bugs в production"
+
+user_statuses:
+  - name: "Insider"
+    requirements: "Регистрация + 1 покупка"
+    benefits: "Кешбэк 5%"
+  - name: "VIP"
+    requirements: "≥30,000₽ потрачено + ≥3 категории"
+    benefits: "Кешбэк 7%, приоритет на мероприятия"
+  - name: "Elite"
+    requirements: "≥100,000₽ потрачено + ≥5 категорий"
+    benefits: "Кешбэк 10%, доступ к конструктору мероприятий"
+  - name: "Inner Circle"
+    requirements: "По приглашению"
+    benefits: "Статус амбассадора, эксклюзивные мероприятия"
+
+design:
+  style: "Tiffany-inspired (роскошь, женственность, доверие)"
+  color_primary: "#0ABAB5"  # Tiffany blue
+  color_secondary: "[TO BE CONFIRMED]"
+  ui_kit: "React Native Paper"
+  figma_link: "[TO BE CONFIRMED]"
+  assets_status: "[TO BE CONFIRMED - есть ли готовые экраны?]"
+  branding_status: "[TO BE CONFIRMED - есть ли брендбук?]"
+
+security:
+  compliance:
+    - name: "152-ФЗ"
+      description: "Персональные данные"
+      level: "[TO BE CONFIRMED - базовый или полная тех.защита?]"
+      requirements:
+        - "Согласия пользователей"
+        - "Политика конфиденциальности"
+        - "Шифрование в transit (HTTPS)"
+        - "Шифрование at rest (PostgreSQL encryption)"
+    - name: "Врачебная тайна"
+      description: "Для медицинских партнёров"
+      level: "[TO BE CONFIRMED - сертификация нужна?]"
+      approach: "Не храним диагнозы, только транзакции (суммы, даты)"
+  authentication:
+    - "SMS-код (одноразовый пароль)"
+    - "JWT токены"
+    - "Опционально: Biometric (Face ID / Touch ID)"
+  data_protection:
+    - "HTTPS everywhere"
+    - "PostgreSQL encryption at rest"
+    - "Redis password protection"
+    - "RBAC (Role-Based Access Control)"
+    - "Audit logs для админ-панели"
+  payment_security:
+    - "PCI DSS (через ЮKassa/CloudPayments)"
+    - "Не храним данные карт"
+
+environments:
+  development:
+    status: "[TO BE CONFIRMED]"
+    url: "[TO BE DEFINED]"
+  staging:
+    status: "[TO BE CONFIRMED]"
+    url: "[TO BE DEFINED]"
+  production:
+    status: "[TO BE CONFIRMED]"
+    url: "[TO BE DEFINED]"
+
+documentation:
+  files_analyzed:
+    - "Свой круг PRD_.md"
+    - "Промты для презентации и описание UI.md"
+    - "Проект «Свой Круг» стратегия.md"
+    - "Архитектура.md"
+    - "PITCH_DECK_SVOY_KRUG.md"
+    - "EXECUTIVE_SUMMARY.md"
+    - "MVP_TECHNICAL_SPECIFICATION.md"
+    - "CONSTRUCTOR_QUICK_START.md"
+    - "SVOY_KRUG_FULL_DESCRIPTION.md"
+    - "OFFER_CONSTRUCTOR_MECHANICS.md"
+  generated_files:
+    - "UPMT/bootstrap/00_RAW_DATA_TEMPLATE/extracted_features.md (325 functions)"
+    - "UPMT/bootstrap/00_RAW_DATA_TEMPLATE/modules_list.md (15 modules)"
+
+notes:
+  - "Поля с [TO BE CONFIRMED] требуют уточнения от команды/клиента"
+  - "MVP фокус на 2 интеграциях: YCLIENTS (Миндаль) + Iiko (Лисичкино)"
+  - "CSV-загрузчик как fallback стратегия для остальных партнёров"
+  - "Дизайн-система и Figma макеты статус неизвестен - требуется уточнение"
+  - "Команда разработки не определена - нужно уточнить состав и опыт"
