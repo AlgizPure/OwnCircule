@@ -1,0 +1,57 @@
+# FastAPI Framework
+fastapi==0.121.2
+uvicorn[standard]==0.35.0
+pydantic==2.10.5
+pydantic-settings==2.7.1
+
+# Database
+sqlalchemy==2.0.44
+asyncpg==0.30.0
+alembic==1.15.2
+psycopg2-binary==2.9.10
+
+# Redis & Caching
+redis==5.2.2
+hiredis==3.1.0
+
+# ClickHouse
+clickhouse-connect==0.9.8
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.20
+cryptography==44.0.0
+
+# SMS & Email
+httpx==0.29.1
+aiosmtplib==3.0.2
+
+# Celery (Async Tasks)
+celery==5.4.0
+kombu==5.4.3
+vine==5.1.0
+
+# Utilities
+python-dotenv==1.0.1
+pyyaml==6.0.2
+orjson==3.10.17
+pytz==2024.2
+
+# Testing
+pytest==8.3.4
+pytest-asyncio==0.25.2
+pytest-cov==6.0.0
+httpx==0.29.1
+faker==34.2.0
+
+# Development Tools
+black==24.11.0
+isort==5.13.2
+flake8==7.1.1
+mypy==1.14.1
+pre-commit==4.0.1
+
+# Monitoring & Logging
+sentry-sdk[fastapi]==2.20.0
+python-json-logger==3.2.1

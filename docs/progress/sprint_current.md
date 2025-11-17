@@ -1,9 +1,9 @@
 # Current Sprint Status - Свой Круг
 
-**Sprint:** Pre-Sprint (Planning Phase)
-**Sprint Goal:** N/A - Awaiting Development Start
-**Dates:** N/A
-**Team Capacity:** 0 story points (no team assigned yet)
+**Sprint:** Sprint 1 (Foundation & Infrastructure)
+**Sprint Goal:** Establish backend foundation, authentication, and mobile app shell
+**Dates:** 2025-11-17 → 2025-11-30 (2 weeks)
+**Team Capacity:** 20 story points (Bootstrap AI-assisted development)
 
 ---
 
@@ -11,32 +11,134 @@
 
 | Metric | Value |
 |--------|-------|
-| **Committed Story Points** | 0 |
-| **Completed Story Points** | 0 |
-| **In Progress** | 0 tasks |
+| **Committed Story Points** | 20 |
+| **Completed Story Points** | 2 |
+| **In Progress** | 0 tasks (Infrastructure complete) |
 | **Blocked** | 0 tasks |
-| **Sprint Progress** | 0% |
-| **Days Remaining** | N/A |
+| **Sprint Progress** | 10% (Infrastructure layer complete) |
+| **Days Remaining** | 14 days |
 
 ---
 
 ## 🎯 Sprint Goal
 
-**Pre-Development Phase:**
-Complete UPMT bootstrap documentation and prepare for Sprint 1 kickoff.
+**Sprint 1 Foundation:**
+Set up development infrastructure, create backend API framework with authentication, and initialize mobile app shell. Establish CI/CD pipeline and development workflows.
 
 ---
 
 ## 📋 Sprint Backlog
 
-### ⏳ Not Started (0 tasks)
-- None (awaiting Sprint 1 planning)
+### ⏳ Not Started (3 tasks, 15 pts)
 
-### 🚧 In Progress (0 tasks)
-- None
+#### 1. Backend API Framework (5 pts) - Priority: P0
+**Owner:** Backend Team
+**Status:** Not Started
+**Tasks:**
+- [ ] Set up FastAPI 0.121.2 project structure with modular architecture
+- [ ] Configure PostgreSQL 16.11 database with SQLAlchemy async
+- [ ] Create base models: User, Business, Transaction, Bonus
+- [ ] Set up Alembic migrations
+- [ ] Create health check endpoint (/health)
+- [ ] Configure environment variables (.env)
 
-### ✅ Done (0 tasks)
-- None
+**Acceptance Criteria:**
+- FastAPI server runs on localhost:8000
+- PostgreSQL database accessible
+- Migrations execute successfully
+- Health check returns 200 OK
+- Project follows docs/backend/ architecture
+
+---
+
+#### 2. JWT Authentication System (8 pts) - Priority: P0
+**Owner:** Backend Team
+**Status:** Not Started
+**Dependencies:** Backend API Framework
+**Tasks:**
+- [ ] Implement RS256 JWT token signing (ADR-004)
+- [ ] Create access token (15 min) + refresh token (7 days) flow
+- [ ] Add token blacklist table for logout
+- [ ] Implement SMS OTP integration (SMS.ru API)
+- [ ] Create auth endpoints: /register, /login, /refresh, /logout
+- [ ] Add password hashing (bcrypt)
+- [ ] Create middleware for protected routes
+
+**Acceptance Criteria:**
+- Users can register with phone +7 XXX XXX-XX-XX
+- SMS OTP code sent and verified
+- JWT tokens generated and validated
+- Refresh token rotation works
+- Logout blacklists tokens
+- Protected routes return 401 for invalid tokens
+
+**Module Reference:** docs/requirements/module-01-mobile-app.md (Functions 1.1.3-1.1.5)
+
+---
+
+#### 3. Mobile App Shell (5 pts) - Priority: P0
+**Owner:** Mobile Team
+**Status:** Not Started
+**Tasks:**
+- [ ] Initialize React Native 0.81 project (TypeScript)
+- [ ] Configure React Navigation 6 (stack + bottom tabs)
+- [ ] Set up Redux Toolkit 2.10.1 for state management
+- [ ] Create design system tokens from docs/design/resources/design-tokens.json
+- [ ] Implement basic screens: Welcome, Login (SMS), Home
+- [ ] Add Tiffany Blue (#0ABAB5) theme
+- [ ] Configure iOS + Android builds
+
+**Acceptance Criteria:**
+- App runs on iOS simulator + Android emulator
+- Navigation works (stack + tabs)
+- Redux store configured
+- Design tokens imported
+- Welcome screen shows with Tiffany Blue branding
+- Login screen has phone input (no backend integration yet)
+
+**Module Reference:** docs/requirements/module-01-mobile-app.md (Functions 1.1.1-1.1.2)
+
+---
+
+### 🚧 In Progress (0 tasks, 0 pts)
+- Infrastructure complete, awaiting backend API implementation
+
+---
+
+### ✅ Done (1 task, 2 pts)
+
+#### 4. Development Infrastructure (2 pts) - Priority: P0 ✅
+**Owner:** DevOps / Claude
+**Status:** COMPLETE
+**Completed:** 2025-11-17
+
+**Deliverables:**
+- ✅ Project directory structure (backend/, mobile/, infrastructure/)
+- ✅ Docker Compose configuration (PostgreSQL 16.11, Redis 8.2, ClickHouse 25.8)
+- ✅ Backend Dockerfile (Python 3.13, FastAPI setup)
+- ✅ Backend requirements.txt (45+ dependencies with pinned versions)
+- ✅ FastAPI application structure:
+  - app/main.py (entry point with CORS, health check)
+  - app/core/config.py (Pydantic settings)
+  - app/core/database.py (SQLAlchemy async setup)
+  - app/core/logging.py (JSON logging for production)
+  - app/api/v1/ (API router skeleton)
+- ✅ Database models created:
+  - User model (auth, profile, role, status tier)
+  - Business model (partner businesses, CRM config)
+- ✅ Alembic migrations setup (async support)
+- ✅ Environment templates (.env.example for backend)
+- ✅ .gitignore files (root, backend, mobile)
+- ✅ Mobile package.json (React Native 0.81, TypeScript 5.7)
+- ✅ Comprehensive setup documentation (SPRINT1_SETUP.md, 1,474 lines)
+
+**Acceptance Criteria Met:**
+- ✅ Docker Compose configuration ready (`docker-compose up` command available)
+- ✅ Database models defined with SQLAlchemy
+- ✅ Services configured: PostgreSQL (5432), Redis (6379), ClickHouse (9000/8123)
+- ✅ Comprehensive developer guide created (SPRINT1_SETUP.md)
+- ⚠️ CI/CD pipeline - Pending (not required for initial setup)
+- ⚠️ Pre-commit hooks - Pending (deferred to Sprint 2)
 
 ---
 
