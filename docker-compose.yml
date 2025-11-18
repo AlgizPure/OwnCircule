@@ -1,107 +1,142 @@
-version: '3.9'
+version: '3.8'
 
 services:
+  # PostgreSQL (OLTP Database)
   postgres:
     image: postgres:16.11-alpine
-    container_name: svoy-krug-postgres
+    container_name: owncircle_postgres
     environment:
+      POSTGRES_DB: owncircle_dev
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: svoy_krug
-      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+      POSTGRES_PASSWORD: postgres_dev_password
+      POSTGRES_HOST_AUTH_METHOD: trust
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./backend/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./infrastructure/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - svoy-krug-network
+      - owncircle_network
 
+  # Redis (Cache & Queue)
   redis:
     image: redis:8.2-alpine
-    container_name: svoy-krug-redis
-    command: redis-server --requirepass password --appendonly yes
+    container_name: owncircle_redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data
     healthcheck:
-      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - svoy-krug-network
+      - owncircle_network
 
+  # ClickHouse (OLAP Analytics)
   clickhouse:
-    image: clickhouse/clickhouse-server:25.8-alpine
-    container_name: svoy-krug-clickhouse
+    image: clickhouse/clickhouse-server:25.8-lts
+    container_name: owncircle_clickhouse
     environment:
-      CLICKHOUSE_DB: svoy_krug_analytics
-      CLICKHOUSE_USER: default
-      CLICKHOUSE_PASSWORD: password
+      CLICKHOUSE_DB: analytics
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: clickhouse_dev_password
     ports:
+      - "9000:9000"  # Native protocol
       - "8123:8123"  # HTTP interface
-      - "9000:9000"  # Native interface
     volumes:
       - clickhouse_data:/var/lib/clickhouse
+      - ./infrastructure/docker/clickhouse/init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-      test: ["CMD", "wget", "--spider", "-q", "localhost:8123/ping"]
+      test: ["CMD", "clickhouse-client", "--query", "SELECT 1"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
-      - svoy-krug-network
+      - owncircle_network
 
-  # Optional: pgAdmin for PostgreSQL GUI
-  pgadmin:
-    image: dpage/pgadmin4:latest
-    container_name: svoy-krug-pgadmin
+  # Backend API (FastAPI)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: owncircle_backend
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@svoykrug.local
-      PGADMIN_DEFAULT_PASSWORD: admin
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres_dev_password@postgres:5432/owncircle_dev
+      - REDIS_URL=redis://redis:6379/0
+      - CLICKHOUSE_URL=clickhouse://clickhouse:clickhouse_dev_password@clickhouse:9000/analytics
+      - JWT_SECRET_KEY=dev_secret_key_change_in_production
+      - ENVIRONMENT=development
     ports:
-      - "5050:80"
+      - "8000:8000"
     volumes:
-      - pgadmin_data:/var/lib/pgadmin
+      - ./backend:/app
+      - backend_cache:/app/.cache
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     networks:
-      - svoy-krug-network
-    profiles:
-      - dev-tools
+      - owncircle_network
+    restart: unless-stopped
 
-  # Optional: Redis Commander for Redis GUI
-  redis-commander:
-    image: rediscommander/redis-commander:latest
-    container_name: svoy-krug-redis-commander
+  # Celery Worker (Async Tasks)
+  celery_worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: owncircle_celery_worker
     environment:
-      - REDIS_HOSTS=local:redis:6379:0:password
-    ports:
-      - "8081:8081"
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres_dev_password@postgres:5432/owncircle_dev
+      - REDIS_URL=redis://redis:6379/0
+      - CLICKHOUSE_URL=clickhouse://clickhouse:clickhouse_dev_password@clickhouse:9000/analytics
+    volumes:
+      - ./backend:/app
     depends_on:
-      - redis
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A app.core.celery worker --loglevel=info
     networks:
-      - svoy-krug-network
-    profiles:
-      - dev-tools
+      - owncircle_network
+    restart: unless-stopped
+
+  # Celery Beat (Scheduled Tasks)
+  celery_beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: owncircle_celery_beat
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres_dev_password@postgres:5432/owncircle_dev
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: celery -A app.core.celery beat --loglevel=info
+    networks:
+      - owncircle_network
+    restart: unless-stopped
 
 volumes:
   postgres_data:
-    driver: local
   redis_data:
-    driver: local
   clickhouse_data:
-    driver: local
-  pgadmin_data:
-    driver: local
+  backend_cache:
 
 networks:
-  svoy-krug-network:
+  owncircle_network:
     driver: bridge

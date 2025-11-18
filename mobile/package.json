@@ -1,0 +1,57 @@
+{
+  "name": "svoy-krug-mobile",
+  "version": "1.0.0",
+  "description": "Svoy Krug - Premium Women's Loyalty Ecosystem Mobile App",
+  "main": "index.js",
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "start": "react-native start",
+    "test": "jest",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,css,md}\""
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "0.81.0",
+    "@react-navigation/native": "^6.1.18",
+    "@react-navigation/stack": "^6.4.1",
+    "@react-navigation/bottom-tabs": "^6.6.1",
+    "@reduxjs/toolkit": "^2.10.1",
+    "react-redux": "^9.2.0",
+    "axios": "^1.7.9",
+    "react-native-svg": "^15.9.0",
+    "react-native-safe-area-context": "^4.14.0",
+    "react-native-screens": "^4.4.0",
+    "react-native-gesture-handler": "^2.22.0",
+    "react-native-reanimated": "^3.16.5",
+    "@react-native-async-storage/async-storage": "^2.1.0",
+    "react-native-mmkv": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/runtime": "^7.26.0",
+    "@react-native/babel-preset": "^0.81.0",
+    "@react-native/eslint-config": "^0.81.0",
+    "@react-native/metro-config": "^0.81.0",
+    "@react-native/typescript-config": "^0.81.0",
+    "@testing-library/react-native": "^12.8.3",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.2.0",
+    "@types/react-native": "^0.81.0",
+    "@types/react-test-renderer": "^18.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.19.1",
+    "@typescript-eslint/parser": "^8.19.1",
+    "babel-jest": "^29.7.0",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "prettier": "^3.4.2",
+    "react-test-renderer": "^18.2.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "private": true
+}

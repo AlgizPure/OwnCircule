@@ -1,9 +1,9 @@
 # Current Sprint Status - Свой Круг
 
-**Sprint:** Pre-Sprint (Planning Phase)
-**Sprint Goal:** N/A - Awaiting Development Start
-**Dates:** N/A
-**Team Capacity:** 0 story points (no team assigned yet)
+**Sprint:** Sprint 1 (Foundation & Infrastructure)
+**Sprint Goal:** Establish backend foundation, authentication, and mobile app shell
+**Dates:** 2025-11-17 → 2025-11-30 (2 weeks)
+**Team Capacity:** 20 story points (Bootstrap AI-assisted development)
 
 ---
 
@@ -11,32 +11,206 @@
 
 | Metric | Value |
 |--------|-------|
-| **Committed Story Points** | 0 |
-| **Completed Story Points** | 0 |
+| **Committed Story Points** | 20 |
+| **Completed Story Points** | 15 |
 | **In Progress** | 0 tasks |
 | **Blocked** | 0 tasks |
-| **Sprint Progress** | 0% |
-| **Days Remaining** | N/A |
+| **Sprint Progress** | 75% (Infrastructure + Backend API + Auth complete) |
+| **Days Remaining** | 14 days |
 
 ---
 
 ## 🎯 Sprint Goal
 
-**Pre-Development Phase:**
-Complete UPMT bootstrap documentation and prepare for Sprint 1 kickoff.
+**Sprint 1 Foundation:**
+Set up development infrastructure, create backend API framework with authentication, and initialize mobile app shell. Establish CI/CD pipeline and development workflows.
 
 ---
 
 ## 📋 Sprint Backlog
 
-### ⏳ Not Started (0 tasks)
-- None (awaiting Sprint 1 planning)
+### ⏳ Not Started (1 task, 5 pts)
 
-### 🚧 In Progress (0 tasks)
-- None
+#### 3. Mobile App Shell (5 pts) - Priority: P0
+**Owner:** Mobile Team
+**Status:** Not Started
+**Tasks:**
+- [ ] Initialize React Native 0.81 project (TypeScript)
+- [ ] Configure React Navigation 6 (stack + bottom tabs)
+- [ ] Set up Redux Toolkit 2.10.1 for state management
+- [ ] Create design system tokens from docs/design/resources/design-tokens.json
+- [ ] Implement basic screens: Welcome, Login (SMS), Home
+- [ ] Add Tiffany Blue (#0ABAB5) theme
+- [ ] Configure iOS + Android builds
 
-### ✅ Done (0 tasks)
-- None
+**Acceptance Criteria:**
+- App runs on iOS simulator + Android emulator
+- Navigation works (stack + tabs)
+- Redux store configured
+- Design tokens imported
+- Welcome screen shows with Tiffany Blue branding
+- Login screen has phone input (no backend integration yet)
+
+**Module Reference:** docs/requirements/module-01-mobile-app.md (Functions 1.1.1-1.1.2)
+
+---
+
+### 🚧 In Progress (0 tasks, 0 pts)
+- No tasks in progress
+
+---
+
+### ✅ Done (3 tasks, 15 pts)
+
+#### 2. JWT Authentication System (8 pts) - Priority: P0 ✅
+**Owner:** Backend Team
+**Status:** COMPLETE
+**Completed:** 2025-11-17
+
+**Deliverables:**
+- ✅ Token and OTPCode database models:
+  - tokens table (refresh token storage with rotation)
+  - otp_codes table (SMS OTP verification)
+  - Proper indexes for phone, token_hash, expires_at
+  - Foreign keys with CASCADE delete
+- ✅ JWT utilities (app/core/security.py):
+  - create_access_token (15 min expiration)
+  - create_refresh_token (7 days expiration)
+  - verify_access_token, verify_refresh_token
+  - Token hashing with SHA-256 for storage
+  - OTP code generation (6 digits, cryptographically secure)
+  - Password hashing with bcrypt (12 rounds)
+- ✅ SMS OTP service (app/services/sms_service.py):
+  - SMS.ru API integration
+  - send_otp method with rate limiting check
+  - MockSMSService for development (logs to console)
+  - Phone number formatting utilities
+- ✅ Pydantic schemas (app/schemas/auth.py):
+  - SendOTPRequest, VerifyOTPRequest, RegisterRequest
+  - LoginRequest, RefreshTokenRequest, LogoutRequest
+  - TokenResponse, OTPSentResponse, OTPVerifiedResponse
+  - Phone validation (+7XXXXXXXXXX format)
+  - Password strength validation
+- ✅ Auth service layer (app/services/auth_service.py):
+  - send_otp (with rate limiting: max 5 per hour)
+  - verify_otp (max 3 attempts, 5 min expiration)
+  - register (creates user after OTP verification)
+  - login (phone + password authentication)
+  - refresh_tokens (token rotation, revokes old token)
+  - logout (revokes refresh token)
+- ✅ Auth API endpoints (app/modules/auth/routes.py):
+  - POST /auth/send-otp - Send OTP code via SMS
+  - POST /auth/verify-otp - Verify OTP code
+  - POST /auth/register - Register new user
+  - POST /auth/login - Login with phone + password
+  - POST /auth/refresh - Refresh access token
+  - POST /auth/logout - Logout (revoke refresh token)
+- ✅ JWT authentication middleware (app/core/auth.py):
+  - get_current_user (extracts user from JWT)
+  - get_current_active_user (checks user is active)
+  - get_current_user_optional (for mixed auth endpoints)
+  - require_role, require_super_admin, require_business_admin (RBAC)
+- ✅ Alembic migration:
+  - 20251117_add_token_otp_tables.py
+  - Creates tokens and otp_codes tables
+  - Server defaults, indexes, comments
+- ✅ Test suite (tests/test_auth_api.py):
+  - 15 test cases for Auth API (send OTP, verify, register, login, refresh, logout)
+  - Rate limiting tests, validation tests, token rotation tests
+
+**Acceptance Criteria Met:**
+- ✅ Users can register with phone +7 XXX XXX-XX-XX
+- ✅ SMS OTP code sent and verified (MockSMSService for dev)
+- ✅ JWT tokens generated and validated (HS256 for now, RS256 TODO)
+- ✅ Refresh token rotation works (old token revoked)
+- ✅ Logout blacklists tokens (revokes in database)
+- ✅ Protected routes return 401 for invalid tokens (middleware)
+- ✅ Password hashing with bcrypt (12 rounds)
+- ✅ OTP rate limiting (max 5 per hour)
+- ✅ OTP expiration (5 minutes)
+- ✅ Token expiration (access: 15 min, refresh: 7 days)
+
+**Module Reference:** docs/requirements/module-01-mobile-app.md (Functions 1.1.3-1.1.5)
+
+---
+
+#### 1. Backend API Framework (5 pts) - Priority: P0 ✅
+**Owner:** Backend Team
+**Status:** COMPLETE
+**Completed:** 2025-11-17
+
+**Deliverables:**
+- ✅ Alembic migration created (User + Business tables)
+  - users table with enum types (UserRole, StatusTier)
+  - businesses table with JSON fields (coordinates, CRM credentials)
+  - Proper indexes for phone, email, slug, category
+- ✅ Pydantic schemas:
+  - UserCreate (with password validation)
+  - UserUpdate, UserRead, UserInDB, UserList
+  - Password strength validation (8+ chars, uppercase, lowercase, digit)
+- ✅ User service layer (CRUD operations):
+  - create_user, get_by_id, get_by_phone, get_by_email
+  - update_user, delete_user (soft delete)
+  - get_users (paginated list)
+  - Password hashing with bcrypt (12 rounds)
+- ✅ User API endpoints (/api/v1/users):
+  - POST / - Create user (registration)
+  - GET /{user_id} - Get user by ID
+  - GET / - Get paginated users list
+  - PATCH /{user_id} - Update user profile
+  - DELETE /{user_id} - Soft delete user
+- ✅ Pytest configuration:
+  - pytest.ini with async support
+  - conftest.py with fixtures (db_session, client)
+  - SQLite in-memory test database
+  - 12 test cases for User API (100% endpoint coverage)
+- ✅ Database initialization:
+  - PostgreSQL init.sql (extensions, timezone)
+  - ClickHouse init.sql (5 analytics tables)
+
+**Acceptance Criteria Met:**
+- ✅ FastAPI server structure ready
+- ✅ PostgreSQL models defined (User + Business)
+- ✅ Alembic migrations setup complete
+- ✅ Health check endpoint exists (/health)
+- ✅ API router connected (/api/v1/users, /api/v1/ping)
+- ✅ Test coverage: 12 test cases passing
+- ✅ Architecture follows docs/backend/ structure
+
+---
+
+#### 4. Development Infrastructure (2 pts) - Priority: P0 ✅
+**Owner:** DevOps / Claude
+**Status:** COMPLETE
+**Completed:** 2025-11-17
+
+**Deliverables:**
+- ✅ Project directory structure (backend/, mobile/, infrastructure/)
+- ✅ Docker Compose configuration (PostgreSQL 16.11, Redis 8.2, ClickHouse 25.8)
+- ✅ Backend Dockerfile (Python 3.13, FastAPI setup)
+- ✅ Backend requirements.txt (45+ dependencies with pinned versions)
+- ✅ FastAPI application structure:
+  - app/main.py (entry point with CORS, health check)
+  - app/core/config.py (Pydantic settings)
+  - app/core/database.py (SQLAlchemy async setup)
+  - app/core/logging.py (JSON logging for production)
+  - app/api/v1/ (API router skeleton)
+- ✅ Database models created:
+  - User model (auth, profile, role, status tier)
+  - Business model (partner businesses, CRM config)
+- ✅ Alembic migrations setup (async support)
+- ✅ Environment templates (.env.example for backend)
+- ✅ .gitignore files (root, backend, mobile)
+- ✅ Mobile package.json (React Native 0.81, TypeScript 5.7)
+- ✅ Comprehensive setup documentation (SPRINT1_SETUP.md, 1,474 lines)
+
+**Acceptance Criteria Met:**
+- ✅ Docker Compose configuration ready (`docker-compose up` command available)
+- ✅ Database models defined with SQLAlchemy
+- ✅ Services configured: PostgreSQL (5432), Redis (6379), ClickHouse (9000/8123)
+- ✅ Comprehensive developer guide created (SPRINT1_SETUP.md)
+- ⚠️ CI/CD pipeline - Pending (not required for initial setup)
+- ⚠️ Pre-commit hooks - Pending (deferred to Sprint 2)
 
 ---
 
@@ -188,5 +362,5 @@ Day 10: N/A
 ---
 
 **Last Updated:** 2025-11-17
-**Status:** Pre-Sprint (Awaiting Team Assembly)
-**Next Update:** Sprint 1 Day 1
+**Status:** Sprint 1 Active (75% Complete - Auth System Delivered)
+**Next Update:** Sprint 1 Day 2
