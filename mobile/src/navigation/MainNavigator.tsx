@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform } from 'react-native';
 
 import HomeScreen from '@/screens/HomeScreen';
+import BonusHistoryScreen from '@/screens/BonusHistoryScreen';
 import { colors } from '@/theme';
 
 import type { MainTabParamList } from '@/types/navigation';
@@ -41,7 +42,14 @@ export default function MainNavigator() {
           tabBarLabel: 'Главная',
         }}
       />
-      {/* TODO: Add other tabs in Sprint 2 */}
+      <Tab.Screen
+        name="Bonuses"
+        component={BonusHistoryScreen}
+        options={{
+          tabBarLabel: 'Бонусы',
+        }}
+      />
+      {/* TODO: Add Events and Profile tabs in future sprints */}
     </Tab.Navigator>
   );
 }

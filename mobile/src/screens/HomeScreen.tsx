@@ -1,9 +1,9 @@
 /**
  * Home Screen
- * Main dashboard after login (placeholder for Sprint 2)
+ * Main dashboard with real user data from API
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -11,26 +11,79 @@ import {
   SafeAreaView,
   StatusBar,
   ScrollView,
+  TouchableOpacity,
+  RefreshControl,
+  ActivityIndicator,
 } from 'react-native';
 import { colors, typography, spacing, shadows } from '@/theme';
 import type { MainTabScreenProps } from '@/types/navigation';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { selectCurrentUser } from '@/store/slices/userSlice';
+import {
+  fetchBonusBalance,
+  selectBonusBalance,
+  selectBonusLoading,
+} from '@/store/slices/bonusSlice';
 
-export default function HomeScreen({}: MainTabScreenProps<'Home'>) {
+export default function HomeScreen({ navigation }: MainTabScreenProps<'Home'>) {
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectCurrentUser);
+  const bonusBalance = useAppSelector(selectBonusBalance);
+  const isLoadingBonus = useAppSelector(selectBonusLoading);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    await dispatch(fetchBonusBalance());
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await loadData();
+    setRefreshing(false);
+  };
+
+  const navigateToBonusHistory = () => {
+    navigation.navigate('Bonuses');
+  };
+
+  // Calculate next tier progress
+  const tierInfo = calculateTierProgress(user?.statusTier || 'insider', user?.totalSpend || 0);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor={colors.background.default} />
 
-      <ScrollView style={styles.scrollView} contentContainerStyle={styles.content}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.content}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={colors.primary.tiffanyBlue}
+          />
+        }
+      >
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.greeting}>Добро пожаловать!</Text>
+          <Text style={styles.greeting}>
+            Здравствуйте, {user?.firstName || 'Гость'}!
+          </Text>
           <Text style={styles.subtitle}>Свой Круг</Text>
         </View>
 
         {/* Status Card */}
-        <View style={styles.statusCard}>
+        <TouchableOpacity
+          style={styles.statusCard}
+          activeOpacity={0.9}
+        >
           <View style={styles.statusHeader}>
-            <Text style={styles.statusTier}>INSIDER</Text>
+            <Text style={styles.statusTier}>{formatTierName(user?.statusTier || 'insider')}</Text>
             <View style={styles.tierBadge}>
               <Text style={styles.tierBadgeText}>Ваш статус</Text>
             </View>
@@ -39,37 +92,49 @@ export default function HomeScreen({}: MainTabScreenProps<'Home'>) {
           <View style={styles.balanceRow}>
             <View style={styles.balanceItem}>
               <Text style={styles.balanceLabel}>Баллы</Text>
-              <Text style={styles.balanceValue}>0</Text>
+              {isLoadingBonus ? (
+                <ActivityIndicator color={colors.text.onPrimary} />
+              ) : (
+                <Text style={styles.balanceValue}>
+                  {bonusBalance.toLocaleString('ru-RU')}
+                </Text>
+              )}
             </View>
             <View style={styles.balanceDivider} />
             <View style={styles.balanceItem}>
               <Text style={styles.balanceLabel}>Траты</Text>
-              <Text style={styles.balanceValue}>0 ₽</Text>
+              <Text style={styles.balanceValue}>
+                {(user?.totalSpend || 0).toLocaleString('ru-RU')} ₽
+              </Text>
             </View>
           </View>
 
-          <Text style={styles.statusFooter}>
-            До статуса VIP осталось потратить 50 000 ₽
-          </Text>
-        </View>
+          {tierInfo.nextTier && (
+            <Text style={styles.statusFooter}>
+              До статуса {tierInfo.nextTier} осталось потратить{' '}
+              {tierInfo.amountToNextTier.toLocaleString('ru-RU')} ₽
+            </Text>
+          )}
+        </TouchableOpacity>
 
-        {/* Quick Actions (Placeholder) */}
+        {/* Quick Actions */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Быстрые действия</Text>
 
           <View style={styles.actionGrid}>
-            <ActionCard title="Бонусы" emoji="🎁" />
-            <ActionCard title="Мероприятия" emoji="✨" />
-            <ActionCard title="Партнёры" emoji="💎" />
-            <ActionCard title="QR-кошелёк" emoji="📱" />
+            <ActionCard title="Бонусы" emoji="🎁" onPress={navigateToBonusHistory} />
+            <ActionCard title="Мероприятия" emoji="✨" onPress={() => {}} />
+            <ActionCard title="Партнёры" emoji="💎" onPress={() => {}} />
+            <ActionCard title="QR-кошелёк" emoji="📱" onPress={() => {}} />
           </View>
         </View>
 
-        {/* Info */}
+        {/* Cashback Info */}
         <View style={styles.infoCard}>
+          <Text style={styles.infoTitle}>💰 Ваш кэшбэк</Text>
           <Text style={styles.infoText}>
-            Это демо-версия приложения для Sprint 1.{'\n'}
-            Полный функционал будет доступен в Sprint 2.
+            С текущим статусом {formatTierName(user?.statusTier || 'insider')} вы получаете{' '}
+            {tierInfo.cashbackRate}% от каждой покупки в виде бонусов
           </Text>
         </View>
       </ScrollView>
@@ -77,13 +142,55 @@ export default function HomeScreen({}: MainTabScreenProps<'Home'>) {
   );
 }
 
-function ActionCard({ title, emoji }: { title: string; emoji: string }) {
+function ActionCard({
+  title,
+  emoji,
+  onPress,
+}: {
+  title: string;
+  emoji: string;
+  onPress?: () => void;
+}) {
   return (
-    <View style={styles.actionCard}>
+    <TouchableOpacity
+      style={styles.actionCard}
+      activeOpacity={0.7}
+      onPress={onPress}
+    >
       <Text style={styles.actionEmoji}>{emoji}</Text>
       <Text style={styles.actionTitle}>{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
+}
+
+// Helper functions
+function formatTierName(tier: string): string {
+  const tierNames: Record<string, string> = {
+    insider: 'INSIDER',
+    vip: 'VIP',
+    elite: 'ELITE',
+    inner_circle: 'INNER CIRCLE',
+  };
+  return tierNames[tier] || tier.toUpperCase();
+}
+
+function calculateTierProgress(tier: string, totalSpend: number) {
+  const tiers = {
+    insider: { threshold: 0, cashback: '5', next: 'VIP', nextThreshold: 50000 },
+    vip: { threshold: 50000, cashback: '7', next: 'ELITE', nextThreshold: 150000 },
+    elite: { threshold: 150000, cashback: '10', next: 'INNER CIRCLE', nextThreshold: 300000 },
+    inner_circle: { threshold: 300000, cashback: '15', next: null, nextThreshold: null },
+  };
+
+  const currentTier = tiers[tier as keyof typeof tiers] || tiers.insider;
+
+  return {
+    cashbackRate: currentTier.cashback,
+    nextTier: currentTier.next,
+    amountToNextTier: currentTier.nextThreshold
+      ? Math.max(0, currentTier.nextThreshold - totalSpend)
+      : 0,
+  };
 }
 
 const styles = StyleSheet.create({
@@ -211,6 +318,14 @@ const styles = StyleSheet.create({
     padding: spacing.md,
     borderWidth: 1,
     borderColor: colors.primary.tiffanyBlue,
+  },
+  infoTitle: {
+    fontSize: typography.fontSize.body,
+    fontWeight: typography.fontWeight.semibold,
+    color: colors.text.primary,
+    fontFamily: typography.fontFamily.text,
+    marginBottom: spacing.xs,
+    textAlign: 'center',
   },
   infoText: {
     fontSize: typography.fontSize.caption,
